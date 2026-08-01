@@ -19,12 +19,13 @@ class SoDetail extends BaseModel
         'so_detail_id_product',
         'so_detail_qty',
         'so_detail_harga',
+        'so_detail_keterangan',
         'so_detail_code',
     ];
 
     protected $casts = [
-        'so_detail_qty'   => 'integer',
-        'so_detail_harga' => 'decimal:2',
+        'so_detail_qty' => 'integer',
+        'so_detail_harga' => 'decimal:0',
     ];
 
     public function so()

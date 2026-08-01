@@ -1,21 +1,25 @@
 <?php
 
 use App\Http\Controllers\Api\MediaController;
+use App\Http\Controllers\Cms\ContentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ImageScannerController;
+use App\Http\Controllers\PublicController;
 use App\Models\Notification;
+use App\Services\CentrifugoService;
 use Buki\AutoRoute\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', [\App\Http\Controllers\PublicController::class, 'index'])->name('home');
-Route::get('/api/content/{slug?}', [\App\Http\Controllers\PublicController::class, 'api'])->name('api.content');
+Route::get('/', [PublicController::class, 'index'])->name('home');
+Route::get('/api/content/{slug?}', [PublicController::class, 'api'])->name('api.content');
 
 Route::middleware('auth')->post('/centrifugo/token', function (Request $request) {
-    if (!config('langkahkecil.notification_enable')) {
+    if (! config('langkahkecil.notification_enable')) {
         return response()->json(['token' => 'disabled']);
     }
 
-    $centrifugo = app(\App\Services\CentrifugoService::class);
+    $centrifugo = app(CentrifugoService::class);
     $user = Auth::user();
 
     if ($request->input('channel')) {
@@ -32,8 +36,8 @@ Route::middleware(['auth', 'verified', 'access'])->group(function () {
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
-    Route::get('image-scanner', \App\Http\Controllers\ImageScannerController::class)->name('image-scanner');
-    Route::get('image-scanner/photo/{path}', \App\Http\Controllers\ImageScannerController::class)->name('image-scanner.photo')->where('path', '.*');
+    Route::get('image-scanner', ImageScannerController::class)->name('image-scanner');
+    Route::get('image-scanner/photo/{path}', ImageScannerController::class)->name('image-scanner.photo')->where('path', '.*');
 
     Route::auto('/user', 'UsersController', ['name' => 'user']);
 
@@ -42,6 +46,7 @@ Route::middleware(['auth', 'verified', 'access'])->group(function () {
     Route::auto('/wms/supplier', 'SupplierController', ['name' => 'wms-supplier']);
     Route::auto('/wms/customer', 'CustomerController', ['name' => 'wms-customer']);
     Route::auto('/wms/lokasi', 'Wms\LokasiController', ['name' => 'wms-lokasi']);
+    Route::auto('/wms/jasa', 'Wms\JasaController', ['name' => 'wms-jasa']);
     Route::auto('/wms/product', 'Wms\ProductController', ['name' => 'wms-product']);
 
     // WMS Inventory
@@ -76,7 +81,7 @@ Route::middleware(['auth', 'verified', 'access'])->group(function () {
     Route::auto('/cms/menu', 'Cms\MenuController', ['name' => 'menu']);
 
     // Section HTML API (AJAX section loading)
-    Route::get('/cms/content-entry/field-group-html/{id}', [\App\Http\Controllers\Cms\ContentController::class, 'getSectionHtml'])->name('cms.section.html');
+    Route::get('/cms/content-entry/field-group-html/{id}', [ContentController::class, 'getSectionHtml'])->name('cms.section.html');
 
     // Media API Routes
     Route::prefix('api/media')->group(function () {
@@ -131,19 +136,19 @@ Route::middleware(['auth', 'verified', 'access'])->group(function () {
 });
 
 // Frontend public routes (must be before catch-all /{slug})
-Route::get('/services', [\App\Http\Controllers\PublicController::class, 'services'])->name('services');
-Route::get('/contact', [\App\Http\Controllers\PublicController::class, 'contact'])->name('contact');
-Route::get('/blog', [\App\Http\Controllers\PublicController::class, 'blog'])->name('blog');
-Route::get('/blog/category/{slug}', [\App\Http\Controllers\PublicController::class, 'category'])->name('blog.category');
-Route::get('/blog/tag/{slug}', [\App\Http\Controllers\PublicController::class, 'tag'])->name('blog.tag');
-Route::get('/blog/{slug}', [\App\Http\Controllers\PublicController::class, 'post'])->name('blog.post');
-Route::get('/search', [\App\Http\Controllers\PublicController::class, 'search'])->name('search');
+Route::get('/services', [PublicController::class, 'services'])->name('services');
+Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
+Route::get('/blog', [PublicController::class, 'blog'])->name('blog');
+Route::get('/blog/category/{slug}', [PublicController::class, 'category'])->name('blog.category');
+Route::get('/blog/tag/{slug}', [PublicController::class, 'tag'])->name('blog.tag');
+Route::get('/blog/{slug}', [PublicController::class, 'post'])->name('blog.post');
+Route::get('/search', [PublicController::class, 'search'])->name('search');
 
 // Documentation routes (photo gallery with categories and tags)
-Route::get('/documentation', [\App\Http\Controllers\PublicController::class, 'documentation'])->name('documentation');
-Route::get('/documentation/category/{slug}', [\App\Http\Controllers\PublicController::class, 'documentationCategory'])->name('documentation.category');
-Route::get('/documentation/tag/{slug}', [\App\Http\Controllers\PublicController::class, 'documentationTag'])->name('documentation.tag');
-Route::get('/documentation/{slug}', [\App\Http\Controllers\PublicController::class, 'documentationShow'])->name('documentation.show');
+Route::get('/documentation', [PublicController::class, 'documentation'])->name('documentation');
+Route::get('/documentation/category/{slug}', [PublicController::class, 'documentationCategory'])->name('documentation.category');
+Route::get('/documentation/tag/{slug}', [PublicController::class, 'documentationTag'])->name('documentation.tag');
+Route::get('/documentation/{slug}', [PublicController::class, 'documentationShow'])->name('documentation.show');
 
-Route::get('/{slug}', [\App\Http\Controllers\PublicController::class, 'page'])->name('page');
+Route::get('/{slug}', [PublicController::class, 'page'])->name('page');
 require __DIR__.'/settings.php';

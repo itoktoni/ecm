@@ -24,17 +24,46 @@ class ContentController extends Controller
     protected function share($data = [])
     {
         $default = [
-            "model" => $this->model,
-            "contentTypes" => Type::pluck("name", "id")->toArray(),
-            "allTypes" => Type::all()->toArray(),
-            "allSections" => Section::all()->toArray(),
-            "allFields" => Field::all()->toArray(),
-            "contentTypeId" => request()->input("content_type_id"),
-            "categories" => Category::pluck('name', 'id'),
-            "tags" => Tag::pluck('name', 'id'),
+            'model' => $this->model,
+            'contentTypes' => Type::pluck('name', 'id')->toArray(),
+            'allTypes' => Type::all()->toArray(),
+            'allSections' => Section::all()->toArray(),
+            'allFields' => Field::all()->toArray(),
+            'contentTypeId' => request()->input('content_type_id'),
+            'categories' => Category::pluck('name', 'id'),
+            'tags' => Tag::pluck('name', 'id'),
+            'typeTabs' => $this->typeTabs(),
+            'activeTypeSlug' => request('filters.type.slug.$eq', $this->defaultTypeSlug()),
         ];
 
         return array_merge($default, $data);
+    }
+
+    protected function defaultTypeSlug(): string
+    {
+        return 'homepage';
+    }
+
+    protected function typeTabs(): array
+    {
+        return Type::where('is_active', true)
+            ->orderBy('id')
+            ->get(['id', 'name', 'slug'])
+            ->unique('slug')
+            ->values()
+            ->map(fn ($type) => ['id' => $type->id, 'name' => $type->name, 'slug' => $type->slug])
+            ->all();
+    }
+
+    protected function getData()
+    {
+        $query = $this->model->filter()->sort();
+
+        if (! request()->has('filters.type')) {
+            $query->whereHas('type', fn ($q) => $q->where('slug', $this->defaultTypeSlug()));
+        }
+
+        return $query;
     }
 
     public function getCreate(GeneralRequest $request)
@@ -66,12 +95,12 @@ class ContentController extends Controller
 
     public function preview(Request $request, ?int $id = null)
     {
-        $metaData = $request->input("meta", []);
-        $activeSections = $request->input("active_sections", $request->input("active_field_groups", []));
+        $metaData = $request->input('meta', []);
+        $activeSections = $request->input('active_sections', $request->input('active_field_groups', []));
         $type = null;
 
-        if ($request->filled("content_type_id")) {
-            $type = Type::find($request->input("content_type_id"));
+        if ($request->filled('content_type_id')) {
+            $type = Type::find($request->input('content_type_id'));
         }
 
         $sections = [];
@@ -94,14 +123,14 @@ class ContentController extends Controller
         }
 
         return response()->json([
-            "title" => $request->input("title"),
-            "slug" => $request->input("slug"),
-            "content" => $request->input("content"),
-            "excerpt" => $request->input("excerpt"),
-            "status" => $request->input("status", "draft"),
-            "featured_image" => $request->input("featured_image"),
-            "content_type" => $type->slug ?? null,
-            "sections" => $sections,
+            'title' => $request->input('title'),
+            'slug' => $request->input('slug'),
+            'content' => $request->input('content'),
+            'excerpt' => $request->input('excerpt'),
+            'status' => $request->input('status', 'draft'),
+            'featured_image' => $request->input('featured_image'),
+            'content_type' => $type->slug ?? null,
+            'sections' => $sections,
         ]);
     }
 }

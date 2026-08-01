@@ -23,22 +23,54 @@
             <x-slot:head>
                 <x-table-checkbox :model="$model" onchange="toggleAll(this)" />
                 <th>Actions</th>
-                @foreach ($model::$sortColumns as $column)
-                <x-table-sort field="{{ $column }}" label="{{ formatLabel($column) }}" :sortField="$sortField" :sortDir="$sortDir" />
-                @endforeach
+                <x-table-sort field="so_code" label="So Code" :sortField="$sortField" :sortDir="$sortDir" />
+                <x-table-sort field="so_tanggal" label="Tanggal" :sortField="$sortField" :sortDir="$sortDir" />
+                <th>Customer</th>
+                <th>Status</th>
+                <th>PPN</th>
+                <th>PPH</th>
+                <th>Discount</th>
+                <th>Grand Total</th>
             </x-slot:head>
             <x-slot:body>
                 @forelse ($data as $table)
                 <tr>
                     <x-table-row-checkbox :model="$model" :value="$table->field_primary" />
-                    <x-table-action :model="$model" :id="$table->field_primary" />
-                    @foreach ($model::$sortColumns as $column)
-                    <td>{{ $table->$column }}</td>
-                    @endforeach
+                    <x-table-action :model="$model" :id="$table->field_primary">
+                        @can('print', $model)
+                        <a href="{{ moduleRoute('getPrint', ['id' => $table->field_primary]) }}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors">
+                            <span class="material-symbols-outlined text-lg">print</span>
+                        </a>
+                        @endcan
+                    </x-table-action>
+                    <td>{{ $table->so_code }}</td>
+                    <td>{{ formatDate($table->so_tanggal) }}</td>
+                    <td>{{ $table->customer?->customer_nama ?? '-' }}</td>
+                    <td>
+                        @if($table->so_status === 'Confirmed')
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Confirmed</span>
+                        @elseif($table->so_status === 'Shipped')
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">Shipped</span>
+                        @elseif($table->so_status === 'Closed')
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-700">Closed</span>
+                        @else
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                        @endif
+                    </td>
+                    <td>
+                        <div>{{ ucfirst($table->so_ppn) }} ({{ $table->so_ppn_rate }}%)</div>
+                        <div class="text-xs text-on-surface-variant">{{ formatAngka((int) round($table->so_ppn_amount), 'Rp ') }}</div>
+                    </td>
+                    <td>
+                        <div>{{ ucfirst($table->so_pph) }} ({{ $table->so_pph_rate }}%)</div>
+                        <div class="text-xs text-on-surface-variant">{{ formatAngka((int) round($table->so_pph_amount), 'Rp ') }}</div>
+                    </td>
+                    <td>{{ formatAngka((int) $table->so_discount, 'Rp ') }}</td>
+                    <td class="font-semibold">{{ formatAngka((int) round($table->so_grand_total), 'Rp ') }}</td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="{{ count($model::$sortColumns) + 2 }}" class="text-center">No data available.</td>
+                    <td colspan="10" class="text-center">No data available.</td>
                 </tr>
                 @endforelse
             </x-slot:body>
@@ -47,12 +79,22 @@
                 <x-table-mobile-list>
                     @forelse ($data as $table)
                     <x-table-mobile-item :id="$table->field_primary">
-                        <x-table-mobile-header title="{{ $table->{head($model::$sortColumns)} }}" />
-                        @foreach ($model::$sortColumns as $column)
-                        <x-table-mobile-text :label="formatLabel($column)" :text="$table->$column" />
-                        @endforeach
+                        <x-table-mobile-header title="{{ $table->so_code }}" />
+                        <x-table-mobile-text :label="'Tanggal'" :text="formatDate($table->so_tanggal)" />
+                        <x-table-mobile-text :label="'Customer'" :text="$table->customer?->customer_nama ?? '-'" />
+                        <x-table-mobile-text :label="'Status'" :text="$table->so_status" />
+                        <x-table-mobile-text :label="'PPN'" :text="ucfirst($table->so_ppn) . ' (' . $table->so_ppn_rate . '%)'" />
+                        <x-table-mobile-text :label="'PPH'" :text="ucfirst($table->so_pph) . ' (' . $table->so_pph_rate . '%)'" />
+                        <x-table-mobile-text :label="'Discount'" :text="formatAngka((int) $table->so_discount, 'Rp ')" />
+                        <x-table-mobile-text :label="'Grand Total'" :text="formatAngka((int) round($table->so_grand_total), 'Rp ')" />
                         <x-table-mobile-footer :label="$table->field_primary">
-                            <x-table-action :model="$model" :id="$table->field_primary" />
+                            <x-table-action :model="$model" :id="$table->field_primary">
+                                @can('print', $model)
+                                <a href="{{ moduleRoute('getPrint', ['id' => $table->field_primary]) }}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors">
+                                    <span class="material-symbols-outlined text-lg">print</span>
+                                </a>
+                                @endcan
+                            </x-table-action>
                         </x-table-mobile-footer>
                     </x-table-mobile-item>
                     @empty

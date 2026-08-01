@@ -51,7 +51,7 @@
                     <x-table-mobile-item :id="$table->field_primary">
                         <x-table-mobile-header title="{{ $table->product_nama }}" />
                         <x-table-mobile-text label="Kode" value="{{ $table->field_primary }}" />
-                        <x-table-mobile-text label="Harga" value="{{ number_format($table->product_harga, 2) }}" />
+                        <x-table-mobile-text label="Harga" value="{{ number_format($table->product_harga, 0, ',', '.') }}" />
                         <x-table-mobile-text label="Qty" value="{{ number_format($table->qty, 0, ',', '.') }}" />
                         <x-table-mobile-text label="Tanggal" value="{{ $table->tanggal ?? '-' }}" />
                         <x-table-mobile-footer :label="$table->field_primary">

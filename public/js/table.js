@@ -9,6 +9,12 @@ function initTable(sortField, sortDir) {
 
 function buildUrl() {
     const params = new URLSearchParams();
+    let typeTabFilter = '';
+    new URLSearchParams(window.location.search).forEach((value, key) => {
+        if (key.startsWith('filters[type][slug]')) {
+            typeTabFilter = value;
+        }
+    });
     const q = document.getElementById('searchInput').value.trim();
     const field = document.getElementById('filterField').value;
     const perPage = document.getElementById('perPage').value;
@@ -46,8 +52,12 @@ function buildUrl() {
     if (currentSortField) params.set('sort[0]', currentSortField + ':' + currentSortDir);
     params.set('per_page', perPage);
 
-    const module = document.querySelector('input.module').value;
-    window.location.href = '/' + module + '/table?' + params.toString();
+    if (typeTabFilter && !params.has('filters[type][slug][$eq]')) {
+        params.set('filters[type][slug][$eq]', typeTabFilter);
+    }
+
+    const base = window.location.pathname.replace(/\/table\/?$/, '');
+    window.location.href = base + '/table?' + params.toString();
 }
 
 function doSort(col) {
@@ -116,8 +126,8 @@ function deleteSelected() {
     if (!ids.length) return alert('No items selected');
     if (!confirm(`Delete ${ids.length} product(s)?`)) return;
     const form = document.createElement('form');
-    const module = document.querySelector('input.module').value;
-    form.method = 'POST'; form.action = '/' + module + '/delete-bulk';
+    const base = window.location.pathname.replace(/\/table\/?$/, '');
+    form.method = 'POST'; form.action = base + '/delete';
     form.innerHTML = document.querySelector('meta[name="csrf-token"]').content ? `<input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').content}">` : '';
     ids.forEach(id => { form.innerHTML += `<input type="hidden" name="ids[]" value="${id}">`; });
     document.body.appendChild(form); form.submit();

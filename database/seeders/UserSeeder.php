@@ -9,24 +9,30 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::create([
+        $users = [
+            [
                 'email' => 'admin@kepompong.id',
                 'name' => 'Admin User',
                 'role' => 'developer',
-                'password' => bcrypt(env('PASSWORD', 'password')),
                 'subscribe' => 1,
                 'verified_at' => date('Y-m-d H:i:s'),
                 'email_verified_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        User::create([
+            ],
+            [
                 'email' => 'user@kepompong.id',
                 'name' => 'Admin User',
                 'role' => 'user',
-                'password' => bcrypt(env('PASSWORD', 'password')),
                 'subscribe' => 1,
                 'verified_at' => date('Y-m-d H:i:s'),
                 'email_verified_at' => date('Y-m-d H:i:s'),
-        ]);
+            ],
+        ];
+
+        foreach ($users as $data) {
+            User::firstOrCreate(
+                ['email' => $data['email']],
+                array_merge($data, ['password' => bcrypt(env('PASSWORD', 'password'))])
+            );
+        }
     }
 }

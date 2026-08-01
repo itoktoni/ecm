@@ -14,6 +14,25 @@
         </x-filter>
 
         @php
+            $tabQuery = request()->query();
+            unset($tabQuery['cursor'], $tabQuery['page']);
+        @endphp
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-2 mb-4 form-card">
+            <div class="flex gap-1 overflow-x-auto">
+                @foreach ($typeTabs as $typeTab)
+                    @php
+                        $tabQuery['filters']['type']['slug'] = ['$eq' => $typeTab['slug']];
+                        $isActive = ($activeTypeSlug ?? '') === $typeTab['slug'];
+                    @endphp
+                    <a href="{{ url()->current() . '?' . http_build_query($tabQuery) }}"
+                       class="px-4 py-2 rounded-full font-body-sm text-body-sm font-semibold transition-colors whitespace-nowrap {{ $isActive ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:bg-surface-container hover:text-on-surface' }}">
+                        {{ ucfirst($typeTab['slug']) }}
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+        @php
             $currentSort = request('sort.0', '');
             $sortField = str_replace(':desc','',str_replace(':asc','',$currentSort));
             $sortDir = str_contains($currentSort, ':desc') ? 'desc' : 'asc';

@@ -6,7 +6,7 @@
 
 @foreach($menu as $section)
     @if($section['label'])
-        <div class="px-4 pt-4 pb-1 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">{{ $section['label'] }}</div>
+        <div class="px-4 pt-4 pb-1 mr-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">{{ $section['label'] }}</div>
     @endif
     @foreach($section['items'] as $item)
         @php
@@ -18,7 +18,7 @@
         <a
             href="{{ $url }}"
             @if($mobile) @click="drawerOpen = false" @endif
-            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ $mobile ? '' : 'group' }} {{ $isActive ? 'bg-primary text-on-primary font-semibold' : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface' }}"
+            class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all {{ $mobile ? '' : 'group' }} {{ $isActive ? 'bg-primary text-on-primary font-semibold' : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface' }}"
         >
             <span class="material-symbols-outlined {{ $isActive ? 'text-on-primary' : 'text-on-surface-variant' . ($mobile ? '' : ' group-hover:text-on-surface') }}">{{ $item['icon'] }}</span>
             <span class="font-body-sm">{{ $item['label'] }}</span>

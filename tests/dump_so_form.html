@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html class="light" lang="id">
+
+ <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="csrf-token" content="jDGYmNkIvYpNrB80Iow7LXM1Uj1zPqkVTK5n2yfJ"/>
+    <meta name="notification-enabled" content="false"/>
+        <meta name="centrifugo-url" content="ws://localhost:8000/connection/websocket"/>
+            <meta name="user-id" content="3"/>
+        <title>WMS Portal</title>
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="preload" as="style" href="http://lms.test/build/assets/app-BHVcFcon.css" /><link rel="modulepreload" as="script" href="http://lms.test/build/assets/app-Bjj1Gh7A.js" /><link rel="modulepreload" as="script" href="http://lms.test/build/assets/notifications-07-mVnwS.js" /><link rel="stylesheet" href="http://lms.test/build/assets/app-BHVcFcon.css" data-navigate-track="reload" /><script type="module" src="http://lms.test/build/assets/app-Bjj1Gh7A.js" data-navigate-track="reload"></script><script type="module" src="http://lms.test/build/assets/notifications-07-mVnwS.js" data-navigate-track="reload"></script>    <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <script type="text/javascript" class="flasher-js" nonce='228b53d3407824f39900fb7023007d87'>
+        (function(window, document) {
+            const merge = (first, second) => {
+                if (Array.isArray(first) && Array.isArray(second)) {
+                    return [...first, ...second.filter(item => !first.includes(item))];
+                }
+
+                if (typeof first === 'object' && typeof second === 'object') {
+                    for (const [key, value] of Object.entries(second)) {
+                        first[key] = key in first ? { ...first[key], ...value } : value;
+                    }
+                    return first;
+                }
+
+                return undefined;
+            };
+
+            const mergeOptions = (...options) => {
+                const result = {};
+
+                options.forEach(option => {
+                    Object.entries(option).forEach(([key, value]) => {
+                        result[key] = key in result ? merge(result[key], value) : value;
+                    });
+                });
+
+                return result;
+            };
+
+            const renderCallback = (options) => {
+                if(!window.flasher) {
+                    throw new Error('Flasher is not loaded');
+                }
+
+                window.flasher.render(options);
+            };
+
+            const render = (options) => {
+                if (options instanceof Event) {
+                    options = options.detail;
+                }
+
+                if (['interactive', 'complete'].includes(document.readyState)) {
+                    renderCallback(options);
+                } else {
+                    document.addEventListener('DOMContentLoaded', () => renderCallback(options));
+                }
+            };
+
+            const addScriptAndRender = (options) => {
+                const mainScript = "\/vendor\/flasher\/flasher.min.js?id=aa16aaa1cf4481da81e2392eed0a5804";
+
+                if (window.flasher || !mainScript || document.querySelector('script[src="' + mainScript + '"]')) {
+                    render(options);
+                } else {
+                    const tag = document.createElement('script');
+                    tag.src = mainScript;
+                    tag.type = 'text/javascript';
+                    tag.setAttribute('nonce', "228b53d3407824f39900fb7023007d87");
+                    tag.onload = () => render(options);
+
+                    document.head.appendChild(tag);
+                }
+            };
+
+            const addRenderListener = () => {
+                if (1 === document.querySelectorAll('script.flasher-js').length) {
+                    document.addEventListener('flasher:render', render);
+                    document.addEventListener('turbo:before-cache', () => {
+                        document.querySelectorAll('.fl-wrapper').forEach(el => el.remove());
+                    });
+                }
+
+                    document.addEventListener('livewire:navigating', () => {
+        document.querySelectorAll('.fl-wrapper').forEach(el => el.remove());
+    });
+            };
+
+            const options = [];
+            options.push({"envelopes":[],"scripts":[],"styles":[],"options":[],"context":{"envelopes_only":false,"csp_script_nonce":"228b53d3407824f39900fb7023007d87","csp_style_nonce":"a18e5255b6ca4828e8c3a25d426731fb"}});
+            /** {--FLASHER_REPLACE_ME--} **/
+            addScriptAndRender(mergeOptions(...options));
+            addRenderListener();
+        })(window, document);
+    </script><script type="text/javascript" class="flasher-theme-livewire-js">
+    (function() {
+        window.addEventListener('flasher:theme:click', function(event) {
+            if (typeof Livewire === 'undefined') {
+                return;
+            }
+
+            const { detail } = event;
+            const { envelope } = detail;
+            const context = envelope.context || {};
+
+            if (!context.livewire?.id) {
+                return;
+            }
+
+            const { livewire: { id: componentId } } = context;
+            const component = Livewire.all().find(c => c.id === componentId);
+
+            if (!component) {
+                return;
+            }
+
+            Livewire.dispatchTo(component.name, 'theme:click', { payload: detail });
+
+            // Also dispatch theme-specific event
+            const plugin = envelope.metadata?.plugin || '';
+            let themeName = plugin;
+            if (plugin.startsWith('theme.')) {
+                themeName = plugin.replace('theme.', '');
+            }
+            if (themeName) {
+                Livewire.dispatchTo(component.name, 'theme:' + themeName + ':click', { payload: detail });
+            }
+        }, false);
+    })();
+</script>
+</head>
+
+<body class="text-on-surface bg-surface antialiased font-body-sm" x-data="warehouseApp()">
+
+    
+    <div class="fixed inset-0 bg-black/40 z-40 md:hidden transition-opacity duration-200" :class="drawerOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'" @click="drawerOpen = false"></div>
+
+    <header class="fixed top-0 w-full z-50 bg-surface-container-lowest shadow-sm border-b border-outline-variant flex items-center justify-between px-4 md:px-8 h-16">
+    <div class="flex items-center gap-4">
+        <button class="md:hidden p-2 hover:bg-surface-container rounded-full transition-colors" @click="drawerOpen = !drawerOpen">
+            <span class="material-symbols-outlined text-[22px] text-on-surface-variant">menu</span>
+        </button>
+        <button class="hidden md:block p-2 hover:bg-surface-container rounded-full transition-colors" @click="sidebarOpen = !sidebarOpen">
+            <span class="material-symbols-outlined text-[22px] text-on-surface-variant">menu</span>
+        </button>
+        <a href="http://lms.test" class="font-headline-md text-headline-md font-bold text-primary">
+            ECM
+        </a>
+    </div>
+
+    <div class="flex items-center gap-2">
+        
+        <div class="relative" x-data="{ open: false }" @click.away="open = false">
+            <button class="relative p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant" @click="open = !open">
+                <span class="material-symbols-outlined text-[22px]">notifications</span>
+                <span class="absolute top-1 right-1 w-4 h-4 bg-error text-on-error text-[10px] font-bold rounded-full flex items-center justify-center" x-show="unreadCount > 0" x-text="unreadCount"></span>
+            </button>
+
+            <div x-show="open" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-2" class="absolute right-0 top-full mt-2 w-80 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg overflow-hidden z-50">
+                <div class="flex items-center justify-between px-4 py-3 border-b border-outline-variant">
+                    <span class="font-headline-md text-headline-md text-on-surface">Notifications</span>
+                    <button class="font-label-caps text-label-caps text-primary hover:underline" x-show="unreadCount > 0" @click="markAllRead()">Mark all read</button>
+                </div>
+                <div class="max-h-80 overflow-y-auto">
+                    <template x-if="notifications.length === 0">
+                        <div class="px-4 py-8 text-center">
+                            <span class="material-symbols-outlined text-3xl text-on-surface-variant/40">notifications_off</span>
+                            <p class="font-label-caps text-label-caps text-on-surface-variant mt-2">No notifications</p>
+                        </div>
+                    </template>
+                    <template x-for="notif in notifications" :key="notif.id">
+                        <div class="flex items-start gap-3 px-4 py-3 hover:bg-surface-container-low transition-colors border-b border-outline-variant/30 cursor-pointer" :class="{ 'bg-primary-fixed/10': !notif.read }" @click="markRead(notif)">
+                            <span class="mt-0.5 shrink-0" :style="'color:' + (notif.iconColor || '#176c33')" x-text="notif.icon || 'ℹ️'"></span>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-body-sm text-body-sm text-on-surface" :class="{ 'font-semibold': !notif.read }" x-text="notif.title"></p>
+                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 line-clamp-2" x-text="notif.body" x-show="notif.body"></p>
+                                <p class="font-label-caps text-label-caps text-on-surface-variant mt-0.5" x-text="notif.time"></p>
+                            </div>
+                            <div x-show="!notif.read" class="w-2 h-2 bg-primary rounded-full shrink-0 mt-2"></div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="relative" x-data="{ open: false }" @click.away="open = false">
+            <button class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border border-outline-variant hover:ring-2 hover:ring-primary/20 transition-all" @click="open = !open">
+                <span class="material-symbols-outlined text-[18px] text-on-secondary-container">person</span>
+            </button>
+
+            <div x-show="open" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-2" class="absolute right-0 top-full mt-2 w-64 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg overflow-hidden z-50">
+                <div class="px-4 py-3 border-b border-outline-variant">
+                    <p class="font-body-sm font-semibold text-on-surface">Test Admin</p>
+                    <p class="font-label-caps text-label-caps text-on-surface-variant">admin@test.com</p>
+                </div>
+                <div class="py-1">
+                    <a href="http://lms.test/settings/profile" class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-on-surface">
+                        <span class="material-symbols-outlined text-xl">person</span>
+                        <span class="font-body-sm text-body-sm">My Profile</span>
+                    </a>
+                    <a href="http://lms.test/settings/env" class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-on-surface">
+                        <span class="material-symbols-outlined text-xl">settings</span>
+                        <span class="font-body-sm text-body-sm">Settings</span>
+                    </a>
+                    <a href="#" class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-surface-container-low transition-colors text-on-surface-variant hover:text-on-surface">
+                        <span class="material-symbols-outlined text-xl">help</span>
+                        <span class="font-body-sm text-body-sm">Help & Support</span>
+                    </a>
+                </div>
+                <div class="border-t border-outline-variant py-1">
+                    <form method="POST" action="http://lms.test/logout">
+                        <input type="hidden" name="_token" value="jDGYmNkIvYpNrB80Iow7LXM1Uj1zPqkVTK5n2yfJ" autocomplete="off">                        <button type="submit" class="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-error-container/30 transition-colors text-error">
+                            <span class="material-symbols-outlined text-xl">logout</span>
+                            <span class="font-body-sm text-body-sm font-semibold">Sign Out</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div class="fixed top-0 left-0 h-full w-72 bg-surface-container-lowest z-50 md:hidden shadow-2xl flex flex-col transition-transform duration-300" :class="drawerOpen ? 'translate-x-0' : '-translate-x-full'">
+    <div class="flex items-center justify-between px-5 h-16 border-b border-outline-variant">
+        <h2 class="font-headline-md text-headline-md font-bold text-primary">WMS Portal</h2>
+        <button class="p-2 hover:bg-surface-container rounded-full transition-colors" @click="drawerOpen = false">
+            <span class="text-on-surface-variant">✕</span>
+        </button>
+    </div>
+    <nav class="flex-1 py-4 px-3 pb-24 space-y-1 overflow-y-auto">
+        <a
+            href="http://lms.test/dashboard"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">dashboard</span>
+            <span class="font-body-sm">Dashboard</span>
+        </a>
+                <div class="px-4 pt-4 pb-1 mr-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Management</div>
+                        <a
+            href="http://lms.test/user/table"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">manage_accounts</span>
+            <span class="font-body-sm">Users</span>
+        </a>
+                <div class="px-4 pt-4 pb-1 mr-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">CMS</div>
+                        <a
+            href="http://lms.test/cms/type/table"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">category</span>
+            <span class="font-body-sm">Types</span>
+        </a>
+                    <a
+            href="http://lms.test/cms/field/table"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">account_tree</span>
+            <span class="font-body-sm">Fields</span>
+        </a>
+                    <a
+            href="http://lms.test/cms/section/table"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">view_module</span>
+            <span class="font-body-sm">Sections</span>
+        </a>
+                    <a
+            href="http://lms.test/cms/content/table"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">library_books</span>
+            <span class="font-body-sm">Content</span>
+        </a>
+                    <a
+            href="http://lms.test/cms/category/table"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">category</span>
+            <span class="font-body-sm">Categories</span>
+        </a>
+                    <a
+            href="http://lms.test/cms/tag/table"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">label</span>
+            <span class="font-body-sm">Tags</span>
+        </a>
+                    <a
+            href="http://lms.test/cms/menu/table"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">menu</span>
+            <span class="font-body-sm">Menus</span>
+        </a>
+                <div class="px-4 pt-4 pb-1 mr-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Master Data</div>
+                        <a
+            href="http://lms.test/wms/customer/table"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">groups</span>
+            <span class="font-body-sm">Customer</span>
+        </a>
+                    <a
+            href="http://lms.test/wms/jasa/table"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">science</span>
+            <span class="font-body-sm">Jasa</span>
+        </a>
+                    <a
+            href="http://lms.test/wms/product/table"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">inventory_2</span>
+            <span class="font-body-sm">Product</span>
+        </a>
+                <div class="px-4 pt-4 pb-1 mr-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Sales</div>
+                        <a
+            href="http://lms.test/wms/so/table"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-primary text-on-primary font-semibold"
+        >
+            <span class="material-symbols-outlined text-on-primary">point_of_sale</span>
+            <span class="font-body-sm">Sales Order</span>
+        </a>
+                <div class="px-4 pt-4 pb-1 mr-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Settings</div>
+                        <a
+            href="http://lms.test/settings/profile"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">person</span>
+            <span class="font-body-sm">My Profile</span>
+        </a>
+                    <a
+            href="http://lms.test/settings/env"
+             @click="drawerOpen = false"             class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all  bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant">settings</span>
+            <span class="font-body-sm">Environment</span>
+        </a>
+        </nav>
+</div>
+    <aside class="hidden md:flex flex-col fixed top-16 left-0 h-[calc(100vh-4rem)] w-72 z-40 transition-transform duration-300 px-3 pt-4 border-r border-outline-variant/50 shadow-sm" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
+    <nav class="flex-1 space-y-2 overflow-y-auto pb-4 sidebar-scroll">
+        <a
+            href="http://lms.test/dashboard"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">dashboard</span>
+            <span class="font-body-sm">Dashboard</span>
+        </a>
+                <div class="px-4 pt-4 pb-1 mr-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Management</div>
+                        <a
+            href="http://lms.test/user/table"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">manage_accounts</span>
+            <span class="font-body-sm">Users</span>
+        </a>
+                <div class="px-4 pt-4 pb-1 mr-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">CMS</div>
+                        <a
+            href="http://lms.test/cms/type/table"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">category</span>
+            <span class="font-body-sm">Types</span>
+        </a>
+                    <a
+            href="http://lms.test/cms/field/table"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">account_tree</span>
+            <span class="font-body-sm">Fields</span>
+        </a>
+                    <a
+            href="http://lms.test/cms/section/table"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">view_module</span>
+            <span class="font-body-sm">Sections</span>
+        </a>
+                    <a
+            href="http://lms.test/cms/content/table"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">library_books</span>
+            <span class="font-body-sm">Content</span>
+        </a>
+                    <a
+            href="http://lms.test/cms/category/table"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">category</span>
+            <span class="font-body-sm">Categories</span>
+        </a>
+                    <a
+            href="http://lms.test/cms/tag/table"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">label</span>
+            <span class="font-body-sm">Tags</span>
+        </a>
+                    <a
+            href="http://lms.test/cms/menu/table"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">menu</span>
+            <span class="font-body-sm">Menus</span>
+        </a>
+                <div class="px-4 pt-4 pb-1 mr-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Master Data</div>
+                        <a
+            href="http://lms.test/wms/customer/table"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">groups</span>
+            <span class="font-body-sm">Customer</span>
+        </a>
+                    <a
+            href="http://lms.test/wms/jasa/table"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">science</span>
+            <span class="font-body-sm">Jasa</span>
+        </a>
+                    <a
+            href="http://lms.test/wms/product/table"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">inventory_2</span>
+            <span class="font-body-sm">Product</span>
+        </a>
+                <div class="px-4 pt-4 pb-1 mr-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Sales</div>
+                        <a
+            href="http://lms.test/wms/so/table"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-primary text-on-primary font-semibold"
+        >
+            <span class="material-symbols-outlined text-on-primary">point_of_sale</span>
+            <span class="font-body-sm">Sales Order</span>
+        </a>
+                <div class="px-4 pt-4 pb-1 mr-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Settings</div>
+                        <a
+            href="http://lms.test/settings/profile"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">person</span>
+            <span class="font-body-sm">My Profile</span>
+        </a>
+                    <a
+            href="http://lms.test/settings/env"
+                        class="flex items-center gap-3 px-4 py-3 mr-2 rounded-xl transition-all group bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+        >
+            <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">settings</span>
+            <span class="font-body-sm">Environment</span>
+        </a>
+        </nav>
+</aside>
+    
+    <main class="pt-20 pb-32 md:pb-24 px-4 md:px-6" :class="sidebarOpen ? 'md:ml-72' : 'md:ml-0'">
+        <div class="max-w-full md:max-w-[calc(100vw-18rem)] mx-auto">
+            <nav class="font-body-sm text-on-surface-variant mb-6 flex items-center gap-2" aria-label="Breadcrumb">
+                        <a href="http://lms.test/wms/so/table" class="cursor-pointer hover:text-primary transition-colors">Wms-so</a>
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
+                                <span class="font-medium text-primary">Create</span>
+            </nav>
+
+    <form class="mt-4 lg:mt-0" action="http://lms.test/wms/so/create" method="POST" >
+    <input type="hidden" name="_token" value="jDGYmNkIvYpNrB80Iow7LXM1Uj1zPqkVTK5n2yfJ" autocomplete="off">        <div class="bg-surface-container-lowest mt-5 border border-outline-variant rounded-xl p-6 form-card">
+        <h3 class="font-headline-md text-headline-md text-on-surface pb-4 mb-4 border-b border-outline-variant flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-xl">point_of_sale</span>        Wms-so
+    </h3>
+            <div class="grid grid-cols-12 gap-5">
+        <div class="col-span-12 md:col-span-12">
+    <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">Tanggal</label>
+    <input type="date" name="so_tanggal" value="" class="w-full h-12 px-4 bg-white border border-outline-variant rounded-lg focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body-sm" placeholder="Tanggal" >
+        </div>
+                <div class="col-span-12 md:col-span-6">
+    <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">Customer</label>
+    <div class="relative">
+        <select name="so_id_customer"  id="select-so_id_customer" class="w-full h-12 bg-transparent font-body-sm search" >
+                        <option value="">-- Silahkan Pilih --</option>
+                                    <option value="1"   >PT Maju</option>
+                    </select>
+            </div>
+        </div>
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+<style>
+    .ts-wrapper {
+        display: block !important;
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+    .ts-wrapper .ts-control {
+        background: white !important;
+        border: 1px solid #c4c5d5 !important;
+        border-radius: 0.5rem !important;
+        min-height: 3rem !important;
+        height: auto !important;
+        padding: 0.5rem 2.5rem 0.5rem 1rem !important;
+        font-size: 0.875rem !important;
+        line-height: 1.25rem !important;
+        color: #191c1e !important;
+        box-shadow: none !important;
+        opacity: 1 !important;
+    }
+    .ts-wrapper.multi .ts-control {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        gap: 4px !important;
+        height: auto !important;
+    }
+    .ts-wrapper.multi .item {
+        background: #00288e !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 0.25rem !important;
+        padding: 2px 6px !important;
+        line-height: 1.4 !important;
+    }
+    .ts-wrapper .ts-control::after {
+        content: '' !important;
+        display: block !important;
+        position: absolute !important;
+        right: 0.75rem !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 0 !important;
+        height: 0 !important;
+        border-left: 5px solid transparent !important;
+        border-right: 5px solid transparent !important;
+        border-top: 5px solid #444653 !important;
+        border-bottom: none !important;
+        margin: 0 !important;
+        pointer-events: none !important;
+    }
+    .ts-wrapper.focus .ts-control,
+    .ts-wrapper .ts-control:focus {
+        border-color: #1e40af !important;
+        box-shadow: 0 0 0 1px #1e40af !important;
+    }
+    .ts-wrapper .ts-control > * {
+        color: #191c1e !important;
+    }
+    .ts-wrapper .ts-dropdown {
+        background: white !important;
+        border: 1px solid #c4c5d5 !important;
+        border-radius: 0.5rem !important;
+        margin-top: 4px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+        z-index: 50 !important;
+    }
+    .ts-wrapper .ts-dropdown .ts-dropdown-content {
+        max-height: 200px !important;
+    }
+    .ts-wrapper .ts-dropdown .option {
+        padding: 0.625rem 1rem !important;
+        font-size: 0.875rem !important;
+        color: #191c1e !important;
+    }
+    .ts-wrapper .ts-dropdown .option.active {
+        background: #dde1ff !important;
+        color: #00288e !important;
+    }
+    .ts-wrapper .ts-dropdown .option:hover {
+        background: #eceef0 !important;
+    }
+    .ts-wrapper .ts-control input {
+        font-size: 0.875rem !important;
+    }
+    .ts-wrapper .ts-placeholder {
+        color: #757684 !important;
+        font-size: 0.875rem !important;
+    }
+    .ts-wrapper.has-error .ts-control {
+        border-color: #ba1a1a !important;
+    }
+    .ts-wrapper.multi .remove {
+        color: #ffffff !important;
+        border: none !important;
+        opacity: 0.7 !important;
+    }
+    .ts-wrapper.multi .remove:hover {
+        opacity: 1 !important;
+    }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var el = document.getElementById('select-so_id_customer');
+    if (!el) return;
+    var placeholderText = el.querySelector('option[value=""]');
+    var ts = new TomSelect(el, {
+        create: false,
+        plugins: [],
+        placeholder: '-- Silahkan Pilih --',
+        allowEmptyOption: true,
+    });
+    });
+</script>
+                <div class="col-span-12 md:col-span-6">
+    <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">Status</label>
+    <div class="relative">
+        <select name="so_status"  id="select-so_status" class="w-full h-12 pl-4 pr-10 bg-white border border-outline-variant rounded-lg font-body-sm appearance-none cursor-pointer focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all " >
+                        <option value="">-- Silahkan Pilih --</option>
+                                    <option value="Pending"  selected >Pending</option>
+                        <option value="Confirmed"   >Confirmed</option>
+                        <option value="Shipped"   >Shipped</option>
+                        <option value="Closed"   >Closed</option>
+                    </select>
+                <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-xl">expand_more</span>
+            </div>
+        </div>
+                <div class="col-span-12 md:col-span-12">
+    <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">Keterangan</label>
+    <input type="textarea" name="so_keterangan" value="" class="w-full h-12 px-4 bg-white border border-outline-variant rounded-lg focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body-sm" placeholder="Keterangan" >
+        </div>
+    </div>
+    </div>
+
+        <div class="bg-surface-container-lowest mt-5 border border-outline-variant rounded-xl p-6 form-card mt-5">
+        <h3 class="font-headline-md text-headline-md text-on-surface pb-4 mb-4 border-b border-outline-variant flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-xl">inventory_2</span>        Detail Product &amp;amp; Pajak
+    </h3>
+                <div wire:key="lw-680958716-0-5" wire:snapshot="{&quot;data&quot;:{&quot;rows&quot;:[[[{&quot;so_detail_id&quot;:null,&quot;so_detail_id_jasa&quot;:&quot;&quot;,&quot;so_detail_id_product&quot;:&quot;&quot;,&quot;so_detail_qty&quot;:1,&quot;so_detail_harga&quot;:&quot;&quot;,&quot;so_detail_keterangan&quot;:&quot;&quot;},{&quot;s&quot;:&quot;arr&quot;}]],{&quot;s&quot;:&quot;arr&quot;}],&quot;options&quot;:[{&quot;1&quot;:&quot;Daging Sapi (kg)&quot;},{&quot;s&quot;:&quot;arr&quot;}],&quot;prices&quot;:[{&quot;1&quot;:&quot;135000&quot;},{&quot;s&quot;:&quot;arr&quot;}],&quot;jasaOptions&quot;:[[],{&quot;s&quot;:&quot;arr&quot;}],&quot;byJasa&quot;:[[[{&quot;1&quot;:&quot;Daging Sapi (kg)&quot;},{&quot;s&quot;:&quot;arr&quot;}]],{&quot;s&quot;:&quot;arr&quot;}],&quot;soPpn&quot;:&quot;none&quot;,&quot;soPpnRate&quot;:11,&quot;soPph&quot;:&quot;no&quot;,&quot;soPphRate&quot;:2,&quot;soDiscount&quot;:&quot;0&quot;,&quot;soDiscountNote&quot;:&quot;&quot;},&quot;memo&quot;:{&quot;id&quot;:&quot;Wciwxxg5W7ut585cgFHD&quot;,&quot;name&quot;:&quot;so-details&quot;,&quot;path&quot;:&quot;wms\/so\/create&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;id&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;c0666df00de4f1c1cc965930cede1d3e4ab7ba2270dafcffba8416e9dbeda722&quot;}" wire:effects="[]" wire:id="Wciwxxg5W7ut585cgFHD" wire:name="so-details">
+    <div class="space-y-3">
+        <!--[if BLOCK]><![endif]-->            <div wire:key="so-row-0"
+                class="grid grid-cols-12 gap-3 items-end border border-outline-variant rounded-lg p-3 bg-surface-container-low">
+                <input type="hidden" name="details[0][so_detail_id]" value="" />
+                <div class="col-span-12 md:col-span-4">
+                    <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">Jasa</label>
+                    <div class="relative">
+                        <select name="details[0][so_detail_id_jasa]"
+                            wire:model.live="rows.0.so_detail_id_jasa"
+                            class="w-full h-12 pl-4 pr-10 bg-white border border-outline-variant rounded-lg font-body-sm appearance-none cursor-pointer focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none">
+                            <option value="">-- Silahkan Pilih --</option>
+                            <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                        </select>
+                        <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-xl">expand_more</span>
+                    </div>
+                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                </div>
+                <div class="col-span-12 md:col-span-4">
+                    <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">Product</label>
+                    <div class="relative">
+                        <select name="details[0][so_detail_id_product]"
+                            wire:model.live="rows.0.so_detail_id_product"
+                            class="w-full h-12 pl-4 pr-10 bg-white border border-outline-variant rounded-lg font-body-sm appearance-none cursor-pointer focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none"
+                            required>
+                            <option value="">-- Silahkan Pilih --</option>
+                            <!--[if BLOCK]><![endif]-->                                <option value="1"
+                                                                        >Daging Sapi (kg)</option>
+                            <!--[if ENDBLOCK]><![endif]-->                        </select>
+                        <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-xl">expand_more</span>
+                    </div>
+                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                </div>
+                <div class="col-span-12 md:col-span-4">
+                    <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">Harga</label>
+                    <input type="number" min="0" step="1" name="details[0][so_detail_harga]"
+                        wire:model.live="rows.0.so_detail_harga"
+                        class="w-full h-12 px-4 bg-white border border-outline-variant rounded-lg font-body-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none"
+                        placeholder="auto / manual" />
+                </div>
+                <div class="col-span-6 md:col-span-2">
+                    <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">Qty</label>
+                    <input type="number" min="1" name="details[0][so_detail_qty]"
+                        wire:model.live="rows.0.so_detail_qty"
+                        class="w-full h-12 px-4 bg-white border border-outline-variant rounded-lg font-body-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none"
+                        required />
+                </div>
+                <div class="col-span-6 md:col-span-4">
+                    <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">Keterangan</label>
+                    <input type="text" name="details[0][so_detail_keterangan]"
+                        wire:model.live="rows.0.so_detail_keterangan"
+                        class="w-full h-12 px-4 bg-white border border-outline-variant rounded-lg font-body-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none"
+                        placeholder="cth: sertifikat / kalibrasi ulang" />
+                </div>
+                <div class="col-span-6 md:col-span-3">
+                    <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">Subtotal</label>
+                    <div class="h-12 px-4 flex items-center rounded-lg bg-surface-container font-body-sm text-on-surface">
+                        Rp 0
+                    </div>
+                </div>
+                <div class="col-span-6 md:col-span-3 flex justify-end">
+                    <button type="button" wire:click="removeRow(0)" title="Hapus"
+                        class="inline-flex items-center justify-center h-12 w-12 rounded-lg border border-error text-error hover:bg-error hover:text-on-error transition-colors">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                </div>
+            </div>
+        <!--[if ENDBLOCK]><![endif]-->    </div>
+
+    <div class="mt-5 space-y-4 border border-outline-variant rounded-lg p-4 bg-surface-container-low">
+        <div class="grid grid-cols-2 gap-3">
+            <div>
+                <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">PPN (Mode)</label>
+                <div class="relative">
+                    <select name="so_ppn" wire:model.live="soPpn"
+                        class="w-full h-12 pl-4 pr-10 bg-white border border-outline-variant rounded-lg font-body-sm appearance-none cursor-pointer focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none">
+                        <!--[if BLOCK]><![endif]-->                            <option value="include" >Include</option>
+                                                    <option value="exclude" >Exclude</option>
+                                                    <option value="none" selected>None</option>
+                        <!--[if ENDBLOCK]><![endif]-->                    </select>
+                    <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-xl">expand_more</span>
+                </div>
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->            </div>
+            <div>
+                <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">PPN Rate (%)</label>
+                <input type="number" min="0" name="so_ppn_rate" wire:model.live="soPpnRate"
+                    class="w-full h-12 px-4 bg-white border border-outline-variant rounded-lg font-body-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none" />
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+            <div>
+                <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">PPH (Mode)</label>
+                <div class="relative">
+                    <select name="so_pph" wire:model.live="soPph"
+                        class="w-full h-12 pl-4 pr-10 bg-white border border-outline-variant rounded-lg font-body-sm appearance-none cursor-pointer focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none">
+                        <!--[if BLOCK]><![endif]-->                            <option value="include" >Include</option>
+                                                    <option value="exclude" >Exclude</option>
+                                                    <option value="no" selected>No</option>
+                        <!--[if ENDBLOCK]><![endif]-->                    </select>
+                    <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-xl">expand_more</span>
+                </div>
+                <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->            </div>
+            <div>
+                <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">PPH Rate (%)</label>
+                <input type="number" min="0" name="so_pph_rate" wire:model.live="soPphRate"
+                    class="w-full h-12 px-4 bg-white border border-outline-variant rounded-lg font-body-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none" />
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+            <div>
+                <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">Discount</label>
+                <input type="number" min="0" step="1" name="so_discount" wire:model.live="soDiscount"
+                    class="w-full h-12 px-4 bg-white border border-outline-variant rounded-lg font-body-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none" />
+            </div>
+            <div>
+                <label class="font-body-sm text-body-sm font-bold text-on-surface-variant block mb-1">Keterangan Discount</label>
+                <input type="text" name="so_discount_note" wire:model="soDiscountNote"
+                    class="w-full h-12 px-4 bg-white border border-outline-variant rounded-lg font-body-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none"
+                    placeholder="cth: discount 20% pembelian 10 item" />
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 border border-outline-variant rounded-lg p-4 bg-surface-container-low">
+        <div class="space-y-3">
+            <div class="flex items-center justify-between">
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Subtotal</p>
+                <p class="font-body-lg text-body-lg text-on-surface">Rp 0</p>
+            </div>
+            <div class="flex items-center justify-between">
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Discount</p>
+                <p class="font-body-lg text-body-lg text-error">- Rp 0</p>
+            </div>
+            <div class="flex items-center justify-between">
+                <p class="font-body-sm text-body-sm text-on-surface-variant">DPP</p>
+                <p class="font-body-lg text-body-lg text-on-surface">Rp 0</p>
+            </div>
+            <div class="flex items-center justify-between">
+                <p class="font-body-sm text-body-sm text-on-surface-variant">PPN (11%)</p>
+                <p class="font-body-lg text-body-lg text-on-surface">Rp 0</p>
+            </div>
+            <div class="flex items-center justify-between">
+                <p class="font-body-sm text-body-sm text-on-surface-variant">PPH (2%)</p>
+                <p class="font-body-lg text-body-lg text-on-surface">Rp 0</p>
+            </div>
+            <div class="flex items-center justify-between border-t border-outline-variant pt-3">
+                <p class="font-body-lg text-body-lg font-bold text-on-surface">Grand Total</p>
+                <p class="font-headline-md text-headline-md text-primary">Rp 0</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex items-center justify-end mt-4">
+        <button type="button" wire:click="addRow"
+            class="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg bg-primary text-on-primary font-body-sm hover:opacity-90 transition-opacity">
+            <span class="material-symbols-outlined text-lg">add</span>
+            Tambah Product
+        </button>
+    </div>
+</div>
+    </div>
+
+        <style>
+    @media (min-width: 768px) { .action-bar { bottom: 0 !important; } }
+</style>
+<div class="action-bar fixed left-0 right-0 lg:left-72 bg-surface-container-lowest border-t border-outline-variant shadow-[0_-4px_12px_rgba(0,0,0,0.08)] px-4 md:px-6 py-3 z-[45]" style="bottom: 4rem">
+    <div class="flex items-center justify-between max-w-full mx-auto gap-3">
+        <div class="flex items-center gap-3 flex-wrap">
+            
+        </div>
+        <div class="flex items-center gap-2 md:gap-3 flex-wrap">
+                                                        <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-lg font-body-sm font-semibold transition-all active:scale-95 h-10 px-5 text-sm bg-primary text-on-primary hover:bg-primary/90 shadow-sm">
+    <span class="material-symbols-outlined text-xl">save</span>    Save
+</button>
+                                                                <a href="http://lms.test" class="inline-flex items-center justify-center gap-2 h-10 px-4 md:px-5 text-sm font-semibold rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-all">
+                Cancel
+            </a>
+        </div>
+    </div>
+</div>
+</form>
+        </div>
+    </main>
+
+    
+    <nav class="md:hidden fixed bottom-0 left-0 w-full h-16 bg-surface-container-lowest border-t border-outline-variant z-50 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+    <div class="flex items-center justify-around h-full px-2">
+                    
+                            <a href="http://lms.test/dashboard" class="flex flex-col items-center justify-center transition-all flex-1 text-on-surface-variant opacity-60 hover:opacity-100">
+                    <span class="material-symbols-outlined text-[24px]">home</span>
+                    <span class="text-[10px] font-bold uppercase tracking-tighter">Home</span>
+                </a>
+                                
+                            <a href="http://lms.test/settings/profile" class="flex flex-col items-center justify-center transition-all flex-1 text-on-surface-variant opacity-60 hover:opacity-100">
+                    <span class="material-symbols-outlined text-[24px]">person</span>
+                    <span class="text-[10px] font-bold uppercase tracking-tighter">Profile</span>
+                </a>
+                        </div>
+</nav>
+
+    
+    <script>
+    function warehouseApp() {
+        return {
+            drawerOpen: false,
+            sidebarOpen: true,
+            notifications: [],
+            unreadCount: 0,
+
+            init() {
+                this.fetchNotifications();
+                window.addEventListener('new-notification', (e) => this.handleRealtimeNotification(e.detail));
+            },
+
+            handleRealtimeNotification(notif) {
+                const existingIds = new Set(this.notifications.map(n => n.id));
+                if (!existingIds.has(notif.id)) {
+                    this.notifications.unshift(notif);
+                    this.unreadCount = this.notifications.filter(n => !n.read).length;
+                    if (window.showToast) window.showToast(notif.title, notif.body);
+                }
+            },
+
+            async fetchNotifications() {
+                try {
+                    const res = await fetch('/notifications-web', {
+                        credentials: 'same-origin',
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                    });
+                    if (!res.ok) return;
+                    const data = await res.json();
+                    this.notifications = data.notifications || [];
+                    this.unreadCount = data.unread_count || 0;
+                } catch (e) {
+                    console.warn('Failed to fetch notifications:', e);
+                }
+            },
+
+            async markRead(notif) {
+                if (notif.read) return;
+                notif.read = true;
+                this.unreadCount = this.notifications.filter(n => !n.read).length;
+                try {
+                    await fetch('/notifications-web/' + notif.id + '/read', {
+                        method: 'PUT',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        },
+                    });
+                } catch (e) {
+                    console.warn('Failed to mark read:', e);
+                }
+            },
+
+            async markAllRead() {
+                this.notifications.forEach(n => n.read = true);
+                this.unreadCount = 0;
+                try {
+                    await fetch('/notifications-web/read-all', {
+                        method: 'PUT',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        },
+                    });
+                } catch (e) {
+                    console.warn('Failed to mark all read:', e);
+                }
+            },
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('nav .bg-primary').forEach(function(el) {
+            el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        });
+    });
+
+    window.showToast = function(title, body) {
+        const toast = document.createElement('div');
+        toast.className = 'fixed top-4 right-4 z-[100] bg-surface-container-lowest border border-outline-variant rounded-lg p-4 shadow-lg max-w-sm transition-all duration-300';
+        toast.innerHTML = '<div class="flex items-start gap-3"><span class="text-primary">🔔</span><div><p class="font-body-sm font-semibold text-on-surface">' + title + '</p><p class="font-body-sm text-on-surface-variant text-sm">' + (body || '') + '</p></div></div>';
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 300);
+        }, 5000);
+    };
+
+    // Image Picker Vanilla JS helper functions
+    function imgPickerPreview(pickerId) {
+        var input = document.getElementById(pickerId + '_input');
+        var previewWrap = document.getElementById(pickerId + '_preview_wrap');
+        var preview = document.getElementById(pickerId + '_preview');
+        if (input && previewWrap && preview) {
+            if (input.value) {
+                preview.src = input.value;
+                previewWrap.style.display = 'flex';
+            } else {
+                previewWrap.style.display = 'none';
+            }
+        }
+    }
+
+    // Vanilla JS Image Browser
+    var imgBrowser = {
+        activePickerId: null,
+        onSelect: null,
+        selectedImage: null,
+        images: [],
+        loading: false,
+        searchQuery: '',
+        currentPage: 1,
+        totalPages: 1,
+        uploadProgress: 0,
+        uploading: false,
+
+        open: function(pickerId, onSelect) {
+            this.activePickerId = pickerId || null;
+            this.onSelect = typeof onSelect === 'function' ? onSelect : null;
+            this.selectedImage = null;
+            this.searchQuery = '';
+            this.currentPage = 1;
+            this.show();
+            this.loadImages(1);
+        },
+
+        show: function() {
+            var modal = document.getElementById('image-browser-modal');
+            if (modal) modal.style.display = 'flex';
+        },
+
+        hide: function() {
+            var modal = document.getElementById('image-browser-modal');
+            if (modal) modal.style.display = 'none';
+            this.activePickerId = null;
+            this.onSelect = null;
+            this.selectedImage = null;
+        },
+
+        dragCounter: 0,
+
+        handleDragEnter: function(e) {
+            e.preventDefault();
+            this.dragCounter++;
+            var overlay = document.getElementById('img-browser-drop-overlay');
+            if (overlay) overlay.style.display = 'flex';
+        },
+
+        handleDragLeave: function(e) {
+            e.preventDefault();
+            this.dragCounter--;
+            if (this.dragCounter <= 0) {
+                this.dragCounter = 0;
+                var overlay = document.getElementById('img-browser-drop-overlay');
+                if (overlay) overlay.style.display = 'none';
+            }
+        },
+
+        handleDragOver: function(e) {
+            e.preventDefault();
+            if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+        },
+
+        handleDrop: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.dragCounter = 0;
+            var overlay = document.getElementById('img-browser-drop-overlay');
+            if (overlay) overlay.style.display = 'none';
+            var files = e.dataTransfer ? e.dataTransfer.files : [];
+            var images = [];
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].type.startsWith('image/')) images.push(files[i]);
+            }
+            if (images.length) this.uploadFiles(images);
+        },
+
+        loadImages: async function(page) {
+            this.loading = true;
+            this.currentPage = page || 1;
+            this.updateUI();
+            try {
+                var params = new URLSearchParams({ page: this.currentPage, per_page: 24, search: this.searchQuery });
+                var res = await fetch('/api/media?' + params.toString(), {
+                    credentials: 'same-origin',
+                    headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content }
+                });
+                var data = await res.json();
+                this.images = data.data || [];
+                this.totalPages = data.last_page || 1;
+            } catch (e) {
+                console.error('Failed to load images:', e);
+                this.images = [];
+            }
+            this.loading = false;
+            this.renderGrid();
+        },
+
+        renderGrid: function() {
+            var grid = document.getElementById('img-browser-grid');
+            var empty = document.getElementById('img-browser-empty');
+            var spinner = document.getElementById('img-browser-loading');
+            if (!grid) return;
+
+            spinner.style.display = this.loading ? 'flex' : 'none';
+
+            if (!this.loading && this.images.length === 0) {
+                empty.style.display = 'block';
+                grid.innerHTML = '';
+                this.updateUI();
+                return;
+            }
+            empty.style.display = 'none';
+
+            var self = this;
+            var html = '';
+            this.images.forEach(function(img) {
+                var isSelected = self.selectedImage && self.selectedImage.id === img.id;
+                var src = img.thumbnail || img.url;
+                html += '<div class="relative aspect-square rounded-lg overflow-hidden border-2 cursor-pointer transition-all hover:shadow-lg ' + (isSelected ? 'border-blue-500 ring-2 ring-blue-200' : 'border-transparent hover:border-gray-300') + '" onclick="imgBrowser.selectImage(' + img.id + ')">'
+                    + '<img src="' + src + '" alt="' + (img.alt || img.filename) + '" class="w-full h-full object-cover">'
+                    + (isSelected ? '<div class="absolute inset-0 bg-blue-500/20 flex items-center justify-center"><i class="icon-[tabler--circle-check] text-3xl text-blue-500"></i></div>' : '')
+                    + '<div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2"><p class="text-white text-xs truncate">' + img.filename + '</p></div>'
+                    + '</div>';
+            });
+            grid.innerHTML = html;
+            this.updateUI();
+        },
+
+        selectImage: function(id) {
+            var img = this.images.find(function(i) { return i.id === id; });
+            this.selectedImage = img || null;
+            this.renderGrid();
+        },
+
+        confirm: function() {
+            if (!this.selectedImage) return;
+            // Callback mode (e.g. TinyMCE image dialog)
+            if (typeof this.onSelect === 'function') {
+                this.onSelect(this.selectedImage.url, { alt: this.selectedImage.alt || this.selectedImage.filename });
+                this.hide();
+                return;
+            }
+            if (this.activePickerId) {
+                var input = document.getElementById(this.activePickerId + '_input');
+                var previewWrap = document.getElementById(this.activePickerId + '_preview_wrap');
+                var preview = document.getElementById(this.activePickerId + '_preview');
+                var dropzoneContent = document.getElementById(this.activePickerId + '_dropzone_content');
+                if (input) input.value = this.selectedImage.url;
+                if (preview && previewWrap) {
+                    preview.src = this.selectedImage.url;
+                    previewWrap.style.display = 'flex';
+                }
+                if (dropzoneContent) dropzoneContent.style.display = 'none';
+                this.hide();
+            }
+        },
+
+        uploadFiles: function(eventOrFiles) {
+            var files = eventOrFiles.target ? eventOrFiles.target.files : eventOrFiles;
+            if (!files || !files.length) return;
+            var self = this;
+            self.uploading = true;
+            self.uploadProgress = 0;
+            self.updateUI();
+
+            var formData = new FormData();
+            for (var i = 0; i < files.length; i++) formData.append('images[]', files[i]);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/api/media/upload');
+            xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Accept', 'application/json');
+
+            xhr.upload.onprogress = function(e) { if (e.lengthComputable) { self.uploadProgress = Math.round((e.loaded / e.total) * 100); self.updateUI(); } };
+            xhr.onload = function() {
+                self.uploading = false;
+                if (xhr.status === 200 || xhr.status === 201) {
+                    var data = JSON.parse(xhr.responseText);
+                    if (data.images && data.images.length > 0) { self.selectedImage = data.images[0]; }
+                    self.loadImages(1);
+                } else { alert('Upload failed.'); self.updateUI(); }
+            };
+            xhr.onerror = function() { self.uploading = false; alert('Upload failed.'); self.updateUI(); };
+            xhr.send(formData);
+            if (eventOrFiles.target) eventOrFiles.target.value = '';
+        },
+
+        updateUI: function() {
+            var spinner = document.getElementById('img-browser-loading');
+            var progressBar = document.getElementById('img-browser-progress');
+            var progressFill = document.getElementById('img-browser-progress-fill');
+            var progressPct = document.getElementById('img-browser-progress-pct');
+            var pageInfo = document.getElementById('img-browser-page-info');
+            var btnConfirm = document.getElementById('img-browser-confirm');
+            var prevBtn = document.getElementById('img-browser-prev');
+            var nextBtn = document.getElementById('img-browser-next');
+
+            if (spinner) spinner.style.display = this.loading ? 'flex' : 'none';
+            if (progressBar) progressBar.style.display = this.uploading ? 'block' : 'none';
+            if (progressFill) progressFill.style.width = this.uploadProgress + '%';
+            if (progressPct) progressPct.textContent = this.uploadProgress + '%';
+            if (pageInfo) pageInfo.textContent = 'Page ' + this.currentPage + ' of ' + this.totalPages;
+            if (btnConfirm) btnConfirm.disabled = !this.selectedImage;
+            if (prevBtn) prevBtn.disabled = this.currentPage <= 1;
+            if (nextBtn) nextBtn.disabled = this.currentPage >= this.totalPages;
+        },
+
+        search: function(value) {
+            this.searchQuery = value;
+            this.loadImages(1);
+        }
+    };
+
+    function openImageBrowser(pickerId) {
+        imgBrowser.open(pickerId);
+    }
+
+    // Drag & drop + file upload handler for image fields
+    function handleImageDrop(event, pickerId) {
+        event.preventDefault();
+        event.stopPropagation();
+        var dropzone = document.getElementById(pickerId + '_dropzone');
+        if (dropzone) {
+            dropzone.classList.remove('border-blue-500', 'bg-blue-50');
+        }
+        var files = event.dataTransfer.files;
+        if (files.length > 0 && files[0].type.startsWith('image/')) {
+            uploadImageFile(files[0], pickerId);
+        }
+    }
+
+    function handleImageFileSelect(event, pickerId) {
+        var files = event.target.files;
+        if (files.length > 0) {
+            uploadImageFile(files[0], pickerId);
+        }
+    }
+
+    function uploadImageFile(file, pickerId) {
+        var progressDiv = document.getElementById(pickerId + '_upload_progress');
+        var dropzoneContent = document.getElementById(pickerId + '_dropzone_content');
+        var previewWrap = document.getElementById(pickerId + '_preview_wrap');
+        var preview = document.getElementById(pickerId + '_preview');
+        var input = document.getElementById(pickerId + '_input');
+
+        if (progressDiv) progressDiv.classList.remove('hidden');
+        if (dropzoneContent) dropzoneContent.style.display = 'none';
+
+        var formData = new FormData();
+        formData.append('images[]', file);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/media/upload');
+        xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('Accept', 'application/json');
+
+        xhr.onload = function() {
+            if (progressDiv) progressDiv.classList.add('hidden');
+            if (xhr.status === 200 || xhr.status === 201) {
+                var data = JSON.parse(xhr.responseText);
+                if (data.images && data.images.length > 0) {
+                    var url = data.images[0].url;
+                    if (input) input.value = url;
+                    if (preview) preview.src = url;
+                    if (previewWrap) previewWrap.style.display = 'flex';
+                }
+            } else {
+                alert('Upload failed. Please try again.');
+                if (dropzoneContent) dropzoneContent.style.display = 'block';
+            }
+        };
+        xhr.onerror = function() {
+            if (progressDiv) progressDiv.classList.add('hidden');
+            alert('Upload failed. Please try again.');
+            if (dropzoneContent) dropzoneContent.style.display = 'block';
+        };
+        xhr.send(formData);
+    }
+
+    function imgPickerRemove(pickerId) {
+        var input = document.getElementById(pickerId + '_input');
+        var previewWrap = document.getElementById(pickerId + '_preview_wrap');
+        var dropzoneContent = document.getElementById(pickerId + '_dropzone_content');
+        if (input) input.value = '';
+        if (previewWrap) previewWrap.style.display = 'none';
+        if (dropzoneContent) dropzoneContent.style.display = 'block';
+    }
+</script>
+
+
+<div id="image-browser-modal" class="fixed inset-0 z-[99999] flex items-center justify-center p-4" style="display:none;">
+    <div class="absolute inset-0 bg-black/60" onclick="imgBrowser.hide()"></div>
+    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-5xl max-h-[85vh] flex flex-col overflow-hidden">
+        
+        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50">
+            <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                <i class="icon-[tabler--photo] text-blue-500"></i> Media Library
+            </h2>
+            <button type="button" onclick="imgBrowser.hide()" class="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-200 transition-colors">
+                <i class="icon-[tabler--x] text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="flex items-center gap-4 px-6 py-3 border-b border-gray-200 bg-white">
+            <div class="flex-1 relative">
+                <i class="icon-[tabler--search] absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input type="text" id="img-browser-search" placeholder="Search images..." oninput="imgBrowser.search(this.value)" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none">
+            </div>
+            <label class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer">
+                <i class="icon-[tabler--upload]"></i> <span>Upload</span>
+                <input type="file" multiple accept="image/*" onchange="imgBrowser.uploadFiles(event)" class="hidden">
+            </label>
+        </div>
+        
+        <div id="img-browser-progress" style="display:none;" class="px-6 py-2 bg-blue-50 border-b border-blue-100">
+            <div class="flex items-center gap-3">
+                <i class="icon-[tabler--loader] animate-spin text-blue-500"></i>
+                <span class="text-sm text-blue-700">Uploading...</span>
+                <div class="flex-1 h-2 bg-blue-200 rounded-full overflow-hidden">
+                    <div id="img-browser-progress-fill" class="h-full bg-blue-600 transition-all duration-300" style="width:0%"></div>
+                </div>
+                <span id="img-browser-progress-pct" class="text-sm text-blue-700">0%</span>
+            </div>
+        </div>
+        
+        <div id="img-browser-content" class="flex-1 overflow-y-auto p-6 relative"
+             ondragenter="imgBrowser.handleDragEnter(event)"
+             ondragleave="imgBrowser.handleDragLeave(event)"
+             ondragover="imgBrowser.handleDragOver(event)"
+             ondrop="imgBrowser.handleDrop(event)">
+            <div id="img-browser-drop-overlay" style="display:none;" class="absolute inset-0 z-50 bg-blue-50/95 border-4 border-dashed border-blue-500 rounded-lg flex flex-col items-center justify-center pointer-events-none">
+                <i class="icon-[tabler--cloud-upload] text-6xl text-blue-500 mb-4"></i>
+                <p class="text-xl font-semibold text-blue-700">Drop images to upload</p>
+                <p class="text-sm text-blue-500 mt-1">Release your files here</p>
+            </div>
+            <div id="img-browser-loading" class="flex items-center justify-center py-12" style="display:none;">
+                <i class="icon-[tabler--loader] animate-spin text-3xl text-gray-400"></i>
+            </div>
+            <div id="img-browser-empty" class="text-center py-12 text-gray-400" style="display:none;">
+                <i class="icon-[tabler--photo] text-5xl mb-4 block opacity-30"></i>
+                <p class="text-lg font-medium">No images found</p>
+                <p class="text-sm mt-1">Upload some images to get started</p>
+            </div>
+            <div id="img-browser-grid" class="grid grid-cols-4 md:grid-cols-6 gap-3"></div>
+        </div>
+        
+        <div class="flex items-center justify-between px-6 py-4 border-t border-gray-200 bg-gray-50">
+            <div class="flex items-center gap-2">
+                <button type="button" id="img-browser-prev" onclick="imgBrowser.loadImages(imgBrowser.currentPage - 1)" class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="icon-[tabler--chevron-left]"></i>
+                </button>
+                <span id="img-browser-page-info" class="text-sm text-gray-600">Page 1 of 1</span>
+                <button type="button" id="img-browser-next" onclick="imgBrowser.loadImages(imgBrowser.currentPage + 1)" class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="icon-[tabler--chevron-right]"></i>
+                </button>
+            </div>
+            <div class="flex items-center gap-3">
+                <button type="button" onclick="imgBrowser.hide()" class="px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">Cancel</button>
+                <button type="button" id="img-browser-confirm" onclick="imgBrowser.confirm()" disabled class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                    <i class="icon-[tabler--check] mr-1"></i> Select Image
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Livewire Scripts -->
+<script src="http://lms.test/vendor/livewire/livewire.js?id=657d57c2"   data-csrf="jDGYmNkIvYpNrB80Iow7LXM1Uj1zPqkVTK5n2yfJ" data-module-url="http://lms.test/livewire-72d5c7d2" data-update-uri="http://lms.test/livewire-72d5c7d2/update" data-navigate-once="true"></script>
+
+</body>
+</html>

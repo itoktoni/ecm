@@ -358,6 +358,9 @@
   transform: scale(0.98);
 }
 
+.sidebar-scroll {
+  scrollbar-gutter: stable;
+}
 .sidebar-scroll::-webkit-scrollbar {
   width: 4px;
 }

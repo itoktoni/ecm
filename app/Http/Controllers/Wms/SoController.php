@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Wms;
 use App\Concerns\ControllerTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GeneralRequest;
+use App\Models\Jasa;
 use App\Models\Product;
 use App\Models\So;
 use App\Models\SoDetail;
 use App\Models\Stock;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 
 class SoController extends Controller
@@ -22,12 +24,20 @@ class SoController extends Controller
 
     protected function share($data = [])
     {
+        $products = Product::query()->get();
+
         return array_merge([
-            'model'           => $this->model,
-            'productOptions'  => Product::pluck('product_nama', 'product_id'),
-            'productPrices'   => Product::pluck('product_harga', 'product_id'),
+            'model' => $this->model,
+            'productOptions' => $products->pluck('product_nama', 'product_id'),
+            'productPrices' => $products->pluck('product_harga', 'product_id'),
+            'jasaOptions' => Jasa::jasaOptions(),
+            'byJasa' => $products->groupBy(fn ($p) => (string) ($p->product_id_jasa ?? 0))
+                ->map(fn ($group) => $group->pluck('product_nama', 'product_id')->all())
+                ->all(),
             'customerOptions' => So::customerOptions(),
-            'statusOptions'   => So::statusOptions(),
+            'statusOptions' => So::statusOptions(),
+            'pphOptions' => So::pphOptions(),
+            'ppnOptions' => So::ppnOptions(),
         ], $data);
     }
 
@@ -48,6 +58,7 @@ class SoController extends Controller
     public function postCreate(GeneralRequest $request)
     {
         $data = $request->validate((new So)->rules());
+        $data['so_status'] ??= So::STATUS_PENDING;
 
         try {
             $so = DB::transaction(function () use ($data) {
@@ -70,6 +81,7 @@ class SoController extends Controller
         try {
             $so = DB::transaction(function () use ($data, $id) {
                 $so = So::findOrFail($id);
+                $data['so_status'] ??= $so->so_status;
                 $so->update(collect($data)->except('details')->toArray());
                 $this->syncDetails($so, $data['details']);
 
@@ -80,6 +92,15 @@ class SoController extends Controller
         } catch (\Throwable $th) {
             return $this->response($this->payload(TOAST_FAILED, $th->getMessage()));
         }
+    }
+
+    public function getPrint(GeneralRequest $request, $id)
+    {
+        $so = So::with(['details.product.jasa', 'customer'])->findOrFail($id);
+
+        $pdf = Pdf::loadView('pdf.so', ['so' => $so]);
+
+        return $pdf->stream("SO-{$so->so_code}.pdf");
     }
 
     public function getDelete(GeneralRequest $request, $id)
@@ -113,11 +134,15 @@ class SoController extends Controller
         foreach ($details as $row) {
             $productId = (int) $row['so_detail_id_product'];
             $qty = (int) $row['so_detail_qty'];
+            $rowHarga = $row['so_detail_harga'] ?? '';
             $attrs = [
-                'so_detail_id_so'      => $so->so_id,
+                'so_detail_id_so' => $so->so_id,
                 'so_detail_id_product' => $productId,
-                'so_detail_qty'        => $qty,
-                'so_detail_harga'      => $prices[$productId] ?? 0,
+                'so_detail_qty' => $qty,
+                'so_detail_harga' => ($rowHarga === '' || $rowHarga === null)
+                    ? ($prices[$productId] ?? 0)
+                    : $rowHarga,
+                'so_detail_keterangan' => $row['so_detail_keterangan'] ?? null,
             ];
 
             $id = $row['so_detail_id'] ?? null;

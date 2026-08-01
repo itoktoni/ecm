@@ -47,6 +47,7 @@ return [
             'label' => 'Master Data',
             'items' => [
                 ['route' => 'wms-customer.getTable', 'icon' => 'groups', 'label' => 'Customer'],
+                ['route' => 'wms-jasa.getTable', 'icon' => 'science', 'label' => 'Jasa'],
                 ['route' => 'wms-product.getTable', 'icon' => 'inventory_2', 'label' => 'Product'],
             ],
         ],
