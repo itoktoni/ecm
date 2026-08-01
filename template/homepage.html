@@ -1,0 +1,343 @@
+<!DOCTYPE html><html class="light" lang="id" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Katalog Panganan - Segar Setiap Hari</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "success-green": "#40916C",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#ffdead",
+                    "on-secondary-container": "#6d4a00",
+                    "on-primary-fixed": "#002114",
+                    "background": "#fcf9f8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "surface-bright": "#fcf9f8",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fcf9f8",
+                    "inverse-primary": "#95d4b3",
+                    "on-surface-variant": "#404943",
+                    "on-tertiary-fixed-variant": "#005303",
+                    "surface-container-highest": "#e5e2e1",
+                    "tertiary-container": "#206e1b",
+                    "surface-container": "#f0eded",
+                    "on-tertiary-fixed": "#002201",
+                    "secondary-fixed-dim": "#ffba3b",
+                    "on-background": "#1b1b1b",
+                    "surface-container-high": "#eae7e7",
+                    "error-red": "#E63946",
+                    "primary-fixed-dim": "#95d4b3",
+                    "primary-fixed": "#b1f0ce",
+                    "outline": "#707973",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#7f5700",
+                    "on-secondary-fixed": "#281900",
+                    "surface-container-low": "#f6f3f2",
+                    "error-container": "#ffdad6",
+                    "primary": "#0f5238",
+                    "on-tertiary-container": "#9cee8a",
+                    "outline-variant": "#bfc9c1",
+                    "surface-variant": "#e5e2e1",
+                    "tertiary-fixed": "#a4f792",
+                    "on-primary-container": "#a8e7c5",
+                    "tertiary-fixed-dim": "#89da79",
+                    "surface-tint": "#2c694e",
+                    "background-subtle": "#F9FBF9",
+                    "inverse-surface": "#313030",
+                    "on-primary-fixed-variant": "#0e5138",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#2d6a4f",
+                    "on-surface": "#1b1b1b",
+                    "surface-dim": "#dcd9d9",
+                    "flash-sale-orange": "#FF5400",
+                    "secondary-container": "#ffb628",
+                    "tertiary": "#005503",
+                    "on-secondary-fixed-variant": "#604100",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "0.5rem",
+                    "gutter": "1rem",
+                    "container-max": "1200px",
+                    "margin-mobile": "1.25rem",
+                    "stack-md": "1rem",
+                    "stack-lg": "2rem"
+            },
+            "fontFamily": {
+                    "label-lg": ["Be Vietnam Pro"],
+                    "body-sm": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "price-display": ["Plus Jakarta Sans"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "price-display": ["22px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fcf9f8;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .flash-sale-gradient {
+            background: linear-gradient(135deg, #FF5400 0%, #FF8A00 100%);
+        }
+        .product-card {
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+        }
+        .product-card:active {
+            transform: scale(0.96);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-inverse-surface shadow-sm h-16">
+<div class="flex justify-between items-center px-gutter h-full w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<button class="active:scale-95 transition-transform duration-150 text-primary dark:text-primary-fixed">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Panganan</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<button class="active:scale-95 transition-transform duration-150 text-primary dark:text-primary-fixed">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<span class="absolute -top-1 -right-1 bg-error-red text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">3</span>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-20 pb-28 px-4 max-w-container-max mx-auto">
+<!-- Flash Sale Banner -->
+<section class="mb-8 relative overflow-hidden rounded-xl shadow-lg flash-sale-gradient text-white p-4"><div class="flex items-center justify-between gap-4 px-4 py-2"><div class="flex items-center gap-2">
+    <span class="material-symbols-outlined text-yellow-300" style="font-variation-settings: &quot;FILL&quot; 1;">bolt</span>
+    <h2 class="font-semibold text-sm uppercase italic tracking-wider leading-tight">Flash Sale</h2>
+  </div>
+  <div class="flex items-center gap-3">
+    <div class="flex items-center gap-1 opacity-90"><span class="material-symbols-outlined text-[14px]">schedule</span><p class="text-[8px] font-bold uppercase tracking-tight">Berakhir:</p></div>
+    <div class="flex gap-1.5 text-on-background" id="countdown"><div class="bg-white/90 backdrop-blur-sm rounded px-1.5 py-0.5 min-w-[24px] flex items-center justify-center"><span class="font-price-display text-[12px] leading-none">02</span></div><span class="text-white font-bold text-[12px]">:</span><div class="bg-white/90 backdrop-blur-sm rounded px-1.5 py-0.5 min-w-[24px] flex items-center justify-center"><span class="font-price-display text-[12px] leading-none">33</span></div><span class="text-white font-bold text-[12px]">:</span><div class="bg-white/90 backdrop-blur-sm rounded px-1.5 py-0.5 min-w-[24px] flex items-center justify-center"><span class="font-price-display text-[12px] leading-none">17</span></div></div>
+  </div></div>
+<div class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div></section>
+<!-- Categories (Micro-nav) -->
+<section class="mb-8 overflow-x-auto hide-scrollbar -mx-4 px-4 flex gap-3"><button class="bg-primary text-white px-6 py-2.5 rounded-lg font-label-lg text-label-lg whitespace-nowrap shadow-sm uppercase tracking-wider">Semua</button>
+<button class="bg-white text-on-surface-variant border border-outline-variant px-6 py-2.5 rounded-lg font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container transition-colors uppercase tracking-wider">Beras</button>
+<button class="bg-white text-on-surface-variant border border-outline-variant px-6 py-2.5 rounded-lg font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container transition-colors uppercase tracking-wider">Telur</button>
+<button class="bg-white text-on-surface-variant border border-outline-variant px-6 py-2.5 rounded-lg font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container transition-colors uppercase tracking-wider">Minyak Goreng</button>
+<button class="bg-white text-on-surface-variant border border-outline-variant px-6 py-2.5 rounded-lg font-label-lg text-label-lg whitespace-nowrap hover:bg-surface-container transition-colors uppercase tracking-wider">Sayuran</button></section>
+<!-- Product Grid -->
+<section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+<!-- Product Card 1 -->
+<div class="product-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md border border-outline-variant/30 flex flex-col">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="A high-quality, professional studio photograph of a 5kg bag of premium white long-grain rice. The bag is made of clean, clear plastic showing pristine white grains inside. It is set against a soft, warm wooden kitchen counter background with soft natural morning sunlight casting gentle shadows. The overall aesthetic is fresh, clean, and organic, emphasizing food safety and premium quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEn0vbWc3afg-reSBPwq9RuqeqkM0pxx4TbGNgF7YoKRB8TpLc4H6zWkROUlnT6NU7n_dENKkEurbWoSv3dirfdcAnC6W0xA4pkfmIFFm46uAf63UsO5dzdG-Nc0ItzpHP9nU7PwMPsFlR-5rt6Q3VJ61pfSAlQjtTXFYsEZpXght293_-oXQeZIx9igueRE_BCZ_9l9Txpu-Me-OkIOE6tKNzoIPqtuC2Y77i0OwtXnNoWt2MvO-oSw">
+<div class="absolute top-2 left-2 bg-flash-sale-orange text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase">Flash Sale</div>
+<button class="absolute top-2 right-2 bg-white/80 backdrop-blur-sm p-1.5 rounded-full text-on-surface shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-3 md:p-4 flex flex-col flex-grow">
+<h3 class="font-body-md text-body-md font-semibold text-on-surface line-clamp-2 h-12 mb-1">Beras Premium Pandan Wangi 5kg</h3>
+<div class="flex items-baseline gap-1 mt-auto"><div class="flex flex-col"><span class="text-[10px] text-on-surface-variant line-through">Rp75.000</span><span class="font-price-display text-price-display text-primary">Rp68.500</span></div></div>
+<div class="mt-2 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] text-error-red font-bold uppercase tracking-tight">Sisa 5 stok</span>
+<div class="w-full bg-surface-container-highest h-1 rounded-full mt-1 w-16 overflow-hidden">
+<div class="bg-error-red h-full w-[20%]"></div>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full bg-primary text-white py-2.5 rounded-lg font-label-lg text-label-lg active:scale-95 transition-all flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_shopping_cart">add_shopping_cart</span>
+                        Tambah
+                    </button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="product-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md border border-outline-variant/30 flex flex-col">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="Close-up artistic shot of a carton containing 15 fresh, brown farmhouse eggs. The eggs have a smooth, clean texture and are nestled in a recycled grey paper pulp tray. The background is a clean white kitchen tile with bright, high-key lighting that highlights the freshness and organic nature of the eggs. The style is modern, minimalist, and focuses on high-quality grocery presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQlC_f1Q7YsXYshyzUHpwUADj8f0Y9pZ3ncrug5_jtCjCR-R0NyCJ_wtjaQ9YmohLqinK0D7aH48qfem7kl9_AjGLcwthfYRacO1cKjjhjjlP0eBWQACSOsMkrVAatcuxP_JKUvhNIuAud6zApcT02WpHIhrXRYcPj5A3IciE1EBzJZHnL9pvKGew7GxL-l4GXiK71_hnF_iPYJgygHlRBgCItUJPsRU4XU7Iwch5iuEKZDeuZuZJFCg">
+<button class="absolute top-2 right-2 bg-white/80 backdrop-blur-sm p-1.5 rounded-full text-on-surface shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-3 md:p-4 flex flex-col flex-grow">
+<h3 class="font-body-md text-body-md font-semibold text-on-surface line-clamp-2 h-12 mb-1">Telur Ayam Negeri Fresh (1 Tray - 15 Butir)</h3>
+<div class="flex items-baseline gap-1 mt-auto"><div class="flex flex-col"><span class="font-price-display text-price-display text-primary">Rp28.900</span></div></div>
+<div class="mt-2 flex flex-col">
+<span class="text-[10px] text-success-green font-bold uppercase">Stok Tersedia</span>
+</div>
+<button class="mt-4 w-full bg-primary text-white py-2.5 rounded-lg font-label-lg text-label-lg active:scale-95 transition-all flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_shopping_cart">add_shopping_cart</span>
+                        Tambah
+                    </button>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="product-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md border border-outline-variant/30 flex flex-col">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="A 2-liter clear bottle of golden, premium cooking oil placed on a white marble kitchen island. The oil is clear and brilliant, reflecting soft studio light. A few fresh sunflower petals are artfully placed next to the bottle. The lighting is sophisticated and bright, creating a luxury culinary feel. The composition is clean, centered, and highlights the purity and freshness of the oil." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRIY1szM9DWwtKiwK6nKlJcLYB1WFbu7P_qj2meqYSz8kAPsXtd3UrS4CuCMSUi-PgpIO4QP48XHD9hoePbN4Qd9YF4GpqTMkrDwNttJMXgO-ZqWw24ZdpIcNg5X9DlRp9RXGMhdNQdsuP9kbjTkoKJlzODaJK4N5BmvYXh4QiVLDTI8rVd6NUbxAq3UoebulMCMEf7y8md1z-q3GcMeGOK7ef4wm_2-i-j_S06wmzlqcttwfzS-Ok8Q">
+<div class="absolute top-2 left-2 bg-flash-sale-orange text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase">Flash Sale</div>
+<button class="absolute top-2 right-2 bg-white/80 backdrop-blur-sm p-1.5 rounded-full text-on-surface shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-3 md:p-4 flex flex-col flex-grow">
+<h3 class="font-body-md text-body-md font-semibold text-on-surface line-clamp-2 h-12 mb-1">Minyak Goreng Sania 2L Refill</h3>
+<div class="flex items-baseline gap-1 mt-auto"><div class="flex flex-col"><span class="text-[10px] text-on-surface-variant line-through">Rp36.000</span><span class="font-price-display text-price-display text-primary">Rp32.500</span></div></div>
+<div class="mt-2 flex flex-col">
+<span class="text-[10px] text-error-red font-bold uppercase tracking-tight">Sisa 2 stok</span>
+<div class="w-full bg-surface-container-highest h-1 rounded-full mt-1 w-16 overflow-hidden">
+<div class="bg-error-red h-full w-[80%]"></div>
+</div>
+</div>
+<button class="mt-4 w-full bg-primary text-white py-2.5 rounded-lg font-label-lg text-label-lg active:scale-95 transition-all flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_shopping_cart">add_shopping_cart</span>
+                        Tambah
+                    </button>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="product-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md border border-outline-variant/30 flex flex-col">
+<div class="relative aspect-square">
+<img class="w-full h-full object-cover" data-alt="A bundle of extremely fresh, vibrant green spinach leaves with water droplets still clinging to them. The spinach is arranged neatly on a rustic wooden board. The lighting is natural and bright, as if taken at an early morning farmer's market. The greens are lush and saturated, emphasizing the 'freshly harvested' brand identity of Panganan. Minimalist, modern food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBugiQv8LBDp7Qm4_KBxQC1cixgDiEAPLu26ODSj8-mO1D6WnU6gGdcTvjeldorz8G5a9YQWyRiWIz_qhF6OYFE5VDO1fTuUr7aUwa-FDrX3wKT_LA41zwzD3rPA_WrHOde5JQmVJM0BXmZBqXYaWbTuDvJlbqzYhA2zEdH1tFYySVF-8qSmprS7DSU7eQMgg0PJ6T4Oq4KBJHFJG7lsh6Z2ygH__pPYqysaK7vSARaqxrA-hKzY4m1CA">
+<button class="absolute top-2 right-2 bg-white/80 backdrop-blur-sm p-1.5 rounded-full text-on-surface shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="p-3 md:p-4 flex flex-col flex-grow">
+<h3 class="font-body-md text-body-md font-semibold text-on-surface line-clamp-2 h-12 mb-1">Bayam Hidroponik Segar (250g)</h3>
+<div class="flex items-baseline gap-1 mt-auto"><div class="flex flex-col"><span class="font-price-display text-price-display text-primary">Rp5.500</span></div></div>
+<div class="mt-2 flex flex-col">
+<span class="text-[10px] text-success-green font-bold uppercase">Stok Tersedia</span>
+</div>
+<button class="mt-4 w-full bg-primary text-white py-2.5 rounded-lg font-label-lg text-label-lg active:scale-95 transition-all flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_shopping_cart">add_shopping_cart</span>
+                        Tambah
+                    </button>
+</div>
+</div>
+</section>
+<!-- Floating Cart Mobile Summary (Internal Component for better UX) -->
+<div class="fixed bottom-24 left-4 right-4 md:hidden z-40">
+<button class="w-full bg-secondary-container text-on-secondary-container px-6 py-4 rounded-xl shadow-lg flex justify-between items-center active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-3">
+<div class="bg-white/30 p-2 rounded-lg">
+<span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+</div>
+<div class="text-left">
+<p class="font-label-lg text-label-lg">3 Item Terpilih</p>
+<p class="text-[10px] uppercase font-bold opacity-70">Klik untuk Checkout</p>
+</div>
+</div>
+<p class="font-price-display text-price-display">Rp106.900</p>
+</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-20 px-4 pb-safe bg-surface-container-lowest dark:bg-surface-dim shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl z-50"><a class="flex-1 flex flex-col items-center justify-center gap-1 h-full text-primary dark:text-primary-fixed border-t-4 border-primary bg-primary/5 transition-colors duration-200" href="#">
+  <span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">storefront</span>
+  <span class="font-label-lg text-[12px] tracking-wide uppercase font-bold">Katalog</span>
+</a>
+<a class="flex-1 flex flex-col items-center justify-center gap-1 h-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container transition-colors duration-200" href="#">
+  <span class="material-symbols-outlined text-[24px]">receipt_long</span>
+  <span class="font-label-lg text-[12px] tracking-wide uppercase font-bold">Pesanan</span>
+</a>
+<a class="flex-1 flex flex-col items-center justify-center gap-1 h-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container transition-colors duration-200" href="#">
+  <span class="material-symbols-outlined text-[24px]">event_available</span>
+  <span class="font-label-lg text-[12px] tracking-wide uppercase font-bold">Jadwal</span>
+</a>
+<a class="flex-1 flex flex-col items-center justify-center gap-1 h-full text-on-surface-variant dark:text-outline-variant hover:bg-surface-container transition-colors duration-200" href="#">
+  <span class="material-symbols-outlined text-[24px]">person</span>
+  <span class="font-label-lg text-[12px] tracking-wide uppercase font-bold">Profil</span>
+</a></nav>
+<script>
+        // Countdown timer logic
+        function updateCountdown() {
+            const countdownElements = document.querySelectorAll('#countdown span:first-child');
+            if(countdownElements.length < 3) return;
+
+            let h = parseInt(countdownElements[0].innerText);
+            let m = parseInt(countdownElements[1].innerText);
+            let s = parseInt(countdownElements[2].innerText);
+
+            s--;
+            if (s < 0) {
+                s = 59;
+                m--;
+                if (m < 0) {
+                    m = 59;
+                    h--;
+                    if (h < 0) {
+                        h = 2; // Reset for demo purposes
+                    }
+                }
+            }
+
+            countdownElements[0].innerText = h.toString().padStart(2, '0');
+            countdownElements[1].innerText = m.toString().padStart(2, '0');
+            countdownElements[2].innerText = s.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+
+        // Simple cart interaction feedback
+        const addButtons = document.querySelectorAll('button');
+        addButtons.forEach(btn => {
+            if(btn.innerText.includes('Tambah')) {
+                btn.addEventListener('click', () => {
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" data-icon="check_circle">check_circle</span> Berhasil';
+                    btn.classList.replace('bg-primary', 'bg-success-green');
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.classList.replace('bg-success-green', 'bg-primary');
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+
+
+</body></html>
