@@ -14,6 +14,7 @@
         ])->values()->all()
         : [['so_detail_id' => null, 'so_detail_id_jasa' => '', 'so_detail_id_product' => '', 'so_detail_qty' => 1, 'so_detail_harga' => '', 'so_detail_keterangan' => '']];
     }
+    $existingPetugas = old('petugas', $isEdit ? $model->petugas->pluck('id')->map(fn ($id) => (string) $id)->all() : []);
 @endphp
 
 <x-layouts::app>
@@ -46,8 +47,30 @@
             @enderror
         </x-card>
 
+        <x-card label="Petugas / Teknisi" icon="engineering" class="mt-5" :noGrid="true">
+            <livewire:so-petugas :options="$userOptions" :selected="$existingPetugas" />
+            @error('petugas')
+                <p class="font-label-caps text-label-caps text-error mt-2">{{ $message }}</p>
+            @enderror
+        </x-card>
+
         <x-action :model="$model" :action="['save']">
             @if($isEdit)
+                <a href="{{ moduleRoute('getPenawaran', $model->so_id) }}" target="_blank"
+                    class="inline-flex items-center justify-center gap-2 h-10 px-4 md:px-5 text-sm font-semibold rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-all">
+                    <span class="material-symbols-outlined text-xl">request_quote</span>
+                    <span class="hidden sm:inline">Penawaran</span>
+                </a>
+                <a href="{{ moduleRoute('getSuratTugas', $model->so_id) }}" target="_blank"
+                    class="inline-flex items-center justify-center gap-2 h-10 px-4 md:px-5 text-sm font-semibold rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-all">
+                    <span class="material-symbols-outlined text-xl">assignment_ind</span>
+                    <span class="hidden sm:inline">Surat Tugas</span>
+                </a>
+                <a href="{{ moduleRoute('getKajiUlang', $model->so_id) }}"
+                    class="inline-flex items-center justify-center gap-2 h-10 px-4 md:px-5 text-sm font-semibold rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-all">
+                    <span class="material-symbols-outlined text-xl">fact_check</span>
+                    <span class="hidden sm:inline">Kaji Ulang</span>
+                </a>
                 <a href="{{ moduleRoute('getPrint', $model->so_id) }}" target="_blank"
                     class="inline-flex items-center justify-center gap-2 h-10 px-4 md:px-5 text-sm font-semibold rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container transition-all">
                     <span class="material-symbols-outlined text-xl">print</span>

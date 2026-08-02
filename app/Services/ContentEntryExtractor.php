@@ -93,6 +93,19 @@ class ContentEntryExtractor
             return $result;
         }
 
+        // Handle case where the section has a container field not at index 0
+        // and meta stores the items as a plain list (flat format from the CMS form)
+        if (isset($sectionData[0]) && is_array($sectionData)) {
+            foreach ($fields as $fieldSchema) {
+                if (($fieldSchema['type'] ?? '') === 'container') {
+                    $result[$fieldSchema['name']] = array_map(function ($item) use ($fieldSchema) {
+                        return self::extractContainerItem($item, $fieldSchema['fields'] ?? []);
+                    }, $sectionData);
+                    return $result;
+                }
+            }
+        }
+
         foreach ($fields as $fieldSchema) {
             $fieldName = $fieldSchema['name'];
             $fieldType = $fieldSchema['type'];

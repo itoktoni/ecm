@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Schema\Blueprint;
-use Orbit\Concerns\Orbital;
 
 class Content extends BaseModel
 {
-    use Orbital;
+    protected $table = 'contents';
 
     protected $fillable = [
         "content_type_id",
@@ -48,30 +46,6 @@ class Content extends BaseModel
         return "title";
     }
 
-    public static function schema(Blueprint $table): void
-    {
-        $table->id();
-        $table->unsignedBigInteger('content_type_id')->nullable();
-        $table->string('title');
-        $table->string('slug')->nullable();
-        $table->longText('content')->nullable();
-        $table->text('excerpt')->nullable();
-        $table->string('status')->default('draft');
-        $table->timestamp('published_at')->nullable();
-        $table->unsignedBigInteger('author_id')->nullable();
-        $table->string('featured_image')->nullable();
-        $table->integer('menu_order')->default(0);
-        $table->json('meta')->nullable();
-        $table->json('active_sections')->nullable();
-        $table->json('category_ids')->nullable();
-        $table->json('tag_ids')->nullable();
-    }
-
-    public static function getOrbitalDriver(): string
-    {
-        return 'json';
-    }
-
     public function type(): BelongsTo
     {
         return $this->belongsTo(Type::class, "content_type_id");
@@ -98,6 +72,8 @@ class Content extends BaseModel
             'featured_image' => ['nullable', 'string', 'max:255'],
             'menu_order' => ['nullable', 'integer'],
             'meta' => ['nullable', 'array'],
+            'active_sections' => ['nullable', 'array'],
+            'active_sections.*' => ['integer'],
         ];
     }
 

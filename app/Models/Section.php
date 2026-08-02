@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Schema\Blueprint;
-use Orbit\Concerns\Orbital;
 
 class Section extends BaseModel
 {
-    use Orbital;
+    protected $table = 'sections';
 
     protected static function booted(): void
     {
@@ -38,23 +36,6 @@ class Section extends BaseModel
     public static function field_name(): string
     {
         return "name";
-    }
-
-    public static function schema(Blueprint $table): void
-    {
-        $table->id();
-        $table->string('name');
-        $table->text('description')->nullable();
-        $table->string('icon')->nullable();
-        $table->unsignedBigInteger('content_type_id')->nullable();
-        $table->json('field_ids')->nullable();
-        $table->integer('sort_order')->default(0);
-        $table->boolean('is_active')->default(true);
-    }
-
-    public static function getOrbitalDriver(): string
-    {
-        return 'json';
     }
 
     public function type(): BelongsTo

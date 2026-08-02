@@ -1,0 +1,350 @@
+<!DOCTYPE html><html class="light" lang="id"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sertifikat Kalibrasi - RSD Madani - Ventilator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:wght@700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#1e3a8a",
+                    "tertiary-container": "#3c4144",
+                    "tertiary": "#262b2e",
+                    "on-secondary-fixed": "#0b1c30",
+                    "primary": "#00236f",
+                    "surface-variant": "#dae2fd",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#171c1f",
+                    "on-secondary-container": "#54647a",
+                    "inverse-on-surface": "#eef0ff",
+                    "surface-container-high": "#e2e7ff",
+                    "on-surface": "#131b2e",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#444651",
+                    "on-tertiary-fixed-variant": "#43474b",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#dce1ff",
+                    "secondary-fixed": "#d3e4fe",
+                    "on-background": "#131b2e",
+                    "primary-fixed-dim": "#b6c4ff",
+                    "on-primary-fixed": "#00164e",
+                    "outline": "#757682",
+                    "surface-container": "#eaedff",
+                    "on-tertiary-container": "#a8adb1",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "on-primary-container": "#90a8ff",
+                    "surface-dim": "#d2d9f4",
+                    "on-primary-fixed-variant": "#264191",
+                    "secondary-container": "#d0e1fb",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#b6c4ff",
+                    "surface-tint": "#4059aa",
+                    "surface": "#faf8ff",
+                    "surface-bright": "#faf8ff",
+                    "tertiary-fixed": "#dfe3e7",
+                    "background": "#faf8ff",
+                    "tertiary-fixed-dim": "#c3c7cb",
+                    "surface-container-highest": "#dae2fd",
+                    "surface-container-low": "#f2f3ff",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "secondary": "#505f76",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#283044",
+                    "outline-variant": "#c5c5d3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "page-margin-top": "20mm",
+                    "table-cell-padding": "8px",
+                    "section-gap": "24px",
+                    "row-height": "32px",
+                    "page-margin-bottom": "20mm",
+                    "page-margin-sides": "15mm"
+            },
+            "fontFamily": {
+                    "certificate-title": ["\"Source Serif 4\""],
+                    "data-value": ["Inter"],
+                    "footer-text": ["Inter"],
+                    "data-label-en": ["Inter"],
+                    "data-label-id": ["Inter"],
+                    "section-heading": ["Inter"]
+            },
+            "fontSize": {
+                    "certificate-title": ["24pt", {"lineHeight": "32pt", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "data-value": ["9pt", {"lineHeight": "12pt", "fontWeight": "500"}],
+                    "footer-text": ["7pt", {"lineHeight": "10pt", "fontWeight": "400"}],
+                    "data-label-en": ["7pt", {"lineHeight": "9pt", "fontWeight": "400"}],
+                    "data-label-id": ["8pt", {"lineHeight": "10pt", "fontWeight": "600"}],
+                    "section-heading": ["10pt", {"lineHeight": "14pt", "letterSpacing": "0.05em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        @media print {
+            body { background: white; }
+            .no-print { display: none; }
+            .page-break { page-break-after: always; }
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+        }
+
+        .a4-container {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm 15mm;
+            margin: auto;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        @media print {
+            .a4-container {
+                box-shadow: none;
+                margin: 0;
+            }
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.035;
+            width: 70%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .data-field {
+            display: flex;
+            border-bottom: 0.5px solid #e2e8f0;
+            padding: 4px 0;
+            align-items: flex-start;
+        }
+
+        .label-group {
+            width: 40%;
+            flex-shrink: 0;
+        }
+
+        .value-text {
+            width: 60%;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-low font-data-value text-on-surface antialiased">
+<!-- Top Action Bar (Non-Printable) -->
+
+<!-- Main Certificate Canvas -->
+<main class="pt-24 pb-12 print:pt-0">
+<div class="a4-container bg-surface-container-lowest border-[1pt] border-primary relative overflow-hidden">
+<!-- Watermark -->
+<div class="watermark flex items-center justify-center">
+<span class="material-symbols-outlined text-[300px] text-primary">analytics</span>
+</div>
+<!-- Content Container -->
+<div class="relative z-10 flex flex-col h-full">
+<!-- 1. Header Section -->
+<header class="flex justify-between items-start mb-8">
+<div class="w-24 h-24 bg-surface-container-low flex items-center justify-center border border-outline-variant">
+<!-- Logo Placeholder -->
+<img class="w-full h-full object-contain p-2" data-alt="A professional, minimalist logo for a medical calibration laboratory. The logo features a stylized blue caduceus combined with a precision gauge needle. The aesthetic is clean, corporate, and trustworthy, using a deep navy blue and white color scheme suitable for high-end industrial certification documentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJZDNGtJi9KL9cTAZi3jWp8k1kABXpDhnhIhckclWL2mnB7GxR_Cnbrf-2uM408q1CR-4ucrt0XS9kdFQOP_kySgErkxsSH_VWl9VFFFFNKxgVHiu7U24bx8bRpeBaeN45uEOy6nLtgosR-rMwBOXswPlQ-dl9S6EHM7F_1v-0pVnTBMdaeGev7R4diZiARkkwT9lCrqT2ts1AInQu3xgJ3Iilz6bVvmx-3LnDRhm-8x6T7oyrqDqO">
+</div>
+<div class="text-right flex-1 pl-8">
+<h2 class="font-certificate-title text-certificate-title text-primary uppercase">Sertifikat Kalibrasi</h2>
+<h3 class="font-section-heading text-secondary italic opacity-75">Certificate of Calibration</h3>
+<div class="mt-4 text-on-surface">
+<p class="font-data-label-id">No. Sertifikat / <span class="font-data-label-en italic">Certificate Number</span></p>
+<p class="font-section-heading text-lg tracking-wider text-primary">2059775/Sert-VEN/ECM/V/2026</p>
+</div>
+</div>
+</header>
+<!-- 2. Info Grid Section -->
+<section class="grid grid-cols-2 gap-x-12 gap-y-2 mb-8">
+<!-- Left Column -->
+<div class="space-y-3">
+<div class="data-field">
+<div class="label-group">
+<p class="font-data-label-id">No. Pesanan</p>
+<p class="font-data-label-en italic text-on-secondary-container">Order Number</p>
+</div>
+<p class="value-text font-data-value text-primary">: ECM-05.26-05</p>
+</div>
+<div class="data-field">
+<div class="label-group">
+<p class="font-data-label-id">Pemilik</p>
+<p class="font-data-label-en italic text-on-secondary-container">Owner</p>
+</div>
+<p class="value-text font-data-value text-primary">: RSD Madani</p>
+</div>
+<div class="data-field">
+<div class="label-group">
+<p class="font-data-label-id">Alamat</p>
+<p class="font-data-label-en italic text-on-secondary-container">Address</p>
+</div>
+<p class="value-text font-data-value text-on-surface-variant">: Jl. Garuda Sakti No.KM.2, Simpang Baru, Kec. Tampan, Kota Pekanbaru</p>
+</div>
+<div class="data-field">
+<div class="label-group">
+<p class="font-data-label-id">Lokasi / Ruang</p>
+<p class="font-data-label-en italic text-on-secondary-container">Location</p>
+</div>
+<p class="value-text font-data-value text-primary">: ICU</p>
+</div>
+</div>
+<!-- Right Column -->
+<div class="space-y-3">
+<div class="data-field">
+<div class="label-group">
+<p class="font-data-label-id">Nama Alat</p>
+<p class="font-data-label-en italic text-on-secondary-container">Equipment</p>
+</div>
+<p class="value-text font-data-value text-primary">: Ventilator</p>
+</div>
+<div class="data-field">
+<div class="label-group">
+<p class="font-data-label-id">Merek / Model</p>
+<p class="font-data-label-en italic text-on-secondary-container">Brand / Model</p>
+</div>
+<p class="value-text font-data-value text-primary">: Air Liquide / Monnal T75</p>
+</div>
+<div class="data-field">
+<div class="label-group">
+<p class="font-data-label-id">Nomor Seri</p>
+<p class="font-data-label-en italic text-on-secondary-container">Serial Number</p>
+</div>
+<p class="value-text font-data-value text-primary">: MT75-10395</p>
+</div>
+<div class="data-field">
+<div class="label-group">
+<p class="font-data-label-id">Tanggal Kalibrasi</p>
+<p class="font-data-label-en italic text-on-secondary-container">Calibration Date</p>
+</div>
+<p class="value-text font-data-value text-primary">: 19 Mei 2026</p>
+</div>
+</div>
+</section>
+<!-- 3. Environmental Bar -->
+<div class="bg-surface-container flex justify-between px-6 py-3 border border-outline-variant mb-8">
+<div class="text-center">
+<p class="font-data-label-id uppercase text-[6pt]">Suhu / <span class="italic">Temperature</span></p>
+<p class="font-data-value text-primary">24.5 ± 0.5 °C</p>
+</div>
+<div class="border-l border-outline-variant"></div>
+<div class="text-center">
+<p class="font-data-label-id uppercase text-[6pt]">Kelembaban / <span class="italic">Humidity</span></p>
+<p class="font-data-value text-primary">55.0 ± 2.0 %RH</p>
+</div>
+<div class="border-l border-outline-variant"></div>
+<div class="text-center">
+<p class="font-data-label-id uppercase text-[6pt]">Tekanan Udara / <span class="italic">Pressure</span></p>
+<p class="font-data-value text-primary">1013.2 ± 1.2 hPa</p>
+</div>
+</div>
+<!-- 4. Remark Section -->
+<section class="mb-6">
+<h4 class="font-section-heading border-b border-primary mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14pt]">info</span>
+                        KETERANGAN / <span class="italic font-normal">REMARK</span>
+</h4>
+<div class="p-3 bg-surface-container-lowest border border-outline-variant rounded">
+<p class="font-footer-text text-justify leading-relaxed text-on-surface-variant">
+                            Ketidakpastian diperluas dinyatakan sebagai ketidakpastian standar pengukuran dikalikan dengan faktor cakupan k = 2, yang untuk distribusi normal berhubungan dengan tingkat kepercayaan sekitar 95%. Estimasi ketidakpastian dilakukan sesuai dengan JCGM 100:2008 (GUM 1995 dengan revisi minor).
+                        </p>
+<p class="font-footer-text italic text-justify mt-1 text-on-secondary-container">
+                            The expanded uncertainty is stated as the standard uncertainty of measurement multiplied by the coverage factor k = 2, which for a normal distribution corresponds to a coverage probability of approximately 95%. The uncertainty evaluation has been carried out in accordance with JCGM 100:2008.
+                        </p>
+</div>
+</section>
+<!-- 5. Conclusion Section -->
+<section class="mb-12">
+<h4 class="font-section-heading border-b border-primary mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14pt]">task_alt</span>
+                        KESIMPULAN / <span class="italic font-normal">CONCLUSION</span>
+</h4>
+<div class="flex items-center gap-6 p-4 border-2 border-primary bg-primary-fixed">
+<div class="bg-primary text-on-primary px-6 py-2 font-bold text-lg tracking-widest rounded shadow-sm">
+                            LAIK PAKAI
+                        </div>
+<div>
+<p class="font-data-label-id text-primary">Berdasarkan Peraturan Menteri Kesehatan RI No. 54 Tahun 2015</p>
+<p class="font-data-label-en italic text-on-secondary-container">Based on Ministry of Health Regulation No. 54 of 2015, the equipment is deemed FIT FOR USE.</p>
+</div>
+</div>
+</section>
+<!-- Spacer -->
+<div class="flex-grow"></div>
+<!-- 6. Footer/Signature Section -->
+<footer class="grid grid-cols-3 gap-8 mt-auto border-t border-outline-variant pt-6 pb-2">
+<div class="col-span-1">
+<p class="font-footer-text font-bold mb-1">Calibration Laboratory Services</p>
+<p class="font-footer-text text-on-secondary-container">
+                            Jl. Veteran No. 15, Payakumbuh<br>
+                            Sumatera Barat, Indonesia 26211<br>
+                            T: (0752) 123456 | E: lab@calibserv.id
+                        </p>
+</div>
+<div class="col-span-1 flex flex-col items-center justify-center">
+<!-- QR Code Placeholder for authenticity -->
+<div class="w-20 h-20 bg-surface-container p-1 border border-outline">
+<img class="w-full h-full" data-alt="A clean, high-contrast QR code generated on a white background, representing a digital signature verification for a medical document. The QR code is surrounded by subtle light-blue tech accents to signify secure blockchain verification in a professional corporate laboratory setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNuh40SiuIEIwwQRZ4bpXIS5qiLAjPvfZr8jJDSheUZo72MUkjRiD0WqOCVRmIH0MCgotC9qFCNZQMr8m4Cem9O5MZyvKQQQqFW41Hh23X4Mv0JYeJWYMqrhb8au4gV3YEaO6Xy6buSCivxBqwXFqTUVepGODpuJO4B4pgKqm_rbO1iUu1J-G5oGplehhF37vxhlO80IIhmQbxGdceIkbwdWi9E1aOh6smFZLc8RpKx8fo6mEfU8sf">
+</div>
+<p class="font-footer-text mt-2 text-[6pt] opacity-50 uppercase">Scan to Verify Authenticity</p>
+</div>
+<div class="col-span-1 text-center">
+<p class="font-data-label-id">Diterbitkan pada / <span class="font-data-label-en italic">Issued on:</span></p>
+<p class="font-data-value mb-4">19 Mei 2026</p>
+<div class="h-16 flex items-center justify-center">
+<!-- Digital Signature Placeholder -->
+<img class="h-full object-contain" data-alt="A scanned, elegant handwritten digital signature of a technical manager in dark blue ink. The signature is clean, professional, and placed on a transparent background with an official red circular lab stamp overlapping slightly on the bottom right to signify document approval." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9OUPZQYT3ma9NtP2_chPxM4tS8QHLZh34j2Nv7Ml0y9K_dy-0Yh6GwUaitv5aXocV2_DwaL_mOT-hE9HAWWZMJdzpGDSe9fyXs8hEP9MiYUXWRsgG2VeEoXWQrV6zdR0QB6cj1s8kNkt4yPJ5TE5-t7m10FFHP1DHLzaoFcWSaOIMa90j1EBNKvWpYvLL0Mx1uUAKYscANlDYHAqdnkeuZIyxa7VtHizd6U4aIYPvvbfqgGaGqGIs">
+</div>
+<div class="mt-2 border-t border-on-surface w-3/4 mx-auto pt-1">
+<p class="font-data-label-id text-on-surface">Haris Maulana Yunefi, M.Si</p>
+<p class="font-data-label-en italic text-on-secondary-container">Technical Manager</p>
+</div>
+</div>
+</footer>
+<!-- Final Legal Disclaimer -->
+<div class="mt-4 text-center">
+<p class="text-[6pt] font-footer-text text-on-secondary-container uppercase tracking-tight">
+                        © 2024 Calibration Laboratory Services. All rights reserved. This certificate may not be reproduced except in full.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Shared Component Logic) - Suppressed because this is a Document Canvas -->
+<script>
+        // Micro-interaction for hover effects on action buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+        });
+
+        // Autodetect dark mode but force light for document printing
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            // Optional: User can toggle, but certificate context demands light-mode for A4 printing
+        }
+    </script>
+
+
+</body></html>

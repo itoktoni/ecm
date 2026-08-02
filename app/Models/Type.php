@@ -3,13 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Str;
-use Orbit\Concerns\Orbital;
 
 class Type extends BaseModel
 {
-    use Orbital;
+    protected $table = 'types';
 
     protected $fillable = [
         "name",
@@ -38,24 +36,6 @@ class Type extends BaseModel
     public static function field_name(): string
     {
         return "name";
-    }
-
-    public static function schema(Blueprint $table): void
-    {
-        $table->id();
-        $table->string('name');
-        $table->string('slug')->nullable();
-        $table->string('type')->default('custom');
-        $table->text('description')->nullable();
-        $table->json('supports')->nullable();
-        $table->boolean('is_active')->default(true);
-        $table->integer('menu_position')->nullable();
-        $table->string('menu_icon')->nullable();
-    }
-
-    public static function getOrbitalDriver(): string
-    {
-        return 'json';
     }
 
     public function contents(): HasMany

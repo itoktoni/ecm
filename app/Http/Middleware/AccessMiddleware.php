@@ -35,10 +35,10 @@ class AccessMiddleware
         $routeName = $request->route()->getName();
 
         // Route-based access control
-        // Editors can only access content-entry routes
+        // Editors can only access content routes
         // Admins and developers have full access
         if ($this->isBlueprintRoute($routeName)) {
-            // Blueprint routes: content-type, custom-field, field-group
+            // Blueprint routes: cms-type, field, section
             if (in_array($user->role, ["user", "editor"])) {
                 abort(403, "Unauthorized action. Admin access required for blueprint management.");
             }

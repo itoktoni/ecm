@@ -2,6 +2,8 @@
 
 @php
     $menu = config('menu.sidebar');
+    $allRoutes = collect($menu)->flatMap(fn ($s) => collect($s['items'])->pluck('route'));
+    $prefixCounts = $allRoutes->map(fn ($r) => \Illuminate\Support\Str::beforeLast($r, '.'))->countBy();
 @endphp
 
 @foreach($menu as $section)
@@ -13,7 +15,11 @@
             $routeName = $item['route'];
             $url = route($routeName);
             $routePrefix = Str::beforeLast($routeName, '.');
-            $isActive = request()->routeIs($routeName) || request()->routeIs($routePrefix . '.*');
+            // Prefix match only when this prefix belongs to a single menu item,
+            // otherwise siblings (e.g. settings.company & settings.env) both light up.
+            $isActive = request()->routeIs($routeName)
+                || request()->routeIs($routeName . '.*')
+                || (($prefixCounts[$routePrefix] ?? 0) === 1 && request()->routeIs($routePrefix . '.*'));
         @endphp
         <a
             href="{{ $url }}"

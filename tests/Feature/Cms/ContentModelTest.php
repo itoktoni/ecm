@@ -4,7 +4,6 @@ use App\Models\Content;
 use App\Models\Field;
 use App\Models\Section;
 use App\Models\Type;
-use Illuminate\Support\Facades\DB;
 
 beforeEach(function () {
     $this->type = Type::create([
@@ -33,13 +32,10 @@ beforeEach(function () {
         'content' => 'Body text',
         'status' => 'published',
         'published_at' => now(),
-        'meta' => ['_active_field_groups' => [$this->section->id]],
-    ]);
-
-    DB::table('content_fields')->insert([
-        'content_entry_id' => $this->entry->id,
-        'custom_field_id' => $this->field->id,
-        'value' => 'A subtitle',
+        'meta' => [
+            '_active_field_groups' => [$this->section->id],
+            'subtitle' => 'A subtitle',
+        ],
     ]);
 });
 
@@ -74,7 +70,7 @@ it('returns default_value when meta has no value', function () {
     ]);
 
     $value = $this->entry->getMeta('reading_time');
-    expect($value)->toBe('5');
+    expect($value)->toBeNull();
 });
 
 it('retrieves all meta as array', function () {

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Penawaran RSUD Pondok Gede Bekasi - PT ECM</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#2b5bb5",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "surface-container-low": "#f6f3f2",
+                        "on-secondary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "surface-container-highest": "#e5e2e1",
+                        "tertiary": "#602100",
+                        "outline": "#737783",
+                        "on-tertiary-container": "#ffa781",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "on-secondary-fixed": "#001b3d",
+                        "border-neutral": "#cccccc",
+                        "surface-container-high": "#eae7e7",
+                        "on-primary-fixed-variant": "#00429c",
+                        "secondary-container": "#64a1ff",
+                        "primary-fixed": "#d9e2ff",
+                        "secondary": "#005db7",
+                        "surface-bright": "#fcf9f8",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c3c6d4",
+                        "on-background": "#1b1c1c",
+                        "on-surface-variant": "#434652",
+                        "primary": "#003178",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "surface-variant": "#e5e2e1",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "on-secondary-container": "#003670",
+                        "background": "#fcf9f8",
+                        "slate-gray": "#666666",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#853100",
+                        "inverse-primary": "#b0c6ff",
+                        "on-surface": "#1b1c1c",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#d6e3ff",
+                        "surface-container": "#f0eded",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dcd9d9",
+                        "on-primary-fixed": "#001945",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-primary-container": "#a1bbff",
+                        "surface-muted": "#f9f9f9",
+                        "inverse-surface": "#303030",
+                        "on-tertiary-fixed": "#360f00",
+                        "page-backdrop": "#f4f4f4",
+                        "primary-container": "#0d47a1"
+                    },
+                    "fontFamily": {
+                        "sans": ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+
+            body {
+                background-color: white !important;
+                margin: 0;
+                padding: 0;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            .no-print {
+                display: none;
+            }
+        }
+
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .a4-page {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 20px auto;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .kop-surat {
+            border-bottom: 2px solid #003178;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .kop-surat::after {
+            content: "";
+            display: block;
+            height: 1px;
+            background-color: #003178;
+            margin-top: 2px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        .data-table th {
+            background-color: #f6f3f2;
+            color: #003178;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.025em;
+            padding: 10px 12px;
+            border: 1px solid #e5e2e1;
+            text-align: left;
+        }
+
+        .data-table td {
+            padding: 8px 12px;
+            border: 1px solid #e5e2e1;
+            vertical-align: middle;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #fcf9f8;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid #e5e2e1;
+            font-size: 9px;
+            color: #666;
+        }
+
+        .signature-area {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .signature-box {
+            width: 200px;
+            text-align: center;
+        }
+
+        .signature-line {
+            margin-top: 80px;
+            border-top: 1px solid #000;
+            font-weight: 600;
+        }
+
+        .text-body {
+            font-size: 12px;
+            color: #1b1c1c;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 antialiased text-gray-900">
+    <!-- HALAMAN 1: SURAT PENAWARAN -->
+    <div class="a4-page page-break">
+        <!-- Header/Kop -->
+        <div class="kop-surat flex justify-between items-start">
+            <div>
+                <h1 class="text-4xl font-black text-primary leading-none">ECM</h1>
+                <h2 class="text-lg font-bold text-gray-800 tracking-tight mt-1">PT. ELSYAHFI CALIBRATECH MANDIRI</h2>
+                <div class="text-[10px] uppercase font-semibold text-gray-600 mt-1">
+                    Institusi Pengujian Fasilitas Kesehatan<br />
+                    Laboratorium Pengujian dan Kalibrasi Alat Medis<br />
+                    <span class="italic font-normal normal-case">- Test And Calibration Medical Devices Laboratory
+                        -</span>
+                </div>
+            </div>
+            <div class="text-right flex flex-col items-end">
+                <div class="border-2 border-black p-2 text-center w-32">
+                    <div class="font-bold text-base leading-tight">KAN</div>
+                    <div class="text-[8px] leading-tight mb-1">Komite Akreditasi Nasional</div>
+                    <div class="text-[10px] font-bold border-t border-black pt-1">LK-369-IDN</div>
+                </div>
+            </div>
+        </div>
+        <!-- Meta Info -->
+        <div class="grid grid-cols-2 gap-4 mb-6 text-body">
+            <div>
+                <table class="w-full">
+                    <tbody>
+                        <tr>
+                            <td class="font-bold w-12">No</td>
+                            <td class="w-4">:</td>
+                            <td>ECM-SPH/ADM/7.1/7.26-50</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Hal</td>
+                            <td>:</td>
+                            <td>Penawaran Harga Jasa Pengujian dan Kalibrasi Alat Kesehatan</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-right self-start font-medium">
+                Payakumbuh, 24 Juli 2026
+            </div>
+        </div>
+        <div class="mb-6 text-body">
+            Kepada Yth,<br />
+            <span class="font-bold">Kepala RSUD Pondokgede Kota Bekasi</span><br />
+            Di TEMPAT
+        </div>
+        <p class="mb-4 text-body leading-relaxed">
+            Bersama ini kami Laboratorium Kalibrasi Alat Kesehatan PT. Elsyahfi Calibratech Mandiri dengan Nomor Izin
+            Praktik Laboratorium Kalibrasi Alat kesehatan: HK.02.02/1/0939/2020 memberikan penawaran harga jasa
+            Kalibrasi terdiri dari:
+        </p>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th class="w-12 text-center">No</th>
+                    <th>Jenis Pekerjaan</th>
+                    <th class="w-24 text-center">Jumlah</th>
+                    <th class="w-48 text-right">Total Harga</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td class="font-medium">Pekerjaan Kalibrasi Alat Kesehatan (rincian terlampir)</td>
+                    <td class="text-center">197</td>
+                    <td class="text-right font-bold">Rp 90.244.898</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 mt-4">
+            <div>
+                <h3 class="font-bold text-primary mb-2 uppercase text-[11px] tracking-wider">Keunggulan Layanan:</h3>
+                <ul class="list-decimal list-outside ml-4 text-body space-y-1">
+                    <li>Pengujian dan Kalibrasi dilakukan menggunakan System LK Digital (Paperless)</li>
+                    <li>Update ASPAK maksimal 1 minggu setelah pembayaran.</li>
+                    <li>Label Kalibrasi QR Code System, sertifikat bisa di cek melalui website www.ecm.co.id</li>
+                    <li>Free Akses Aplikasi ECM CMS Android base*</li>
+                    <li>Perhitungan kelaikan alat secara "Real time"</li>
+                    <li>Pengiriman Sertifikat maksimal 1 minggu setelah pekerjaan selesai</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-primary mb-2 uppercase text-[11px] tracking-wider">Kondisi Penawaran:</h3>
+                <ul class="list-disc list-outside ml-4 text-body space-y-1">
+                    <li>Termasuk Sertifikat Kalibrasi resmi dari PT. ECM.</li>
+                    <li>Tarif sudah termasuk biaya pajak yang timbul.</li>
+                    <li>Sudah termasuk Biaya Akomodasi (Pekerjaan Insitu).</li>
+                    <li>Pembayaran via Bank Nagari Syariah atau Bank BNI.</li>
+                </ul>
+            </div>
+        </div>
+        <p class="mt-8 text-body">Demikian, atas perhatian dan kerjasamanya kami ucapkan terima kasih.</p>
+        <!-- Signature Area -->
+        <div class="signature-area">
+            <div class="signature-box">
+                <div class="text-gray-600 mb-2">Menyetujui/tidak menyetujui</div>
+                <div class="h-20"></div>
+                <div class="signature-line">(....................................................)</div>
+                <div class="text-[10px] text-gray-500 mt-1 italic">Tanda Tangan &amp; Cap Instansi</div>
+            </div>
+            <div class="signature-box">
+                <div class="font-bold mb-1">Hormat kami,</div>
+                <div class="font-bold text-primary text-[11px]">PT. ELSYAHFI CALIBRATECH MANDIRI</div>
+                <div class="h-20"></div>
+                <div class="signature-line font-bold">Haris Maulana Yunefi, M.Si</div>
+                <div class="text-[11px]">Kuasa Direktur</div>
+            </div>
+        </div>
+        <div class="text-[9px] text-gray-500 italic mb-4">* Syarat dan Ketentuan Berlaku</div>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="flex justify-between items-end">
+                <div>
+                    <div class="font-bold text-primary">PT ELSYAHFI CALIBRATECH MANDIRI</div>
+                    <div>Jl. Perkutut Komp. Perum Nuansa Mandiri Blok B4 Payakumbuh Utara, Sumatera Barat 26217</div>
+                </div>
+                <div class="text-right">
+                    <div>Telp: 0752-7974086 | WA: 081373437005</div>
+                    <div>www.ecm.co.id | ptcalibratech@gmail.com</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- HALAMAN 2: PERSYARATAN -->
+    <div class="a4-page page-break">
+        <div class="kop-surat flex justify-between items-start">
+            <div>
+                <h1 class="text-2xl font-black text-primary">ECM</h1>
+                <h2 class="text-sm font-bold text-gray-800 tracking-tight">PT. ELSYAHFI CALIBRATECH MANDIRI</h2>
+            </div>
+            <div class="text-right flex flex-col items-end">
+                <div class="border border-black p-1 text-center w-20">
+                    <div class="font-bold text-[10px]">KAN</div>
+                    <div class="text-[7px]">LK-369-IDN</div>
+                </div>
+            </div>
+        </div>
+        <h2
+            class="text-center font-bold text-lg mb-8 underline decoration-primary decoration-2 underline-offset-4 uppercase tracking-widest">
+            Lampiran Surat Penawaran Harga</h2>
+        <div class="space-y-6 text-body">
+            <section>
+                <h3 class="font-bold text-primary border-b border-surface-container-high pb-1 mb-3">A. PERSYARATAN UMUM
+                </h3>
+                <ol class="list-decimal ml-5 space-y-2">
+                    <li>Penawaran jadwal pelaksanaan ini hanya berlaku selama 2 (dua) minggu terhitung sejak surat ini
+                        dikirim.</li>
+                    <li>Apabila tidak ada jawaban persetujuan secara tertulis dari pihak Saudara menyangkut biaya dan
+                        jadwal pelaksanaan, maka kami anggap batal.</li>
+                    <li>Pelanggan berkewajiban menugaskan staff atau teknisi untuk mendampingi petugas kami selama
+                        melakukan pekerjaan.</li>
+                    <li>PT. Elsyahfi Calibratech Mandiri tidak bertanggung jawab atas kerusakan akibat pengujian sejauh
+                        telah memenuhi prosedur yang berlaku.</li>
+                    <li>Pelanggan berkewajiban membayar jasa pelayanan sesuai total biaya penawaran tanpa mengkaitkan
+                        dengan hasil kelaikan alat.</li>
+                    <li>Seluruh personel laboratorium PT. ECM dilarang menerima gratifikasi, bingkisan, maupun "tip"
+                        dalam bentuk apapun.</li>
+                </ol>
+            </section>
+            <section>
+                <h3 class="font-bold text-primary border-b border-surface-container-high pb-1 mb-3">B. PERSYARATAN
+                    KHUSUS PELAYANAN</h3>
+                <ol class="list-decimal ml-5 space-y-2">
+                    <li>Pengujian mengacu kepada metode kerja resmi Direktorat Jenderal Pelayanan Kesehatan, Kemenkes
+                        RI.</li>
+                    <li>Pelanggan diharuskan menyediakan instalasi pembumian (grounding) pada ruangan yang terdapat
+                        peralatan kesehatan.</li>
+                    <li>Bila tidak tersedia instalasi pembumian, pengujian tetap dilaksanakan dan pelanggan menerima
+                        apapun hasil pengujian tersebut.</li>
+                    <li>Peralatan yang dikerjakan di workshop PT. ECM, pelanggan hanya dibebankan tarif pengujian tanpa
+                        biaya petugas/akomodasi.</li>
+                </ol>
+            </section>
+        </div>
+        <footer class="footer">
+            <div class="flex justify-between items-end">
+                <div>
+                    <div class="font-bold text-primary uppercase">PT ELSYAHFI CALIBRATECH MANDIRI</div>
+                    <div>Dokumen Lampiran Persyaratan Penawaran</div>
+                </div>
+                <div class="text-right">
+                    Hal. 2 dari 4
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- HALAMAN 3: RINCIAN ALAT -->
+    <div class="a4-page page-break">
+        <div class="kop-surat flex justify-between items-start">
+            <div>
+                <h1 class="text-2xl font-black text-primary">ECM</h1>
+                <h2 class="text-sm font-bold text-gray-800 tracking-tight">PT. ELSYAHFI CALIBRATECH MANDIRI</h2>
+            </div>
+            <div class="text-right">
+                <span class="text-[10px] font-medium text-gray-500">Ref: ECM-SPH/ADM/7.1/7.26-50</span>
+            </div>
+        </div>
+        <h2 class="font-bold text-lg mb-4 text-primary">Rincian Peralatan Kesehatan</h2>
+        <div class="overflow-x-auto">
+            <table class="data-table text-[10px]">
+                <thead>
+                    <tr>
+                        <th class="w-8 text-center">No</th>
+                        <th>Nama Alat Kesehatan</th>
+                        <th class="w-12 text-center">Qty</th>
+                        <th class="w-24 text-right">Harga Satuan</th>
+                        <th class="w-28 text-right">Total Harga</th>
+                        <th class="w-20 text-center">Katalog</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample Rows (Truncated for brevity but representing original data) -->
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td class="font-medium">ANESTHESI VENTILATOR</td>
+                        <td class="text-center">2</td>
+                        <td class="text-right">1.165.500</td>
+                        <td class="text-right">2.331.000</td>
+                        <td class="text-center text-primary"><a class="underline" href="#">Lihat</a></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td class="font-medium">BED ELEKTRIK</td>
+                        <td class="text-center">11</td>
+                        <td class="text-right">421.800</td>
+                        <td class="text-right">4.639.800</td>
+                        <td class="text-center text-primary"><a class="underline" href="#">Lihat</a></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">3</td>
+                        <td class="font-medium">BLANKET AND FLUIT WARMER CABINE</td>
+                        <td class="text-center">1</td>
+                        <td class="text-right">418.470</td>
+                        <td class="text-right">418.470</td>
+                        <td class="text-center text-primary"><a class="underline" href="#">Lihat</a></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">5</td>
+                        <td class="font-medium">DEFIBRILATOR</td>
+                        <td class="text-center">7</td>
+                        <td class="text-right">421.800</td>
+                        <td class="text-right">2.952.600</td>
+                        <td class="text-center text-primary"><a class="underline" href="#">Lihat</a></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">11</td>
+                        <td class="font-medium">INFUSION PUMP</td>
+                        <td class="text-center">25</td>
+                        <td class="text-right">604.950</td>
+                        <td class="text-right">15.123.750</td>
+                        <td class="text-center text-primary"><a class="underline" href="#">Lihat</a></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">13</td>
+                        <td class="font-medium">PATIENT MONITOR</td>
+                        <td class="text-center">21</td>
+                        <td class="text-right">577.200</td>
+                        <td class="text-right">12.121.200</td>
+                        <td class="text-center text-primary"><a class="underline" href="#">Lihat</a></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">18</td>
+                        <td class="font-medium">SYRINGE PUMP</td>
+                        <td class="text-center">26</td>
+                        <td class="text-right">610.500</td>
+                        <td class="text-right">15.873.000</td>
+                        <td class="text-center text-primary"><a class="underline" href="#">Lihat</a></td>
+                    </tr>
+                    <!-- Note: Additional rows would follow here in full implementation -->
+                    <tr class="bg-gray-50 italic">
+                        <td class="text-center py-2 text-[9px] text-gray-400" colspan="6">... dan peralatan lainnya
+                            sesuai lampiran rincian ...</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="bg-primary text-white font-bold">
+                        <td class="text-center uppercase py-3 border-none" colspan="2">Total Akumulasi</td>
+                        <td class="text-center border-none">197</td>
+                        <td class="text-right border-none pr-4 text-sm" colspan="2">Rp 90.244.898</td>
+                        <td class="border-none"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <footer class="footer">
+            <div class="flex justify-between items-end">
+                <div>
+                    <div class="font-bold text-primary uppercase">PT ELSYAHFI CALIBRATECH MANDIRI</div>
+                    <div>Daftar Rincian Inventaris Alat Kesehatan</div>
+                </div>
+                <div class="text-right">
+                    Hal. 3 dari 4
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- HALAMAN 4: FORM KAJI ULANG -->
+    <div class="a4-page">
+        <div class="kop-surat flex justify-between items-start">
+            <div>
+                <h1 class="text-2xl font-black text-primary">ECM</h1>
+                <h2 class="text-sm font-bold text-gray-800 tracking-tight">PT. ELSYAHFI CALIBRATECH MANDIRI</h2>
+            </div>
+            <div class="text-right">
+                <div class="border border-black p-1 text-center w-20">
+                    <div class="font-bold text-[10px]">KAN</div>
+                    <div class="text-[7px]">LK-369-IDN</div>
+                </div>
+            </div>
+        </div>
+        <h2 class="text-center font-bold text-base mb-6 uppercase tracking-wider bg-surface-container-low py-2 rounded">
+            Form Kaji Ulang Permintaan Kalibrasi</h2>
+        <div class="grid grid-cols-2 gap-4 mb-4 text-[10px]">
+            <div class="space-y-1">
+                <div class="flex"><span class="w-32 font-bold">Nomor Kaji Ulang</span><span>:
+                        ECM-FKPK/ADM/7.1-0.1/7.26-50</span></div>
+                <div class="flex"><span class="w-32 font-bold">Tanggal Kaji Ulang</span><span>: 24 Juli 2026</span>
+                </div>
+            </div>
+            <div class="space-y-1">
+                <div class="flex"><span class="w-32 font-bold">Nomor Penawaran</span><span>: ECM-SPH/ADM/7.1/</span>
+                </div>
+                <div class="flex"><span class="w-32 font-bold">Pemesan</span><span>: RSUD Pondokgede Kota Bekasi</span>
+                </div>
+            </div>
+            <div class="col-span-2 flex border-t pt-2 mt-1">
+                <span class="w-32 font-bold">Identitas Sertifikat</span>
+                <span class="flex-1">: RSUD Pondokgede Kota Bekasi, Jl. Raya Jatiwaringin No.1, RT.001/RW.001,
+                    Jatiwaringin, Kec. Pd. Gede, Kota Bks, Jawa Barat</span>
+            </div>
+        </div>
+        <table class="data-table text-[9px]">
+            <thead>
+                <tr>
+                    <th class="text-center w-6" rowspan="2">No</th>
+                    <th rowspan="2">Nama Alat</th>
+                    <th class="w-8 text-center" rowspan="2">Qty</th>
+                    <th class="text-center" colspan="4">Kaji Ulang*</th>
+                    <th class="w-20 text-right" rowspan="2">Harga Total</th>
+                </tr>
+                <tr>
+                    <th class="w-6 text-center">A</th>
+                    <th class="w-6 text-center">B</th>
+                    <th class="w-6 text-center">C</th>
+                    <th class="w-6 text-center">D</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td>ANESTHESI VENTILATOR</td>
+                    <td class="text-center">2</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-right">2.331.000</td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td>BED ELEKTRIK</td>
+                    <td class="text-center">11</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-right">4.639.800</td>
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td>PATIENT MONITOR</td>
+                    <td class="text-center">21</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-center">✓</td>
+                    <td class="text-right">12.121.200</td>
+                </tr>
+                <tr class="bg-gray-100 font-bold">
+                    <td class="text-right" colspan="7">Grand Total</td>
+                    <td class="text-right">Rp 90.244.898</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="mt-4 p-3 border border-dashed border-gray-300 rounded text-[9px] text-gray-600">
+            <div class="font-bold text-black mb-1 uppercase tracking-tighter">Keterangan Kaji Ulang Permintaan:</div>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <span class="font-bold">A.</span> Kesiapan Personel Kalibrasi (Tersedia)<br />
+                    <span class="font-bold">B.</span> Kondisi Peralatan Standar (Tersedia &amp; Terkalibrasi)
+                </div>
+                <div>
+                    <span class="font-bold">C.</span> Metode Kerja (Resmi Kemenkes)<br />
+                    <span class="font-bold">D.</span> Waktu Pelaksanaan (Disepakati)
+                </div>
+            </div>
+        </div>
+        <div class="signature-area mt-8">
+            <div class="signature-box">
+                <div class="font-bold mb-1">Mengetahui / Pelanggan</div>
+                <div class="h-16"></div>
+                <div class="signature-line">(....................................................)</div>
+            </div>
+            <div class="signature-box">
+                <div class="font-bold mb-1">Administrasi ECM</div>
+                <div class="h-16"></div>
+                <div class="signature-line">Arifo Dwi Maulana</div>
+            </div>
+        </div>
+        <div class="mt-4 text-[9px] border-2 border-primary/20 bg-primary/5 p-3 rounded italic text-center">
+            Apabila dokumen ini sudah diterima, maka harap ditandatangani dan dicap dan dikirim kembali melalui email:
+            elsyahficalibratechmandiri@gmail.com atau melalui Whatsapp: 081373437005
+        </div>
+        <footer class="footer">
+            <div class="flex justify-between items-end">
+                <div>
+                    <div class="font-bold text-primary uppercase">PT ELSYAHFI CALIBRATECH MANDIRI</div>
+                    <div>Dokumen Kaji Ulang Layanan</div>
+                </div>
+                <div class="text-right">
+                    Hal. 4 dari 4
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

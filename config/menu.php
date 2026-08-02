@@ -31,13 +31,9 @@ return [
             'label' => 'CMS',
             'items' => [
                 ['route' => 'cms-type.getTable', 'icon' => 'category', 'label' => 'Types'],
-                // ['route' => 'content-type.getTable', 'icon' => 'article', 'label' => 'Content Types'],
                 ['route' => 'field.getTable', 'icon' => 'account_tree', 'label' => 'Fields'],
-                // ['route' => 'custom-field.getTable', 'icon' => 'text_fields', 'label' => 'Custom Fields'],
-                // ['route' => 'field-group.getTable', 'icon' => 'view_agenda', 'label' => 'Field Groups'],
                 ['route' => 'section.getTable', 'icon' => 'view_module', 'label' => 'Sections'],
                 ['route' => 'content.getTable', 'icon' => 'library_books', 'label' => 'Content'],
-                // ['route' => 'content-entry.getTable', 'icon' => 'edit_note', 'label' => 'Entries'],
                 ['route' => 'category.getTable', 'icon' => 'category', 'label' => 'Categories'],
                 ['route' => 'tag.getTable', 'icon' => 'label', 'label' => 'Tags'],
                 ['route' => 'menu.getTable', 'icon' => 'menu', 'label' => 'Menus'],
@@ -55,11 +51,13 @@ return [
             'label' => 'Sales',
             'items' => [
                 ['route' => 'wms-so.getTable', 'icon' => 'point_of_sale', 'label' => 'Sales Order'],
+                ['route' => 'wms-pekerjaan.getTable', 'icon' => 'engineering', 'label' => 'Pekerjaan Saya'],
             ],
         ],
         [
             'label' => 'Settings',
             'items' => [
+                ['route' => 'settings.company', 'icon' => 'business', 'label' => 'Perusahaan'],
                 ['route' => 'profile.edit', 'icon' => 'person', 'label' => 'My Profile'],
                 ['route' => 'settings.env', 'icon' => 'settings', 'label' => 'Environment'],
             ],

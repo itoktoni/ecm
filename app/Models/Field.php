@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Schema\Blueprint;
-use Orbit\Concerns\Orbital;
 
 class Field extends BaseModel
 {
-    use Orbital;
+    protected $table = 'fields';
 
     protected $fillable = [
         "name", "label", "type", "config", "rules", "is_required",
@@ -63,33 +61,6 @@ class Field extends BaseModel
             'children.*.id' => ['nullable', 'integer'],
             'children.*.children' => ['nullable', 'array'],
         ];
-    }
-
-    public static function schema(Blueprint $table): void
-    {
-        $table->id();
-        $table->string('name');
-        $table->string('label')->nullable();
-        $table->string('type')->nullable();
-        $table->json('config')->nullable();
-        $table->json('rules')->nullable();
-        $table->boolean('is_required')->default(false);
-        $table->text('default_value')->nullable();
-        $table->integer('sort_order')->default(0);
-        $table->unsignedBigInteger('parent_id')->nullable();
-        $table->string('mode')->nullable();
-        $table->integer('min')->nullable();
-        $table->integer('max')->nullable();
-        $table->boolean('collapsed')->nullable();
-        $table->boolean('sortable')->nullable();
-        $table->boolean('cloneable')->nullable();
-        $table->json('layouts')->nullable();
-        $table->unsignedBigInteger('type_id')->nullable();
-    }
-
-    public static function getOrbitalDriver(): string
-    {
-        return 'json';
     }
 
     public function parent(): BelongsTo

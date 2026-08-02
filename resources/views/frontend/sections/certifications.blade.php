@@ -13,10 +13,10 @@
                     <div class="absolute inset-0 gold-shimmer opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <div class="w-24 h-24 mb-6 relative">
                         @if(!empty($card['image']))
-                            <img class="w-full h-full object-contain" data-alt="{{ $card['title'] ?? '' }}" src="{{ $card['image'] }}" />
+                            <img class="w-full h-full object-contain" data-alt="{{ $card['text'] ?? '' }}" src="{{ $card['image'] }}" />
                         @endif
                     </div>
-                    <h3 class="font-headline-md text-headline-md mb-2">{{ $card['title'] ?? '' }}</h3>
+                    <h3 class="font-headline-md text-headline-md mb-2">{{ $card['text'] ?? '' }}</h3>
                     <p class="text-on-surface-variant font-body-md">{{ $card['description'] ?? '' }}</p>
                     @if(!empty($card['link_text']))
                         <div class="mt-6 text-secondary-container flex items-center gap-2 font-label-md">

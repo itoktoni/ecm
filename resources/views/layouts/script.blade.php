@@ -237,6 +237,27 @@
             this.updateUI();
         },
 
+        deleteSelected: async function() {
+            if (!this.selectedImage) return;
+            if (!confirm('Delete "' + this.selectedImage.filename + '"? This cannot be undone.')) return;
+            var id = this.selectedImage.id;
+            try {
+                var res = await fetch('/api/media/' + id, {
+                    method: 'DELETE',
+                    credentials: 'same-origin',
+                    headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content }
+                });
+                if (res.ok) {
+                    this.selectedImage = null;
+                    this.loadImages(this.currentPage);
+                } else {
+                    alert('Failed to delete image.');
+                }
+            } catch (e) {
+                alert('Failed to delete image.');
+            }
+        },
+
         selectImage: function(id) {
             var img = this.images.find(function(i) { return i.id === id; });
             this.selectedImage = img || null;
@@ -304,6 +325,7 @@
             var progressPct = document.getElementById('img-browser-progress-pct');
             var pageInfo = document.getElementById('img-browser-page-info');
             var btnConfirm = document.getElementById('img-browser-confirm');
+            var btnDelete = document.getElementById('img-browser-delete');
             var prevBtn = document.getElementById('img-browser-prev');
             var nextBtn = document.getElementById('img-browser-next');
 
@@ -313,6 +335,7 @@
             if (progressPct) progressPct.textContent = this.uploadProgress + '%';
             if (pageInfo) pageInfo.textContent = 'Page ' + this.currentPage + ' of ' + this.totalPages;
             if (btnConfirm) btnConfirm.disabled = !this.selectedImage;
+            if (btnDelete) btnDelete.disabled = !this.selectedImage;
             if (prevBtn) prevBtn.disabled = this.currentPage <= 1;
             if (nextBtn) nextBtn.disabled = this.currentPage >= this.totalPages;
         },
@@ -468,6 +491,9 @@
                 </button>
             </div>
             <div class="flex items-center gap-3">
+                <button type="button" id="img-browser-delete" onclick="imgBrowser.deleteSelected()" disabled class="px-4 py-2 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                    <i class="icon-[tabler--trash] mr-1"></i> Delete
+                </button>
                 <button type="button" onclick="imgBrowser.hide()" class="px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">Cancel</button>
                 <button type="button" id="img-browser-confirm" onclick="imgBrowser.confirm()" disabled class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                     <i class="icon-[tabler--check] mr-1"></i> Select Image

@@ -14,7 +14,7 @@ class ContainerRenderer
     {
         $containerField = CustomField::where('name', $containerFieldName)
             ->where(function ($q) {
-                $q->whereNull('content_type_id')->orWhere('content_type_id', '!=', 0);
+                $q->whereNull('type_id')->orWhere('type_id', '!=', 0);
             })
             ->first();
 

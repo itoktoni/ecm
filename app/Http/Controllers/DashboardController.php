@@ -19,7 +19,7 @@ class DashboardController extends Controller
             'total_tags' => Tag::count(),
         ];
 
-        $cmsTypes = Type::withCount('contents')->latest()->get();
+        $cmsTypes = Type::withCount('contents')->latest()->limit(2)->get();
 
         $recentContents = Content::latest('updated_at')
             ->limit(5)

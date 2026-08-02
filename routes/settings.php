@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanySettingsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('settings/env', [SettingsController::class, 'index'])->name('settings.env');
     Route::post('settings/env', [SettingsController::class, 'save'])->name('settings.env.save');
+
+    Route::get('settings/company', [CompanySettingsController::class, 'index'])->name('settings.company');
+    Route::post('settings/company', [CompanySettingsController::class, 'save'])->name('settings.company.save');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

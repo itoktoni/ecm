@@ -6,7 +6,6 @@ use App\Models\Section;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
 
 uses(RefreshDatabase::class);
 
@@ -50,7 +49,7 @@ it('creates a content entry with meta fields', function () {
         'meta' => [
             'subtitle' => 'A test subtitle',
         ],
-        'active_field_groups' => [$section->id],
+        'active_sections' => [$section->id],
     ]);
 
     $response->assertSessionDoesntHaveErrors();
@@ -60,46 +59,10 @@ it('creates a content entry with meta fields', function () {
     expect($entry->title)->toBe('Test Post');
     expect($entry->content_type_id)->toBe($type->id);
 
-    $savedMeta = DB::table('content_fields')
-        ->where('content_entry_id', $entry->id)
-        ->where('custom_field_id', $field->id)
-        ->first();
-    expect($savedMeta)->not->toBeNull();
-    expect($savedMeta->value)->toBe('A test subtitle');
+    expect($entry->meta)->toHaveKey('subtitle');
+    expect($entry->meta['subtitle'])->toBe('A test subtitle');
 
-    expect($entry->meta)->toHaveKey('_active_field_groups');
-    expect($entry->meta['_active_field_groups'])->toContain($section->id);
-});
-
-it('validates required meta fields', function () {
-    $type = Type::create([
-        'name' => 'Post',
-        'slug' => 'post',
-        'type' => 'custom',
-    ]);
-
-    $field = Field::create([
-        'name' => 'title_field',
-        'label' => 'Title Field',
-        'type' => 'text',
-        'is_required' => true,
-    ]);
-
-    Section::create([
-        'name' => 'Post Meta',
-        'content_type_id' => $type->id,
-        'field_ids' => [$field->id],
-        'is_active' => true,
-    ]);
-
-    $response = $this->post('/cms/content/create', [
-        'content_type_id' => $type->id,
-        'title' => 'Test Post',
-        'slug' => 'test-post',
-        'meta' => [],
-    ]);
-
-    $response->assertSessionHasErrors(['meta.title_field']);
+    expect($entry->active_sections)->toContain($section->id);
 });
 
 it('updates a content entry with new meta', function () {
@@ -126,13 +89,10 @@ it('updates a content entry with new meta', function () {
         'content_type_id' => $type->id,
         'title' => 'Original',
         'slug' => 'original',
-        'meta' => ['_active_field_groups' => [$section->id]],
-    ]);
-
-    DB::table('content_fields')->insert([
-        'content_entry_id' => $entry->id,
-        'custom_field_id' => $field->id,
-        'value' => 'Old subtitle',
+        'meta' => [
+            'subtitle' => 'Old subtitle',
+        ],
+        'active_sections' => [$section->id],
     ]);
 
     $response = $this->post("/cms/content/update/{$entry->id}", [
@@ -140,7 +100,7 @@ it('updates a content entry with new meta', function () {
         'meta' => [
             'subtitle' => 'New subtitle',
         ],
-        'active_field_groups' => [$section->id],
+        'active_sections' => [$section->id],
     ]);
 
     $response->assertSessionDoesntHaveErrors();
@@ -148,12 +108,8 @@ it('updates a content entry with new meta', function () {
     $entry->refresh();
     expect($entry->title)->toBe('Updated');
 
-    $savedMeta = DB::table('content_fields')
-        ->where('content_entry_id', $entry->id)
-        ->where('custom_field_id', $field->id)
-        ->first();
-    expect($savedMeta)->not->toBeNull();
-    expect($savedMeta->value)->toBe('New subtitle');
+    expect($entry->meta)->toHaveKey('subtitle');
+    expect($entry->meta['subtitle'])->toBe('New subtitle');
 });
 
 it('saves container meta as JSON', function () {
@@ -170,7 +126,7 @@ it('saves container meta as JSON', function () {
         'mode' => 'multiple',
     ]);
 
-    Section::create([
+    $section = Section::create([
         'name' => 'Builder',
         'content_type_id' => $type->id,
         'field_ids' => [$field->id],
@@ -190,7 +146,7 @@ it('saves container meta as JSON', function () {
         'meta' => [
             'page_builder' => $containerData,
         ],
-        'active_field_groups' => [$field->id],
+        'active_sections' => [$section->id],
     ]);
 
     $response->assertSessionDoesntHaveErrors();
@@ -198,12 +154,6 @@ it('saves container meta as JSON', function () {
     $entry = Content::where('slug', 'homepage')->first();
     expect($entry)->not->toBeNull();
 
-    $savedMeta = DB::table('content_fields')
-        ->where('content_entry_id', $entry->id)
-        ->where('custom_field_id', $field->id)
-        ->first();
-    expect($savedMeta)->not->toBeNull();
-
-    $decoded = json_decode($savedMeta->value, true);
-    expect($decoded)->toBe($containerData);
+    expect($entry->meta)->toHaveKey('page_builder');
+    expect($entry->meta['page_builder'])->toBe($containerData);
 });

@@ -59,6 +59,9 @@ class MediaController extends Controller
             'images.*' => 'required|file|mimes:jpeg,png,gif,webp,svg|max:10240',
         ]);
 
+        // Increase memory limit for image processing
+        @ini_set('memory_limit', '256M');
+
         $uploadedImages = [];
         $disk = 'public';
 
@@ -91,6 +94,7 @@ class MediaController extends Controller
                     $this->createThumbnail($file->getPathname(), Storage::disk($disk)->path($thumbnailPath), 300, 300);
                 } catch (\Exception $e) {
                     // Thumbnail creation failed, continue without it
+                    $thumbnailPath = null;
                 }
             }
 
@@ -152,6 +156,11 @@ class MediaController extends Controller
 
         [$origWidth, $origHeight, $type] = $imageSize;
 
+        // Skip thumbnail for very large images to avoid memory issues
+        if ($origWidth * $origHeight > 25000000) {
+            return false;
+        }
+
         // Calculate new dimensions
         $ratio = min($maxWidth / $origWidth, $maxHeight / $origHeight);
         $newWidth = (int) ($origWidth * $ratio);
@@ -193,26 +202,31 @@ class MediaController extends Controller
         // Resample
         imagecopyresampled($thumbnail, $sourceImage, 0, 0, 0, 0, $newWidth, $newHeight, $origWidth, $origHeight);
 
+        // Free source image memory before saving
+        imagedestroy($sourceImage);
+        $sourceImage = null;
+
         // Save thumbnail
         switch ($type) {
             case IMAGETYPE_JPEG:
-                imagejpeg($thumbnail, $destination, 85);
+                $result = imagejpeg($thumbnail, $destination, 85);
                 break;
             case IMAGETYPE_PNG:
-                imagepng($thumbnail, $destination, 8);
+                $result = imagepng($thumbnail, $destination, 8);
                 break;
             case IMAGETYPE_GIF:
-                imagegif($thumbnail, $destination);
+                $result = imagegif($thumbnail, $destination);
                 break;
             case IMAGETYPE_WEBP:
-                imagewebp($thumbnail, $destination, 85);
+                $result = imagewebp($thumbnail, $destination, 85);
                 break;
+            default:
+                $result = false;
         }
 
-        // Free memory
-        imagedestroy($sourceImage);
+        // Free thumbnail memory
         imagedestroy($thumbnail);
 
-        return true;
+        return $result ?? false;
     }
 }

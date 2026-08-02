@@ -1,4 +1,5 @@
 <?php /** @var App\Models\So $so */ ?>
+@php $pdfColor = config('theme.primary'); $onPrimary = config('theme.on_primary'); @endphp
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -6,178 +7,193 @@
     <title>SO {{ $so->so_code }}</title>
     <style>
         * { font-family: DejaVu Sans, sans-serif; box-sizing: border-box; }
-        body { margin: 0; padding: 0; color: #1a1c1e; font-size: 12px; }
-        .page { padding: 24px; }
+        @page { size: A4 portrait; margin: 12mm 12mm; }
+        body { margin: 0; padding: 0; color: #1a1c1e; font-size: 10px; }
 
-        .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #1a1c1e; padding-bottom: 16px; margin-bottom: 20px; }
-        .company-info h1 { margin: 0 0 6px 0; font-size: 20px; letter-spacing: 1px; }
-        .company-info p { margin: 0; font-size: 11px; color: #555; line-height: 1.6; }
-        .so-badge { text-align: right; }
-        .so-badge h2 { margin: 0 0 6px 0; font-size: 22px; letter-spacing: 3px; }
-        .so-badge p { margin: 0; font-size: 12px; }
+        .frame { border: 2px solid {{ $pdfColor }}; }
+        .topbar { background: {{ $pdfColor }}; height: 6px; }
+        .bottombar { background: {{ $pdfColor }}; height: 6px; }
+        .inner { padding: 20px 24px; }
 
-        .info-grid { display: flex; gap: 16px; margin-bottom: 20px; }
-        .info-box { flex: 1; border: 1px solid #ddd; border-radius: 6px; padding: 12px 16px; }
-        .info-box h3 { margin: 0 0 8px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #333; border-bottom: 1px solid #eee; padding-bottom: 6px; }
-        .info-box p { margin: 3px 0; font-size: 12px; line-height: 1.5; }
-        .info-box .label { color: #777; }
+        .head { width: 100%; border-collapse: collapse; margin-bottom: 14px; }
+        .head td { vertical-align: middle; }
+        .logo { text-align: center; width: 74px; }
+        .logo img { max-width: 70px; max-height: 60px; }
+        .logo .tx { color: {{ $pdfColor }}; font-size: 28px; font-weight: bold; line-height: 1.1; }
+        .lab { padding-left: 12px; }
+        .lab .nm { font-size: 13px; font-weight: bold; color: #131b2e; }
+        .lab .ds { font-size: 7.5px; color: #54647a; line-height: 1.5; }
+        .head .r { text-align: right; }
+        .head .r .t1 { font-size: 24px; font-weight: bold; color: {{ $pdfColor }}; text-transform: uppercase; letter-spacing: 1px; }
+        .head .r .t2 { font-size: 10px; font-style: italic; color: #54647a; }
 
-        table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
-        table th, table td { border: 1px solid #ccc; padding: 7px 9px; text-align: left; font-size: 11px; }
-        table thead th { background: #f0f2f5; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .certno { background: {{ $pdfColor }}; color: {{ $onPrimary }}; text-align: center; padding: 8px; margin: 0 0 14px 0; }
+        .certno .k { font-size: 7px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.85; }
+        .certno .v { font-size: 13px; font-weight: bold; letter-spacing: 1px; }
+
+        table.info { width: 100%; border-collapse: collapse; margin-bottom: 14px; }
+        table.info td { padding: 6px 9px; border: 0.6px solid #d8dce6; }
+        table.info td.lbl { background: {{ $pdfColor }}; color: {{ $onPrimary }}; font-weight: bold; width: 17%; }
+        table.info .id { font-size: 7.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+        table.info .val { font-size: 9.5px; font-weight: bold; color: #131b2e; }
+        table.info .val .alt { font-weight: 500; color: #444651; }
+
+        table.data { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+        table.data th { background: {{ $pdfColor }}; color: {{ $onPrimary }}; font-weight: bold; text-transform: uppercase;
+                        font-size: 8px; letter-spacing: 0.4px; padding: 7px 9px; border: 0.6px solid {{ $pdfColor }}; text-align: left; }
+        table.data td { padding: 6px 9px; border: 0.6px solid #d8dce6; font-size: 9px; }
+        table.data tr:nth-child(even) td { background: #f6f8fc; }
         .num { text-align: right; }
-        table tfoot td { font-weight: bold; background: #f7f8fa; }
+        table.data tfoot td { font-weight: bold; background: #eef1f8; }
 
-        .totals-block { width: 42%; margin-left: auto; margin-top: 8px; }
-        .totals-block table { margin: 0; }
-        .totals-block td { border: none; border-bottom: 1px solid #eee; padding: 5px 9px; font-size: 11px; }
-        .totals-block td.num { width: 45%; }
-        .totals-block tr.grand td { border-top: 2px solid #1a1c1e; border-bottom: none; font-size: 14px; font-weight: bold; }
+        .totals-block { width: 46%; margin-left: auto; margin-top: 6px; }
+        .totals-block table { width: 100%; border-collapse: collapse; }
+        .totals-block td { padding: 4px 9px; font-size: 9px; border: 0.6px solid #d8dce6; }
+        .totals-block td.k { background: {{ $pdfColor }}0d; font-weight: bold; }
+        .totals-block tr.grand td { background: {{ $pdfColor }}; color: {{ $onPrimary }}; font-weight: bold; font-size: 11px; }
 
-        .notes { margin-top: 16px; border: 1px solid #ddd; border-radius: 6px; padding: 12px 16px; }
-        .notes h4 { margin: 0 0 6px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #333; }
-        .notes p { margin: 0; font-size: 11px; line-height: 1.6; }
+        .notes { margin-top: 12px; border: 0.6px solid #c5c5d3; padding: 9px 11px; background: #faf8ff; }
+        .notes h4 { margin: 0 0 5px 0; font-size: 8.5px; color: {{ $pdfColor }}; text-transform: uppercase; letter-spacing: 0.5px; }
+        .notes p { margin: 0; font-size: 8.5px; line-height: 1.5; color: #444651; }
 
-        .signatures { width: 100%; margin-top: 44px; }
-        .signatures table { width: 100%; }
-        .signatures td { width: 50%; text-align: center; font-size: 11px; vertical-align: top; padding: 0; border: none; }
-        .signatures .line { height: 1px; background: #333; margin: 0 20px 10px 20px; }
-        .signatures .name { font-weight: bold; margin: 0; }
-        .signatures .role { color: #666; margin: 2px 0 0 0; }
+        .sign { width: 100%; border-collapse: collapse; margin-top: 26px; border-top: 1px solid #c5c5d3; }
+        .sign td { width: 50%; vertical-align: top; text-align: center; font-size: 8.5px; padding-top: 12px; }
+        .sign .role { margin: 0 0 2px 0; }
+        .sign .gap { height: 52px; }
+        .sign .line { border-top: 1px solid #000; font-weight: 600; padding-top: 3px; display: inline-block; min-width: 190px; }
+        .sign .ti { font-size: 8px; color: #54647a; }
 
-        .footer { margin-top: 24px; text-align: center; font-size: 10px; color: #888; border-top: 1px solid #eee; padding-top: 10px; }
+        .foot { border-top: 1px solid #e5e2e1; padding-top: 8px; margin-top: 18px; font-size: 8px; color: #666; width: 100%; }
+        .foot td { vertical-align: bottom; }
+        .foot .b { font-weight: bold; color: {{ $pdfColor }}; }
+        .legal { text-align: center; font-size: 6px; text-transform: uppercase; color: #757682; margin-top: 10px; letter-spacing: 0.3px; }
     </style>
 </head>
 <body>
-    <div class="page">
-        <div class="header">
-            <div class="company-info">
-                <h1>{{ strtoupper(config('company.name')) }}</h1>
-                <p>
-                    {{ config('company.address') }}<br>
-                    {{ config('company.area') }}<br>
-                    Telp: {{ config('company.telp') }}{{ config('company.fax') ? ' | Fax: '.config('company.fax') : '' }}<br>
-                    Email: {{ config('company.email') }}
-                </p>
-            </div>
-            <div class="so-badge">
-                <h2>SALES ORDER</h2>
-                <p>No: <strong>{{ $so->so_code }}</strong></p>
-            </div>
-        </div>
-
-        <div class="info-grid">
-            <div class="info-box">
-                <h3>Customer</h3>
-                <p>{{ $so->customer?->customer_nama ?? '-' }}</p>
-                @if ($so->customer?->customer_telepon)
-                    <p style="font-size:11px; color:#666; margin-top:2px;">Telp: {{ $so->customer->customer_telepon }}</p>
-                @endif
-                @if ($so->customer?->customer_alamat)
-                    <p style="font-size:11px; color:#666;">{{ $so->customer->customer_alamat }}</p>
-                @endif
-            </div>
-            <div class="info-box">
-                <h3>Detail Order</h3>
-                <p><span class="label">Tanggal:</span> {{ $so->so_tanggal->format('d F Y') }}</p>
-                <p><span class="label">Status:</span> {{ $so->so_status }}</p>
-            </div>
-        </div>
-
-        <table>
-            <thead>
+    <div class="frame">
+        <div class="topbar"></div>
+        <div class="inner">
+            <table class="head">
                 <tr>
-                    <th style="width:5%">No</th>
-                    <th style="width:14%">Kode Item</th>
-                    <th>Nama Product</th>
-                    <th style="width:9%" class="num">Qty</th>
-                    <th style="width:16%" class="num">Harga Satuan</th>
-                    <th style="width:16%" class="num">Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($so->details as $i => $detail)
-                    <tr>
-                        <td>{{ $i + 1 }}</td>
-                        <td>{{ $detail->so_detail_code }}</td>
-                        <td>{{ $detail->product?->product_nama ?? '-' }}</td>
-                        <td class="num">{{ $detail->so_detail_qty }}</td>
-                        <td class="num">{{ number_format((float) $detail->so_detail_harga, 0, ',', '.') }}</td>
-                        <td class="num">{{ number_format((int) $detail->so_detail_qty * (float) $detail->so_detail_harga, 0, ',', '.') }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="4">Total Item: {{ $so->details->count() }} &nbsp;|&nbsp; Total Qty: {{ $so->details->sum('so_detail_qty') }}</td>
-                    <td></td>
-                    <td class="num">{{ number_format($so->so_subtotal, 0, ',', '.') }}</td>
-                </tr>
-            </tfoot>
-        </table>
-
-        <div class="totals-block">
-            <table>
-                <tr>
-                    <td>Subtotal</td>
-                    <td class="num">Rp {{ number_format($so->so_subtotal, 0, ',', '.') }}</td>
-                </tr>
-                @if ((float) $so->so_discount > 0)
-                    <tr>
-                        <td>Discount{{ $so->so_discount_note ? ' ('.$so->so_discount_note.')' : '' }}</td>
-                        <td class="num">- Rp {{ number_format((float) $so->so_discount, 0, ',', '.') }}</td>
-                    </tr>
-                @endif
-                <tr>
-                    <td>DPP</td>
-                    <td class="num">Rp {{ number_format($so->so_dpp, 0, ',', '.') }}</td>
-                </tr>
-                @if ($so->so_ppn_amount > 0)
-                    <tr>
-                        <td>PPN ({{ $so->so_ppn_rate }}%)</td>
-                        <td class="num">Rp {{ number_format($so->so_ppn_amount, 0, ',', '.') }}</td>
-                    </tr>
-                @endif
-                @if ($so->so_pph_amount > 0)
-                    <tr>
-                        <td>PPH ({{ $so->so_pph_rate }}%)</td>
-                        <td class="num">Rp {{ number_format($so->so_pph_amount, 0, ',', '.') }}</td>
-                    </tr>
-                @endif
-                <tr class="grand">
-                    <td>Grand Total</td>
-                    <td class="num">Rp {{ number_format($so->so_grand_total, 0, ',', '.') }}</td>
-                </tr>
-            </table>
-        </div>
-
-        @if ($so->so_keterangan)
-            <div class="notes">
-                <h4>Catatan / Keterangan</h4>
-                <p>{{ $so->so_keterangan }}</p>
-            </div>
-        @endif
-
-        <div class="signatures">
-            <table>
-                <tr>
-                    <td>
-                        <div class="line"></div>
-                        <p class="name">Dibuat Oleh</p>
-                        <p class="role">Sales Staff</p>
+                    <td class="logo">@if(config('company.logo') && file_exists(public_path(config('company.logo'))))<img src="{{ public_path(config('company.logo')) }}">@else<div class="tx">ECM</div>@endif</td>
+                    <td class="lab">
+                        <div class="nm">{{ strtoupper(config('company.name')) }}</div>
+                        <div class="ds">Laboratorium Pengujian &amp; Kalibrasi Alat Kesehatan<br>
+                        No. Izin: {{ config('company.license') }} &nbsp;|&nbsp; KAN {{ config('company.kan') }}</div>
                     </td>
-                    <td>
-                        <div class="line"></div>
-                        <p class="name">Diterima Oleh</p>
-                        <p class="role">Customer</p>
+                    <td class="r">
+                        <div class="t1">Sales Order</div>
+                        <div class="t2">Order Confirmation</div>
                     </td>
                 </tr>
             </table>
-        </div>
 
-        <div class="footer">
-            Sales Order ini merupakan dokumen pengiriman barang ke customer. Harap diverifikasi saat penerimaan.
+            <p class="certno">
+                <span class="k">Nomor Order / Order Number</span><br>
+                <span class="v">{{ $so->so_code }}</span>
+            </p>
+
+            <table class="info">
+                <tr>
+                    <td class="lbl">Customer</td>
+                    <td><div class="val">{{ $so->customer?->customer_nama ?? '-' }}</div></td>
+                    <td class="lbl">Tanggal</td>
+                    <td><div class="val">{{ $so->so_tanggal->format('d F Y') }}</div></td>
+                </tr>
+                <tr>
+                    <td class="lbl">Alamat</td>
+                    <td colspan="3"><div class="val alt">{{ $so->customer?->customer_alamat ?? '-' }}</div></td>
+                </tr>
+                <tr>
+                    <td class="lbl">Status</td>
+                    <td><div class="val">{{ $so->so_status }}</div></td>
+                    <td class="lbl">Keterangan</td>
+                    <td><div class="val alt">{{ $so->so_keterangan ?? '-' }}</div></td>
+                </tr>
+            </table>
+
+            <table class="data">
+                <thead>
+                    <tr>
+                        <th style="width:5%">No</th>
+                        <th style="width:14%">Kode</th>
+                        <th>Nama Alat / Jasa</th>
+                        <th style="width:8%" class="num">Qty</th>
+                        <th style="width:15%" class="num">Harga Satuan</th>
+                        <th style="width:15%" class="num">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($so->details as $i => $detail)
+                        <tr>
+                            <td>{{ $i + 1 }}</td>
+                            <td>{{ $detail->so_detail_code }}</td>
+                            <td>{{ $detail->product?->product_nama ?? '-' }}</td>
+                            <td class="num">{{ $detail->so_detail_qty }}</td>
+                            <td class="num">{{ number_format((float) $detail->so_detail_harga, 0, ',', '.') }}</td>
+                            <td class="num">{{ number_format((int) $detail->so_detail_qty * (float) $detail->so_detail_harga, 0, ',', '.') }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">Total Item: {{ $so->details->count() }} &nbsp;|&nbsp; Total Qty: {{ $so->details->sum('so_detail_qty') }}</td>
+                        <td></td>
+                        <td class="num">{{ number_format($so->so_subtotal, 0, ',', '.') }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="totals-block">
+                <table>
+                    <tr><td class="k">Subtotal</td><td class="num">Rp {{ number_format($so->so_subtotal, 0, ',', '.') }}</td></tr>
+                    @if ((float) $so->so_discount > 0)
+                        <tr><td class="k">Discount{{ $so->so_discount_note ? ' ('.$so->so_discount_note.')' : '' }}</td><td class="num">- Rp {{ number_format((float) $so->so_discount, 0, ',', '.') }}</td></tr>
+                    @endif
+                    <tr><td class="k">DPP</td><td class="num">Rp {{ number_format($so->so_dpp, 0, ',', '.') }}</td></tr>
+                    @if ($so->so_ppn_amount > 0)
+                        <tr><td class="k">PPN ({{ $so->so_ppn_rate }}%)</td><td class="num">Rp {{ number_format($so->so_ppn_amount, 0, ',', '.') }}</td></tr>
+                    @endif
+                    @if ($so->so_pph_amount > 0)
+                        <tr><td class="k">PPH ({{ $so->so_pph_rate }}%)</td><td class="num">Rp {{ number_format($so->so_pph_amount, 0, ',', '.') }}</td></tr>
+                    @endif
+                    <tr class="grand"><td>Grand Total</td><td class="num">Rp {{ number_format($so->so_grand_total, 0, ',', '.') }}</td></tr>
+                </table>
+            </div>
+
+            @if ($so->so_keterangan)
+                <div class="notes">
+                    <h4>Catatan / Keterangan</h4>
+                    <p>{{ $so->so_keterangan }}</p>
+                </div>
+            @endif
+
+            <table class="sign">
+                <tr>
+                    <td>
+                        <p class="role">Dibuat Oleh</p>
+                        <div class="gap"></div>
+                        <span class="line">{{ config('company.director') }}</span>
+                        <p class="ti">{{ config('company.director_title') }}</p>
+                    </td>
+                    <td>
+                        <p class="role">Diterima Oleh</p>
+                        <div class="gap"></div>
+                        <span class="line">(....................................................)</span>
+                        <p class="ti">Customer</p>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="foot">
+                <tr>
+                    <td><div class="b">{{ strtoupper(config('company.name')) }}</div><div>{{ config('company.footer_address') }}</div></td>
+                    <td style="text-align:right;">T: {{ config('company.footer_telp') }} | WA: {{ config('company.whatsapp') }}<br>{{ config('company.website') }} | {{ config('company.email') }}</td>
+                </tr>
+            </table>
+            <div class="legal">© {{ date('Y') }} {{ config('company.name') }} — Dokumen ini sah tanpa tanda tangan basah bila diterbitkan melalui sistem.</div>
         </div>
+        <div class="bottombar"></div>
     </div>
 </body>
 </html>

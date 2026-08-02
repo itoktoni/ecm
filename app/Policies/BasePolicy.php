@@ -65,4 +65,19 @@ class BasePolicy
     {
         return $this->accessProtected($user, __FUNCTION__) ? Response::deny() : Response::allow();
     }
+
+    public function penawaran(User $user): Response
+    {
+        return $this->accessProtected($user, __FUNCTION__) ? Response::deny() : Response::allow();
+    }
+
+    public function suratTugas(User $user): Response
+    {
+        return $this->accessProtected($user, __FUNCTION__) ? Response::deny() : Response::allow();
+    }
+
+    public function kajiUlang(User $user): Response
+    {
+        return $this->accessProtected($user, __FUNCTION__) ? Response::deny() : Response::allow();
+    }
 }

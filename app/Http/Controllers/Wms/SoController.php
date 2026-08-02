@@ -38,6 +38,7 @@ class SoController extends Controller
             'statusOptions' => So::statusOptions(),
             'pphOptions' => So::pphOptions(),
             'ppnOptions' => So::ppnOptions(),
+            'userOptions' => So::userOptions(),
         ], $data);
     }
 
@@ -48,7 +49,7 @@ class SoController extends Controller
 
     public function getUpdate(GeneralRequest $request, $id)
     {
-        $data = $this->model->with('details')->findOrFail($id);
+        $data = $this->model->with(['details', 'petugas'])->findOrFail($id);
 
         return $this->views($this->template(), [
             'model' => $data,
@@ -64,6 +65,7 @@ class SoController extends Controller
             $so = DB::transaction(function () use ($data) {
                 $so = So::create(collect($data)->except('details')->toArray());
                 $this->syncDetails($so, $data['details']);
+                $so->petugas()->sync($data['petugas'] ?? []);
 
                 return $so->load('details.product');
             });
@@ -84,6 +86,7 @@ class SoController extends Controller
                 $data['so_status'] ??= $so->so_status;
                 $so->update(collect($data)->except('details')->toArray());
                 $this->syncDetails($so, $data['details']);
+                $so->petugas()->sync($data['petugas'] ?? []);
 
                 return $so->load('details.product');
             });
@@ -101,6 +104,33 @@ class SoController extends Controller
         $pdf = Pdf::loadView('pdf.so', ['so' => $so]);
 
         return $pdf->stream("SO-{$so->so_code}.pdf");
+    }
+
+    public function getPenawaran(GeneralRequest $request, $id)
+    {
+        $so = So::with(['details.product.jasa', 'customer'])->findOrFail($id);
+
+        $pdf = Pdf::loadView('pdf.penawaran', ['so' => $so]);
+
+        return $pdf->stream("Penawaran-{$so->so_code}.pdf");
+    }
+
+    public function getSuratTugas(GeneralRequest $request, $id)
+    {
+        $so = So::with(['details.product', 'customer', 'petugas'])->findOrFail($id);
+
+        $pdf = Pdf::loadView('pdf.surat-tugas', ['so' => $so]);
+
+        return $pdf->stream("SuratTugas-{$so->so_code}.pdf");
+    }
+
+    public function getKajiUlang(GeneralRequest $request, $id)
+    {
+        $data = $this->model->with(['details.product', 'customer'])->findOrFail($id);
+
+        return $this->views($this->template('kaji-ulang'), [
+            'model' => $data,
+        ]);
     }
 
     public function getDelete(GeneralRequest $request, $id)

@@ -37,6 +37,21 @@
                 <tr>
                     <x-table-row-checkbox :model="$model" :value="$table->field_primary" />
                     <x-table-action :model="$model" :id="$table->field_primary">
+                        @can('penawaran', $model)
+                        <a href="{{ moduleRoute('getPenawaran', ['id' => $table->field_primary]) }}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors">
+                            <span class="material-symbols-outlined text-lg">request_quote</span>
+                        </a>
+                        @endcan
+                        @can('suratTugas', $model)
+                        <a href="{{ moduleRoute('getSuratTugas', ['id' => $table->field_primary]) }}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors">
+                            <span class="material-symbols-outlined text-lg">assignment_ind</span>
+                        </a>
+                        @endcan
+                        @can('kajiUlang', $model)
+                        <a href="{{ moduleRoute('getKajiUlang', ['id' => $table->field_primary]) }}" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors">
+                            <span class="material-symbols-outlined text-lg">fact_check</span>
+                        </a>
+                        @endcan
                         @can('print', $model)
                         <a href="{{ moduleRoute('getPrint', ['id' => $table->field_primary]) }}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors">
                             <span class="material-symbols-outlined text-lg">print</span>
@@ -89,6 +104,16 @@
                         <x-table-mobile-text :label="'Grand Total'" :text="formatAngka((int) round($table->so_grand_total), 'Rp ')" />
                         <x-table-mobile-footer :label="$table->field_primary">
                             <x-table-action :model="$model" :id="$table->field_primary">
+                                @can('penawaran', $model)
+                                <a href="{{ moduleRoute('getPenawaran', ['id' => $table->field_primary]) }}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors">
+                                    <span class="material-symbols-outlined text-lg">request_quote</span>
+                                </a>
+                                @endcan
+                                @can('suratTugas', $model)
+                                <a href="{{ moduleRoute('getSuratTugas', ['id' => $table->field_primary]) }}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors">
+                                    <span class="material-symbols-outlined text-lg">assignment_ind</span>
+                                </a>
+                                @endcan
                                 @can('print', $model)
                                 <a href="{{ moduleRoute('getPrint', ['id' => $table->field_primary]) }}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors">
                                     <span class="material-symbols-outlined text-lg">print</span>

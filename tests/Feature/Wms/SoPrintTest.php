@@ -67,6 +67,41 @@ it('404s the print route for missing so', function () {
     $this->get('/wms/so/print/9999')->assertStatus(404);
 });
 
+it('streams a penawaran as pdf', function () {
+    $this->actingAs(printActor());
+    $so = printSo();
+
+    $r = $this->get('/wms/so/penawaran/'.$so->so_id);
+
+    $r->assertStatus(200);
+    expect($r->headers->get('content-type'))->toContain('application/pdf');
+    expect($r->headers->get('content-disposition'))->toContain('inline');
+    expect($r->getContent())->toContain('%PDF');
+});
+
+it('streams a surat tugas as pdf with assigned petugas', function () {
+    $this->actingAs(printActor());
+    $so = printSo();
+    $tech = User::create(['name' => 'Teknisi A', 'email' => 'tech-'.uniqid().'@t.com', 'password' => bcrypt('x'), 'role' => 'user']);
+    $so->petugas()->sync([$tech->id]);
+
+    $r = $this->get('/wms/so/surat-tugas/'.$so->so_id);
+
+    $r->assertStatus(200);
+    expect($r->headers->get('content-type'))->toContain('application/pdf');
+    expect($r->getContent())->toContain('%PDF');
+});
+
+it('renders the kaji ulang page with items', function () {
+    $this->actingAs(printActor());
+    $so = printSo();
+
+    $r = $this->get('/wms/so/kaji-ulang/'.$so->so_id);
+
+    $r->assertStatus(200);
+    expect($r->getContent())->toContain('Form Kaji Ulang');
+});
+
 it('renders the print button on the edit form', function () {
     $this->actingAs(printActor());
     $so = printSo();
@@ -89,4 +124,54 @@ it('renders the print button on the table page', function () {
     $html = $r->getContent();
     expect($html)->toContain('href="http://lms.test/wms/so/print/'.$so->so_id.'"');
     expect($html)->toContain('>print</span>');
+    expect($html)->toContain('href="http://lms.test/wms/so/penawaran/'.$so->so_id.'"');
+    expect($html)->toContain('>request_quote</span>');
+    expect($html)->toContain('href="http://lms.test/wms/so/surat-tugas/'.$so->so_id.'"');
+    expect($html)->toContain('>assignment_ind</span>');
+    expect($html)->toContain('href="http://lms.test/wms/so/kaji-ulang/'.$so->so_id.'"');
+    expect($html)->toContain('>fact_check</span>');
+});
+
+it('saves kaji ulang checklist and keterangan', function () {
+    $this->actingAs(printActor());
+    $so = printSo();
+    $detailId = $so->details->first()->so_detail_id;
+
+    Livewire\Livewire::test('so-kaji-ulang', ['soId' => $so->so_id])
+        ->set('rows.0.a', true)
+        ->set('rows.0.c', true)
+        ->set('rows.0.keterangan', 'subkontrak ke PT. A')
+        ->call('save')
+        ->assertSet('saved', true);
+
+    $d = SoDetail::find($detailId);
+    expect($d->so_detail_kaji_a)->toBeTrue();
+    expect($d->so_detail_kaji_b)->toBeFalse();
+    expect($d->so_detail_kaji_c)->toBeTrue();
+    expect($d->so_detail_kaji_keterangan)->toBe('subkontrak ke PT. A');
+});
+
+it('persists petugas on so update', function () {
+    $this->actingAs(printActor());
+    $so = printSo();
+    $tech = User::create(['name' => 'Teknisi B', 'email' => 'techb-'.uniqid().'@t.com', 'password' => bcrypt('x'), 'role' => 'user']);
+
+    $payload = [
+        'so_tanggal' => '2026-08-01',
+        'so_id_customer' => $so->so_id_customer,
+        'so_pph' => 'no', 'so_pph_rate' => 2,
+        'so_ppn' => 'none', 'so_ppn_rate' => 11,
+        'so_discount' => 0,
+        'details' => [[
+            'so_detail_id' => null,
+            'so_detail_id_product' => $so->details->first()->so_detail_id_product,
+            'so_detail_qty' => 1,
+            'so_detail_harga' => 1000,
+        ]],
+        'petugas' => [$tech->id],
+    ];
+
+    $this->post('/wms/so/update/'.$so->so_id, $payload)->assertStatus(302);
+
+    expect($so->fresh()->petugas->pluck('id')->all())->toBe([$tech->id]);
 });

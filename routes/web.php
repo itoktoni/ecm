@@ -58,6 +58,7 @@ Route::middleware(['auth', 'verified', 'access'])->group(function () {
 
     // WMS Sales
     Route::auto('/wms/so', 'Wms\SoController', ['name' => 'wms-so']);
+    Route::auto('/wms/pekerjaan', 'Wms\PekerjaanController', ['name' => 'wms-pekerjaan']);
 
     // WMS Inbound
     Route::auto('/wms/masuk-detail', 'Wms\MasukDetailController', ['name' => 'wms-masuk-detail']);
@@ -136,6 +137,8 @@ Route::middleware(['auth', 'verified', 'access'])->group(function () {
 });
 
 // Frontend public routes (must be before catch-all /{slug})
+require __DIR__.'/settings.php';
+
 Route::get('/services', [PublicController::class, 'services'])->name('services');
 Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
 Route::get('/blog', [PublicController::class, 'blog'])->name('blog');
@@ -151,4 +154,3 @@ Route::get('/documentation/tag/{slug}', [PublicController::class, 'documentation
 Route::get('/documentation/{slug}', [PublicController::class, 'documentationShow'])->name('documentation.show');
 
 Route::get('/{slug}', [PublicController::class, 'page'])->name('page');
-require __DIR__.'/settings.php';

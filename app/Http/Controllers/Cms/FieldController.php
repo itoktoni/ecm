@@ -67,6 +67,7 @@ class FieldController extends Controller
     {
         // Handle config_options → config
         $fieldData = collect($data)->except(['children', 'config_options'])->toArray();
+        $fieldData['is_required'] = !empty($fieldData['is_required']);
 
         if (!empty($data['config_options'])) {
             $options = [];
@@ -92,9 +93,12 @@ class FieldController extends Controller
         // Handle children for container type
         if (!empty($data['children'])) {
             $this->syncChildren($field, $data['children']);
-        } elseif ($field->type !== 'container') {
-            // Remove children if type changed away from container
-            $field->children()->each(fn ($c) => $c->delete());
+        } else {
+            // Remove all children if none submitted
+            $field->children()->each(function ($c) {
+                $c->children()->each(fn ($gc) => $gc->delete());
+                $c->delete();
+            });
         }
 
         return $field;

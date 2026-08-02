@@ -62,6 +62,17 @@ class So extends BaseModel
         return $this->belongsTo(Customer::class, 'so_id_customer', 'customer_id');
     }
 
+    public function petugas()
+    {
+        return $this->belongsToMany(User::class, 'so_petugas', 'so_petugas_id_so', 'so_petugas_id_user')
+            ->withTimestamps();
+    }
+
+    public static function userOptions(): array
+    {
+        return User::orderBy('name')->pluck('name', 'id')->all();
+    }
+
     protected static function booted(): void
     {
         static::creating(function (self $so) {
@@ -221,6 +232,8 @@ class So extends BaseModel
             'details.*.so_detail_qty' => ['required', 'integer', 'min:1'],
             'details.*.so_detail_harga' => ['nullable', 'numeric', 'min:0'],
             'details.*.so_detail_keterangan' => ['nullable', 'string', 'max:255'],
+            'petugas' => ['nullable', 'array'],
+            'petugas.*' => ['integer', 'exists:users,id'],
         ];
     }
 }
