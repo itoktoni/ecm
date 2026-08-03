@@ -11,3 +11,14 @@
 <link rel="manifest" href="/manifest.json">
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+<style>
+    :root {
+        --color-primary: {{ config('theme.primary') }};
+        --color-primary-container: {{ config('theme.primary_container') }};
+        --color-secondary: {{ config('theme.secondary') }};
+        --color-secondary-container: {{ config('theme.secondary') }};
+        --color-on-primary: {{ config('theme.on_primary') }};
+        --color-error: {{ config('theme.error') }};
+    }
+</style>

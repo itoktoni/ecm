@@ -1,7 +1,7 @@
 <x-layouts::auth :title="__('Log in')">
     <div class="flex flex-col gap-6">
         <div class="flex w-full flex-col text-center">
-            <h1 class="text-xl font-semibold">{{ __('Log in to your account') }}</h1>
+            <h1 class="text-xl font-semibold" style="color: var(--color-primary);">{{ __('Log in to your account') }}</h1>
             <p class="text-sm text-base-content/60">{{ __('Enter your email and password below to log in') }}</p>
         </div>
 
@@ -20,14 +20,16 @@
                     </label>
                 </div>
 
-                <x-button type="submit" class="w-full">{{ __('Log in') }}</x-button>
+                <button type="submit" class="btn w-full h-10 border-0 text-white" style="background-color: var(--color-primary);">
+                    {{ __('Log in') }}
+                </button>
             </div>
         </x-form>
 
         @if (Route::has('password.request'))
             <div class="text-center text-sm text-base-content/60">
                 <span>{{ __("Don't have an account?") }}</span>
-                <a href="{{ route('register') }}" class="link link-primary">{{ __('Sign up') }}</a>
+                <a href="{{ route('register') }}" class="link" style="color: var(--color-primary);">{{ __('Sign up') }}</a>
             </div>
         @endif
     </div>
