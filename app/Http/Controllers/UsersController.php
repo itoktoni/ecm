@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Concerns\ControllerTrait;
 use App\Models\User;
-use App\RoleEnum;
+use App\RoleType;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -15,7 +15,7 @@ class UsersController extends Controller
     {
         $default = [
             'model' => $this->model,
-            'role' => RoleEnum::getOptions(),
+            'role' => RoleType::getOptions(),
         ];
 
         return array_merge($default, $data);

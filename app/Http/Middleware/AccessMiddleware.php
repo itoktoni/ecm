@@ -10,13 +10,13 @@ use Symfony\Component\HttpFoundation\Response;
 class AccessMiddleware
 {
     protected array $abilityMap = [
-        "getTable" => "view",
-        "getCreate" => "save",
-        "postCreate" => "save",
-        "getUpdate" => "save",
-        "postUpdate" => "save",
-        "postDelete" => "delete",
-        "postDeleteBulk" => "delete",
+        'getTable' => 'view',
+        'getCreate' => 'save',
+        'postCreate' => 'save',
+        'getUpdate' => 'save',
+        'postUpdate' => 'save',
+        'postDelete' => 'delete',
+        'postDeleteBulk' => 'delete',
     ];
 
     /**
@@ -27,44 +27,51 @@ class AccessMiddleware
     {
         $user = Auth::user();
 
-        if (!$user) {
-            return redirect()->route("login");
+        if (! $user) {
+            return redirect()->route('login');
         }
 
-        $method = $request->route()->getActionMethod();
         $routeName = $request->route()->getName();
 
-        // Route-based access control
-        // Editors can only access content routes
-        // Admins and developers have full access
-        if ($this->isBlueprintRoute($routeName)) {
-            // Blueprint routes: cms-type, field, section
-            if (in_array($user->role, ["user", "editor"])) {
-                abort(403, "Unauthorized action. Admin access required for blueprint management.");
-            }
+        if ($this->isRestricted($user, $routeName)) {
+            abort(403, 'Unauthorized action.');
         }
 
         return $next($request);
     }
 
     /**
-     * Check if the route is a blueprint management route.
+     * Check if the current route is restricted for the user's role.
      */
-    protected function isBlueprintRoute(?string $routeName): bool
+    protected function isRestricted($user, ?string $routeName): bool
     {
-        if (!$routeName) {
+        if (! $routeName) {
             return false;
         }
 
-        $blueprintRoutes = [
-            "cms-type",
-            "field",
-            "section",
-        ];
+        $role = $user->role ?? 'guest';
+        $restrictions = config("permision.{$role}", []);
 
-        foreach ($blueprintRoutes as $blueprint) {
-            if (str_contains($routeName, $blueprint)) {
+        if (empty($restrictions)) {
+            return false;
+        }
+
+        foreach ($restrictions as $prefix => $rule) {
+            if ($routeName !== $prefix && ! str_starts_with($routeName, $prefix.'.')) {
+                continue;
+            }
+
+            if ($rule === false) {
                 return true;
+            }
+
+            if (is_array($rule)) {
+                $routeAction = request()->route()->getActionMethod();
+                $ability = $this->abilityMap[$routeAction] ?? $routeAction;
+
+                if (isset($rule[$ability]) && $rule[$ability] === false) {
+                    return true;
+                }
             }
         }
 

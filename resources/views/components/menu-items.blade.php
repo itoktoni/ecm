@@ -2,11 +2,43 @@
 
 @php
     $menu = config('menu.sidebar');
-    $allRoutes = collect($menu)->flatMap(fn ($s) => collect($s['items'])->pluck('route'));
+    $user = auth()->user();
+    $role = $user->role ?? 'guest';
+    $restrictions = config("permision.{$role}", []);
+
+    $filteredMenu = collect($menu)->map(function ($section) use ($restrictions) {
+        $filteredItems = collect($section['items'])->filter(function ($item) use ($restrictions) {
+            $routeName = $item['route'];
+            $prefix = explode('.', $routeName, 2)[0];
+
+            foreach ($restrictions as $restrictPrefix => $rule) {
+                if ($routeName !== $restrictPrefix && ! str_starts_with($routeName, $restrictPrefix.'.')) {
+                    continue;
+                }
+
+                if ($rule === false) {
+                    return false;
+                }
+            }
+
+            return true;
+        })->values()->all();
+
+        if (empty($filteredItems)) {
+            return null;
+        }
+
+        return [
+            'label' => $section['label'],
+            'items' => $filteredItems,
+        ];
+    })->filter()->values()->all();
+
+    $allRoutes = collect($filteredMenu)->flatMap(fn ($s) => collect($s['items'])->pluck('route'));
     $prefixCounts = $allRoutes->map(fn ($r) => \Illuminate\Support\Str::beforeLast($r, '.'))->countBy();
 @endphp
 
-@foreach($menu as $section)
+@foreach($filteredMenu as $section)
     @if($section['label'])
         <div class="px-4 pt-4 pb-1 mr-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">{{ $section['label'] }}</div>
     @endif
@@ -15,8 +47,6 @@
             $routeName = $item['route'];
             $url = route($routeName);
             $routePrefix = Str::beforeLast($routeName, '.');
-            // Prefix match only when this prefix belongs to a single menu item,
-            // otherwise siblings (e.g. settings.company & settings.env) both light up.
             $isActive = request()->routeIs($routeName)
                 || request()->routeIs($routeName . '.*')
                 || (($prefixCounts[$routePrefix] ?? 0) === 1 && request()->routeIs($routePrefix . '.*'));

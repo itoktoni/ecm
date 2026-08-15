@@ -6,20 +6,22 @@ trait EnumTrait
 {
     public static function getOptions($value = false): array
     {
-        // 1. Gunakan self::cases() untuk Native PHP Enum
-        $collect = collect(self::cases());
+        $collect = collect(self::getValues());
 
-        // 2. Karena value bisa berupa string atau int, kita gunakan is_scalar() atau langsung sesuaikan
         if ($value && is_array($value)) {
-            $collect = $collect->whereIn('value', $value);
+            $collect = $collect->whereIn($value);
         } elseif ($value && (is_int($value) || is_string($value))) {
-            $collect = $collect->where('value', $value);
+            $collect = $collect->where($value);
         }
 
         $data = [];
-        foreach ($collect as $item) {
-            // 3. Panggil method description() yang ada di file Enum Anda
-            $data[$item->value] = $item->description();
+        foreach ($collect as $itemValue) {
+            $description = self::getDescription($itemValue);
+            if ($description === '') {
+                continue;
+            }
+
+            $data[$itemValue] = $description;
         }
 
         return $data;
@@ -27,18 +29,22 @@ trait EnumTrait
 
     public static function getApi($value = false): array
     {
-        $collect = collect(self::cases());
+        $collect = collect(self::getValues());
 
         if ($value && is_array($value)) {
-            $collect = $collect->whereIn('value', $value);
+            $collect = $collect->whereIn($value);
         } elseif ($value && (is_int($value) || is_string($value))) {
-            $collect = $collect->where('value', $value);
+            $collect = $collect->where($value);
         }
 
         $data = [];
-        foreach ($collect as $item) {
-            // 4. Panggil method description() untuk nama API yang rapi
-            $data[] = ['id' => $item->value, 'name' => $item->description()];
+        foreach ($collect as $itemValue) {
+            $description = self::getDescription($itemValue);
+            if ($description === '') {
+                continue;
+            }
+
+            $data[] = ['id' => $itemValue, 'name' => $description];
         }
 
         return $data;

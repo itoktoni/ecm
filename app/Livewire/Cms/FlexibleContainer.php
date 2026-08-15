@@ -13,7 +13,9 @@ class FlexibleContainer extends Component
     public array $availableLayouts = [];
     public array $layoutIcons = [];
 
-    protected $listeners = ["refresh" => "$refresh", "layoutAdded" => "addLayout"];
+    public array $layoutColors = [];
+
+    protected $listeners = ['refresh' => '$refresh', 'layoutAdded' => 'addLayout'];
 
     public function mount($fieldId, $namePrefix = "meta", $value = null)
     {
@@ -55,8 +57,6 @@ class FlexibleContainer extends Component
 
         $this->items = is_array($value) ? array_values($value) : [];
     }
-
-    public array $layoutColors = [];
 
     public function addLayout(string $layoutName)
     {

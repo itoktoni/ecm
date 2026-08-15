@@ -11,6 +11,16 @@ class BasePolicy
 
     protected $restrict;
 
+    protected array $abilityMap = [
+        'getTable' => 'table',
+        'getCreate' => 'create',
+        'postCreate' => 'save',
+        'getUpdate' => 'update',
+        'postUpdate' => 'update',
+        'postDelete' => 'delete',
+        'postDeleteBulk' => 'delete',
+    ];
+
     public function __construct()
     {
         $this->module = request()->route()->getAction('name');
@@ -20,11 +30,28 @@ class BasePolicy
     private function accessProtected($user, $permision)
     {
         $role = $user->role ?? 'guest';
+        $restrictions = $this->restrict[$role] ?? [];
 
-        if (isset($this->restrict[$role][$this->module])) {
+        if (empty($restrictions)) {
+            return false;
+        }
 
-            if (in_array($permision, $this->restrict[$role][$this->module])) {
+        $routeAction = request()->route()->getActionMethod();
+
+        foreach ($restrictions as $prefix => $rule) {
+            if ($this->module !== $prefix && ! str_starts_with($this->module, $prefix.'.')) {
+                continue;
+            }
+
+            if ($rule === false) {
                 return true;
+            }
+
+            if (is_array($rule)) {
+                $action = $this->abilityMap[$routeAction] ?? $routeAction;
+                if (isset($rule[$action]) && $rule[$action] === false) {
+                    return true;
+                }
             }
         }
 
