@@ -53,12 +53,32 @@
                 <x-table-mobile-list>
                     @foreach($data as $table)
                     <x-table-mobile-item :id="$table->field_primary">
-                        <x-table-mobile-header title="{{ $table->name }}" />
-                            <x-table-mobile-text :text="$table->slug" size="sm" color="primary" />
-                            <x-table-mobile-text :text="$table->location ?? '-'" size="sm" />
-                            <x-table-mobile-footer :label="$table->field_primary">
-                                <x-table-action :model="$model" :id="$table->field_primary" />
-                            </x-table-mobile-footer>
+                        <x-table-mobile-header :title="$table->name" />
+                        <div class="mt-2 space-y-1.5">
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Slug</span>
+                                <span class="text-sm font-medium text-right">{{ $table->slug }}</span>
+                            </div>
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Location</span>
+                                <span class="text-sm font-medium text-right">{{ $table->location ?? '-' }}</span>
+                            </div>
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Active</span>
+                                @if($table->is_active)
+                                    <span class="px-2.5 py-0.5 text-xs font-medium rounded-full border border-green-200 bg-green-50 text-green-700">Active</span>
+                                @else
+                                    <span class="px-2.5 py-0.5 text-xs font-medium rounded-full border border-red-200 bg-red-50 text-red-700">Inactive</span>
+                                @endif
+                            </div>
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Sort</span>
+                                <span class="text-sm font-medium text-right">{{ $table->sort_order }}</span>
+                            </div>
+                        </div>
+                        <x-table-mobile-footer :label="'#' . $table->field_primary">
+                            <x-table-action :model="$model" :id="$table->field_primary" />
+                        </x-table-mobile-footer>
                         </x-table-mobile-item>
                         @endforeach
                     </x-table-mobile-list>
@@ -70,6 +90,6 @@
         </div>
 
         <input type="hidden" class="module" value="{{ module() }}">
-        <script src="/js/table.js"></script>
+        <script src="/js/table.js?v=3"></script>
         <script>initTable('{{ $sortField }}', '{{ $sortDir }}');</script>
     </x-layouts::app>

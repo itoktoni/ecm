@@ -49,12 +49,26 @@
                 <x-table-mobile-list>
                     @foreach($data as $table)
                     <x-table-mobile-item :id="$table->field_primary">
-                        <x-table-mobile-header title="{{ $table->product_nama }}" />
-                        <x-table-mobile-text label="Kode" value="{{ $table->field_primary }}" />
-                        <x-table-mobile-text label="Harga" value="{{ number_format($table->product_harga, 0, ',', '.') }}" />
-                        <x-table-mobile-text label="Qty" value="{{ number_format($table->qty, 0, ',', '.') }}" />
-                        <x-table-mobile-text label="Tanggal" value="{{ $table->tanggal ?? '-' }}" />
-                        <x-table-mobile-footer :label="$table->field_primary">
+                        <x-table-mobile-header :title="$table->product_nama" />
+                        <div class="mt-2 space-y-1.5">
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Kode</span>
+                                <span class="text-sm font-medium">#{{ $table->field_primary }}</span>
+                            </div>
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Harga</span>
+                                <span class="text-sm font-medium">Rp {{ number_format($table->product_harga, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Qty</span>
+                                <span class="text-sm font-medium">{{ number_format($table->qty, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Tanggal</span>
+                                <span class="text-sm font-medium">{{ $table->tanggal ?? '-' }}</span>
+                            </div>
+                        </div>
+                        <x-table-mobile-footer :label="'#' . $table->field_primary">
                             <x-table-action :model="$model" :id="$table->field_primary" />
                         </x-table-mobile-footer>
                     </x-table-mobile-item>
@@ -68,6 +82,6 @@
     </div>
 
     <input type="hidden" class="module" value="{{ module() }}">
-    <script src="/js/table.js"></script>
+    <script src="/js/table.js?v=3"></script>
     <script>initTable('{{ $sortField }}', '{{ $sortDir }}');</script>
 </x-layouts::app>

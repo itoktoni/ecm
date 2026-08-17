@@ -29,12 +29,68 @@ trait ControllerTrait
 
     public function getTable(GeneralRequest $request)
     {
-        $data = $this->getData()->cursorPaginate($request->input('per_page', 25))->withQueryString();
+        $query = $this->getData();
+
+        if ($request->filled('_q')) {
+            $q = (string) $request->input('_q');
+            $field = (string) $request->input('_field', '');
+
+            if ($field !== '') {
+                $query->whereRaw('LOWER(' . $field . ') LIKE ?', ['%' . mb_strtolower($q) . '%']);
+            } else {
+                // Tanpa field -> cari di semua kolom filterColumns (mis. nama produk, dll.)
+                $columns = $this->searchableColumns();
+                $query->where(function ($sub) use ($q, $columns) {
+                    foreach ($columns as $column) {
+                        $sub->orWhereRaw('LOWER(' . $column . ') LIKE ?', ['%' . mb_strtolower($q) . '%']);
+                    }
+                });
+            }
+        }
+
+        $data = $query->cursorPaginate($request->input('per_page', 25))->withQueryString();
 
         return $this->views($this->template(), [
             'data' => $data,
             'fields' => $this->getFields(),
         ]);
+    }
+
+    protected function searchableColumns(): array
+    {
+        $columns = [];
+
+        if (property_exists($this->model, 'filterColumns')) {
+            foreach ((array) $this->model::$filterColumns as $key => $value) {
+                $col = is_string($key) && trim((string) $key) !== '' ? $key : (is_string($value) ? $value : null);
+                if (is_string($col) && $col !== '') {
+                    $columns[] = $col;
+                }
+            }
+        }
+
+        // Fallback: gunakan sortColumns bila filterColumns kosong
+        if (empty($columns) && property_exists($this->model, 'sortColumns')) {
+            foreach ((array) $this->model::$sortColumns as $key => $value) {
+                $col = is_string($key) && trim((string) $key) !== '' ? $key : (is_string($value) ? $value : null);
+                if (is_string($col) && $col !== '') {
+                    $columns[] = $col;
+                }
+            }
+        }
+
+        if (empty($columns) && method_exists($this->model, 'field_name')) {
+            $fn = $this->model->field_name();
+            if (is_string($fn) && $fn !== '') {
+                $columns[] = $fn;
+            }
+        }
+
+        if (empty($columns)) {
+            $columns[] = $this->model->getKeyName();
+        }
+
+        return array_values(array_unique($columns));
     }
 
     public function getCreate(GeneralRequest $request)

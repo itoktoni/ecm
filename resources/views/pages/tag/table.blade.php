@@ -56,6 +56,6 @@
     </div>
 
     <input type="hidden" class="module" value="{{ module() }}">
-    <script src="/js/table.js"></script>
+    <script src="/js/table.js?v=3"></script>
     <script>initTable('{{ $sortField }}', '{{ $sortDir }}');</script>
 </x-layouts::app>

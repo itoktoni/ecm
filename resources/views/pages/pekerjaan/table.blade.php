@@ -22,7 +22,7 @@
                 Pekerjaan Tersedia &amp; Diambil
             </h3>
 
-            <div class="overflow-x-auto">
+            <div class="hidden lg:block overflow-x-auto">
                 <table class="w-full font-body-sm">
                     <thead>
                         <tr class="text-left border-b border-outline-variant text-on-surface-variant">
@@ -85,6 +85,40 @@
                         @endforelse
                     </tbody>
                 </table>
+            </div>
+
+            <div class="lg:hidden space-y-3">
+                @forelse($data as $row)
+                <div class="border border-outline-variant rounded-xl p-3 shadow-sm">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="font-headline-md text-headline-md text-on-surface">{{ $row->so?->so_code }}</span>
+                        <span class="px-2.5 py-0.5 text-xs font-medium rounded-full border {{ $row->so_detail_kerja_status==='Selesai' ? 'border-green-200 bg-green-50 text-green-700' : ($row->so_detail_kerja_status==='Diambil' ? 'border-blue-200 bg-blue-50 text-blue-700' : 'border-amber-200 bg-amber-50 text-amber-700') }}">
+                            {{ $row->so_detail_kerja_status ?? 'Tersedia' }}
+                        </span>
+                    </div>
+                    <div class="mt-2 space-y-1 text-sm">
+                        <div class="flex justify-between gap-2"><span class="text-xs text-on-surface-variant">Customer</span><span class="text-right font-medium">{{ $row->so?->customer?->customer_nama ?? '-' }}</span></div>
+                        <div class="flex justify-between gap-2"><span class="text-xs text-on-surface-variant">Product</span><span class="text-right font-medium">{{ $row->product?->product_nama ?? '-' }}</span></div>
+                        <div class="flex justify-between gap-2"><span class="text-xs text-on-surface-variant">Qty</span><span class="text-right font-medium">{{ $row->so_detail_qty }}</span></div>
+                        <div class="flex justify-between gap-2"><span class="text-xs text-on-surface-variant">Teknisi</span><span class="text-right font-medium">{{ $row->teknisi?->name ?? '-' }}</span></div>
+                    </div>
+                    <div class="mt-3 pt-2 border-t flex gap-2">
+                        @if($row->so_detail_kerja_status === 'Tersedia')
+                            <a href="{{ route('wms-pekerjaan.getAmbil', ['id' => $row->so_detail_id]) }}" class="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:opacity-90 transition-opacity">
+                                <span class="material-symbols-outlined text-base">pan_tool</span> Ambil
+                            </a>
+                        @elseif((int) $row->so_detail_id_teknisi === (int) $me)
+                            <a href="{{ route('wms-pekerjaan.getLembar', ['id' => $row->so_detail_id]) }}" class="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg border border-outline-variant text-on-surface-variant text-xs font-semibold hover:bg-surface-container transition-all">
+                                <span class="material-symbols-outlined text-base">assignment</span> Lembar Kerja
+                            </a>
+                        @else
+                            <span class="text-xs text-on-surface-variant italic">Diambil {{ $row->teknisi?->name }}</span>
+                        @endif
+                    </div>
+                </div>
+                @empty
+                <div class="text-center py-6 text-on-surface-variant border border-outline-variant rounded-xl">Belum ada pekerjaan.</div>
+                @endforelse
             </div>
 
             <div class="mt-4">

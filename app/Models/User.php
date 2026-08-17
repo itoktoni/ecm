@@ -123,6 +123,14 @@ class User extends Authenticatable
         return $this->belongsTo(Subscribe::class, 'subscribe', 'subscribe_id');
     }
 
+    /**
+     * Order yang dibuat customer ini di ecommerce frontend.
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id', 'id');
+    }
+
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));

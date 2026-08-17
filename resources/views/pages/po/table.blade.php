@@ -47,11 +47,16 @@
                 <x-table-mobile-list>
                     @forelse ($data as $table)
                     <x-table-mobile-item :id="$table->field_primary">
-                        <x-table-mobile-header title="{{ $table->{head($model::$sortColumns)} }}" />
-                        @foreach ($model::$sortColumns as $column)
-                        <x-table-mobile-text :label="formatLabel($column)" :text="$table->$column" />
-                        @endforeach
-                        <x-table-mobile-footer :label="$table->field_primary">
+                        <x-table-mobile-header :title="$table->{head($model::$sortColumns)}" />
+                        <div class="mt-2 space-y-1.5">
+                            @foreach ($model::$sortColumns as $column)
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">{{ formatLabel($column) }}</span>
+                                <span class="text-sm font-medium text-right">{{ $table->$column }}</span>
+                            </div>
+                            @endforeach
+                        </div>
+                        <x-table-mobile-footer :label="'#' . $table->field_primary">
                             <x-table-action :model="$model" :id="$table->field_primary" />
                         </x-table-mobile-footer>
                     </x-table-mobile-item>
@@ -69,6 +74,6 @@
     </div>
 
     <input type="hidden" class="module" value="{{ module() }}">
-    <script src="/js/table.js"></script>
+    <script src="/js/table.js?v=3"></script>
     <script>initTable('{{ $sortField }}', '{{ $sortDir }}');</script>
 </x-layouts::app>

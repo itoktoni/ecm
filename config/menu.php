@@ -50,6 +50,7 @@ return [
         [
             'label' => 'Sales',
             'items' => [
+                ['route' => 'orders.index', 'icon' => 'shopping_cart_checkout', 'label' => 'Order Masuk'],
                 ['route' => 'wms-so.getTable', 'icon' => 'point_of_sale', 'label' => 'Sales Order'],
                 ['route' => 'wms-pekerjaan.getTable', 'icon' => 'engineering', 'label' => 'Pekerjaan Saya'],
             ],

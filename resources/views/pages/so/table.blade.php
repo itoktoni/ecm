@@ -94,15 +94,27 @@
                 <x-table-mobile-list>
                     @forelse ($data as $table)
                     <x-table-mobile-item :id="$table->field_primary">
-                        <x-table-mobile-header title="{{ $table->so_code }}" />
-                        <x-table-mobile-text :label="'Tanggal'" :text="formatDate($table->so_tanggal)" />
-                        <x-table-mobile-text :label="'Customer'" :text="$table->customer?->customer_nama ?? '-'" />
-                        <x-table-mobile-text :label="'Status'" :text="$table->so_status" />
-                        <x-table-mobile-text :label="'PPN'" :text="ucfirst($table->so_ppn) . ' (' . $table->so_ppn_rate . '%)'" />
-                        <x-table-mobile-text :label="'PPH'" :text="ucfirst($table->so_pph) . ' (' . $table->so_pph_rate . '%)'" />
-                        <x-table-mobile-text :label="'Discount'" :text="formatAngka((int) $table->so_discount, 'Rp ')" />
-                        <x-table-mobile-text :label="'Grand Total'" :text="formatAngka((int) round($table->so_grand_total), 'Rp ')" />
-                        <x-table-mobile-footer :label="$table->field_primary">
+                        <div class="flex items-center justify-between gap-2">
+                            <x-table-mobile-header :title="$table->so_code" />
+                            @php
+                                $soBadge = match($table->so_status) {
+                                    'Confirmed' => 'border-blue-200 bg-blue-50 text-blue-700',
+                                    'Shipped' => 'border-purple-200 bg-purple-50 text-purple-700',
+                                    'Closed' => 'border-gray-200 bg-gray-100 text-gray-600',
+                                    default => 'border-amber-200 bg-amber-50 text-amber-700',
+                                };
+                            @endphp
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full border {{ $soBadge }} shrink-0">{{ $table->so_status }}</span>
+                        </div>
+                        <div class="mt-2 space-y-0.5">
+                            <x-table-mobile-text :text="$table->customer?->customer_nama ?? '-'" size="sm" />
+                            <x-table-mobile-text :text="'Tanggal: '.formatDate($table->so_tanggal)" size="xs" class="text-on-surface-variant" />
+                        </div>
+                        <div class="flex items-center justify-between mt-2">
+                            <x-table-mobile-text :text="'Disc: '.formatAngka((int) $table->so_discount, 'Rp ')" size="xs" />
+                            <x-table-mobile-text :text="formatAngka((int) round($table->so_grand_total), 'Rp ')" size="lg" :color="'primary'" />
+                        </div>
+                        <x-table-mobile-footer :label="$table->so_status">
                             <x-table-action :model="$model" :id="$table->field_primary">
                                 @can('penawaran', $model)
                                 <a href="{{ moduleRoute('getPenawaran', ['id' => $table->field_primary]) }}" target="_blank" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors">
@@ -136,6 +148,6 @@
     </div>
 
     <input type="hidden" class="module" value="{{ module() }}">
-    <script src="/js/table.js"></script>
+    <script src="/js/table.js?v=3"></script>
     <script>initTable('{{ $sortField }}', '{{ $sortDir }}');</script>
 </x-layouts::app>

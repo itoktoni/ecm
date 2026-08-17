@@ -51,9 +51,26 @@
                 <x-table-mobile-list>
                     @foreach($data as $table)
                     <x-table-mobile-item :id="$table->field_primary">
-                        <x-table-mobile-header title="{{ $table->field_name }}" />
-                        <x-table-mobile-text :text="$contentTypes[$table->content_type_id] ?? '-'" size="sm" color="primary" />
-                        <x-table-mobile-footer :label="$table->field_primary">
+                        <x-table-mobile-header :title="$table->field_name" />
+                        <div class="mt-2 space-y-1.5">
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Type</span>
+                                <span class="text-sm font-medium text-right">{{ $contentTypes[$table->content_type_id] ?? '-' }}</span>
+                            </div>
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Sort</span>
+                                <span class="text-sm font-medium text-right">{{ $table->sort_order }}</span>
+                            </div>
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Status</span>
+                                @if($table->is_active)
+                                    <span class="px-2.5 py-0.5 text-xs font-medium rounded-full border border-green-200 bg-green-50 text-green-700">Active</span>
+                                @else
+                                    <span class="px-2.5 py-0.5 text-xs font-medium rounded-full border border-red-200 bg-red-50 text-red-700">Inactive</span>
+                                @endif
+                            </div>
+                        </div>
+                        <x-table-mobile-footer :label="'#' . $table->field_primary">
                             <x-table-action :model="$model" :id="$table->field_primary" />
                         </x-table-mobile-footer>
                     </x-table-mobile-item>
@@ -67,6 +84,6 @@
     </div>
 
     <input type="hidden" class="module" value="{{ module() }}">
-    <script src="/js/table.js"></script>
+    <script src="/js/table.js?v=3"></script>
     <script>initTable('{{ $sortField }}', '{{ $sortDir }}');</script>
 </x-layouts::app>

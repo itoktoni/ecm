@@ -52,12 +52,24 @@
                 <x-table-mobile-list>
                     @foreach($data as $table)
                     <x-table-mobile-item :id="$table->field_primary">
-                        <x-table-mobile-header title="{{ $table->field_name }}" />
-                        @foreach ($model::$sortColumns as $column)
-                        <x-table-mobile-text :text="$table->$column" size="sm" color="primary" />
-                        @endforeach
-                        <x-table-mobile-text label="Alat" value="{{ $table->products_count }}" />
-                        <x-table-mobile-footer :label="$table->field_primary">
+                        <x-table-mobile-header :title="$table->field_name" />
+                        <div class="mt-2 space-y-1.5">
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Nama</span>
+                                <span class="text-sm font-medium">{{ $table->jasa_nama }}</span>
+                            </div>
+                            @if($table->jasa_icon)
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Ikon</span>
+                                <span class="text-sm font-medium">{{ $table->jasa_icon }}</span>
+                            </div>
+                            @endif
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">Alat</span>
+                                <span class="text-sm font-medium">{{ $table->products_count }}</span>
+                            </div>
+                        </div>
+                        <x-table-mobile-footer :label="'#' . $table->field_primary">
                             <x-table-action :model="$model" :id="$table->field_primary" />
                         </x-table-mobile-footer>
                     </x-table-mobile-item>
@@ -74,7 +86,7 @@
 
     <input type="hidden" class="module" value="{{ module() }}">
 
-    <script src="/js/table.js" data-navigate-once></script>
+    <script src="/js/table.js?v=3" data-navigate-once></script>
     <script>
         document.addEventListener('livewire:navigated', () => {
             if (typeof initTable === 'function') {

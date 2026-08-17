@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\Api\MediaController;
 use App\Http\Controllers\Cms\ContentController;
+
+use App\Http\Controllers\Wms\OrderAdminController;
+
+
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EcommerceController;
 use App\Http\Controllers\ImageScannerController;
 use App\Http\Controllers\PublicController;
 use App\Models\Notification;
@@ -13,6 +18,16 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/api/content/{slug?}', [PublicController::class, 'api'])->name('api.content');
+
+// Ecommerce frontend — order oleh customer (login)
+// index terbuka (guest lihat daftar kosong / diarahkan login), create/store/show butuh auth
+Route::get('/order', [EcommerceController::class, 'index'])->name('order.index');
+Route::middleware('auth')->group(function () {
+    Route::get('/order/create', [EcommerceController::class, 'create'])->name('order.create');
+    Route::post('/order', [EcommerceController::class, 'store'])->name('order.store');
+    Route::get('/order/{order}', [EcommerceController::class, 'show'])->name('order.show');
+    Route::get('/order/{order}/invoice', [EcommerceController::class, 'show'])->name('order.invoice');
+});
 
 Route::middleware('auth')->post('/centrifugo/token', function (Request $request) {
     if (! config('langkahkecil.notification_enable')) {
@@ -59,6 +74,15 @@ Route::middleware(['auth', 'verified', 'access'])->group(function () {
     // WMS Sales
     Route::auto('/wms/so', 'Wms\SoController', ['name' => 'wms-so']);
     Route::auto('/wms/pekerjaan', 'Wms\PekerjaanController', ['name' => 'wms-pekerjaan']);
+
+
+
+    // Order masuk (ecommerce frontend) - cek & konversi ke SO
+    Route::get('/wms/orders', [OrderAdminController::class, 'index'])->name('orders.index');
+    Route::get('/wms/orders/{order}', [OrderAdminController::class, 'show'])->name('orders.show');
+    Route::post('/wms/orders/{order}/to-so', [OrderAdminController::class, 'toSo'])->name('orders.to-so');
+Route::post('/wms/orders/{order}/update', [OrderAdminController::class, 'update'])->name('orders.update');
+
 
     // WMS Inbound
     Route::auto('/wms/masuk-detail', 'Wms\MasukDetailController', ['name' => 'wms-masuk-detail']);

@@ -39,6 +39,17 @@
             @endif
         </div>
         <div class="flex items-center gap-6">
+            @auth('web')
+                <a href="{{ route('order.index') }}"
+                   class="font-label-md text-label-md {{ request()->is('order*') ? 'text-secondary border-b-2 border-secondary pb-1' : 'text-on-surface-variant hover:text-primary' }} transition-colors duration-300">
+                    Order Saya
+                </a>
+            @else
+                <a href="{{ route('login') }}"
+                   class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300">
+                    Login
+                </a>
+            @endauth
             <a href="{{ route('search') }}" class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">search</a>
             <a href="{{ route('contact') }}" class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-md hover:opacity-90 active:scale-95 transition-all">Hubungi Kami</a>
         </div>

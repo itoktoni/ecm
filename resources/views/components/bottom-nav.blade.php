@@ -1,5 +1,35 @@
 @php
-    $bottomNav = config('menu.bottom_nav');
+    $role = auth()->user()->role ?? 'guest';
+    $bottomNav = match ($role) {
+        'admin', 'developer' => [
+            ['route' => 'dashboard', 'icon' => 'dashboard', 'label' => 'Home'],
+            ['route' => 'orders.index', 'icon' => 'shopping_cart_checkout', 'label' => 'Order'],
+            ['route' => 'orders.index', 'icon' => 'shopping_cart_checkout', 'label' => 'Order'],
+            ['route' => 'wms-so.getTable', 'icon' => 'point_of_sale', 'label' => 'SO'],
+            ['route' => 'profile.edit', 'icon' => 'person', 'label' => 'Profil'],
+        ],
+        'teknisi' => [
+            ['route' => 'dashboard', 'icon' => 'home', 'label' => 'Home'],
+            ['route' => 'wms-pekerjaan.getTable', 'icon' => 'engineering', 'label' => 'Kerja'],
+            ['route' => 'wms-pekerjaan.getTable', 'icon' => 'engineering', 'label' => 'Pekerjaan'],
+            ['route' => 'profile.edit', 'icon' => 'person', 'label' => 'Profil'],
+            ['route' => 'dashboard', 'icon' => 'grid_view', 'label' => 'Home'],
+        ],
+        'editor', 'user' => [
+            ['route' => 'dashboard', 'icon' => 'home', 'label' => 'Home'],
+            ['route' => 'content.getTable', 'icon' => 'library_books', 'label' => 'Konten'],
+            ['route' => 'dashboard', 'icon' => 'dashboard', 'label' => 'Home'],
+            ['route' => 'profile.edit', 'icon' => 'person', 'label' => 'Profil'],
+            ['route' => 'dashboard', 'icon' => 'grid_view', 'label' => 'Home'],
+        ],
+        default => [
+            ['route' => 'dashboard', 'icon' => 'home', 'label' => 'Home'],
+            ['route' => 'profile.edit', 'icon' => 'person', 'label' => 'Profil'],
+            ['route' => 'dashboard', 'icon' => 'dashboard', 'label' => 'Home'],
+            ['route' => 'dashboard', 'icon' => 'grid_view', 'label' => 'Menu'],
+            ['route' => 'dashboard', 'icon' => 'settings', 'label' => 'Opsi'],
+        ],
+    };
 @endphp
 
 <nav class="md:hidden fixed bottom-0 left-0 w-full h-16 bg-surface-container-lowest border-t border-outline-variant z-50 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">

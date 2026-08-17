@@ -25,6 +25,7 @@ class So extends BaseModel
     protected $fillable = [
         'so_tanggal',
         'so_code',
+        'so_reference',
         'so_id_customer',
         'so_status',
         'so_keterangan',

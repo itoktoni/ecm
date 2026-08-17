@@ -15,17 +15,19 @@ function buildUrl() {
             typeTabFilter = value;
         }
     });
-    const q = document.getElementById('searchInput').value.trim();
-    const field = document.getElementById('filterField').value;
-    const perPage = document.getElementById('perPage').value;
+    const qEl = document.getElementById('searchInput');
+    const fEl = document.getElementById('filterField');
+    const pEl = document.getElementById('perPage');
+    const q = qEl ? qEl.value.trim() : '';
+    let field = fEl ? fEl.value : '';
+    if (!field && fEl) {
+        const opt = fEl.querySelector('option');
+        field = opt ? opt.value : '';
+    }
+    const perPage = pEl ? pEl.value : '25';
 
     // Build URL from main search
     if (q) {
-        if (field === 'price') {
-            params.set('filters[price][$eq]', q);
-        } else {
-            params.set('filters[' + field + '][$contains]', q);
-        }
         params.set('_field', field);
         params.set('_q', q);
     }
@@ -75,7 +77,8 @@ function updateFilterOp(fieldName) {
 }
 
 function applyAdvanced() {
-    document.getElementById('advFilter').classList.add('hidden');
+    const adv = document.getElementById('advFilter');
+    if (adv) adv.classList.add('hidden');
     buildUrl();
 }
 
@@ -127,8 +130,9 @@ function deleteSelected() {
     if (!confirm(`Delete ${ids.length} product(s)?`)) return;
     const form = document.createElement('form');
     const base = window.location.pathname.replace(/\/table\/?$/, '');
+    const csrfEl = document.querySelector('meta[name="csrf-token"]');
     form.method = 'POST'; form.action = base + '/delete';
-    form.innerHTML = document.querySelector('meta[name="csrf-token"]').content ? `<input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').content}">` : '';
+    form.innerHTML = csrfEl && csrfEl.content ? `<input type="hidden" name="_token" value="${csrfEl.content}">` : '';
     ids.forEach(id => { form.innerHTML += `<input type="hidden" name="ids[]" value="${id}">`; });
     document.body.appendChild(form); form.submit();
 }
