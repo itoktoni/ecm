@@ -79,7 +79,7 @@ class EcommerceController extends Controller
             'customer_nama' => 'required|string|max:150',
             'customer_email' => 'required|email|max:150',
             'customer_telepon' => 'required|string|max:50',
-            'customer_alamat' => 'required|string|max:250',
+            'customer_alamat' => 'nullable|string',
             'cart' => 'required|array|min:1',
             'cart.*.product_id' => 'required|exists:product,product_id',
             'cart.*.quantity' => 'required|integer|min:1',

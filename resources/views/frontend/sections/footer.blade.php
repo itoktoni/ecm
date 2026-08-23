@@ -72,15 +72,15 @@
                 <div class="space-y-4">
                     <div class="flex items-start gap-3">
                         <span class="material-symbols-outlined text-primary mt-1">location_on</span>
-                        <span class="text-on-surface-variant">Jl. TB Simatupang No.18, Jakarta Selatan</span>
+                        <span class="text-on-surface-variant">{{ config('company.footer_address') }}</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary">call</span>
-                        <span class="text-on-surface-variant">+62 21 7806715</span>
+                        <span class="text-on-surface-variant">{{ config('company.footer_telp') }}</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary">mail</span>
-                        <span class="text-on-surface-variant">info@ecm.co.id</span>
+                        <span class="text-on-surface-variant">{{ config('company.email') }}</span>
                     </div>
                 </div>
             </div>

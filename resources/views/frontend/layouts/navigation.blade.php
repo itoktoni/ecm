@@ -2,7 +2,7 @@
     <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
         <div class="flex items-center gap-3">
             <a href="{{ url('/') }}" class="flex items-center gap-3">
-                <img alt="ECM Logo" class="h-10 w-auto" src="https://ecm.co.id/assets/img/ecm.png" />
+                <img alt="{{ config('company.name') }} Logo" class="h-10 w-auto" src="{{ config('company.logo') ? asset(config('company.logo')) : 'https://ecm.co.id/assets/img/ecm.png' }}" />
                 <span class="font-headline-md text-headline-md font-bold text-primary hidden">ECM</span>
             </a>
         </div>

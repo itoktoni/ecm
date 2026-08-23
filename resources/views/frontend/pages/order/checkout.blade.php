@@ -29,7 +29,7 @@
                     <div><label class="block font-label-md text-sm text-on-surface/70 mb-1">Telepon</label>
                         <input type="text" name="customer_telepon" value="{{ auth()->user()->phone ?? '' }}" class="w-full px-3 py-2.5 rounded-lg border border-outline-variant/50 focus:ring-2 focus:ring-primary outline-none" required /></div>
                     <div><label class="block font-label-md text-sm text-on-surface/70 mb-1">Alamat Lengkap</label>
-                        <textarea name="customer_alamat" rows="3" class="w-full px-3 py-2.5 rounded-lg border border-outline-variant/50 focus:ring-2 focus:ring-primary outline-none" required></textarea></div>
+                        <textarea name="customer_alamat" rows="3" class="w-full px-3 py-2.5 rounded-lg border border-outline-variant/50 focus:ring-2 focus:ring-primary outline-none"></textarea></div>
                     <div><label class="block font-label-md text-sm text-on-surface/70 mb-1">Catatan (opsional)</label>
                         <textarea name="order_catatan" rows="2" class="w-full px-3 py-2.5 rounded-lg border border-outline-variant/50 focus:ring-2 focus:ring-primary outline-none"></textarea></div>
                 </div>

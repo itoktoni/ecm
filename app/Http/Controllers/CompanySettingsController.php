@@ -59,7 +59,11 @@ class CompanySettingsController extends Controller
         }
 
         return view('pages.settings.company', [
-            'fields' => self::FIELDS,
+            'fields' => array_filter(
+                self::FIELDS,
+                fn ($key) => ! str_starts_with($key, 'THEME_'),
+                ARRAY_FILTER_USE_KEY
+            ),
             'values' => $values,
             'logo' => config('company.logo'),
             'themeValues' => array_combine(
@@ -107,9 +111,23 @@ class CompanySettingsController extends Controller
 
         $this->writeEnv($envPath, $updates);
 
+        $this->refreshConfig($updates);
+
         flash()->success(__('Pengaturan perusahaan & tema tersimpan.'));
 
         return Redirect::route('settings.company');
+    }
+
+    /** Apply saved values to the in-memory config immediately (env is not re-read mid-request). */
+    private function refreshConfig(array $updates): void
+    {
+        foreach ($updates as $key => $value) {
+            $configKey = str_starts_with($key, 'THEME_')
+                ? 'theme.'.self::THEME_KEYS[$key]
+                : 'company.'.strtolower(str_replace('COMPANY_', '', $key));
+
+            config([$configKey => $value]);
+        }
     }
 
     /** Upsert KEY="value" lines into the .env file, preserving everything else. */

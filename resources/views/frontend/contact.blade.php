@@ -28,7 +28,7 @@
                                 </div>
                                 <div>
                                     <h4 class="font-label-md text-label-md text-on-surface mb-1">Alamat</h4>
-                                    <p class="text-on-surface-variant">Jl. Raya Payakumbuh - Tanjung Pati, Sumatera Barat</p>
+                                    <p class="text-on-surface-variant">{{ config('company.address') }} {{ config('company.area') }}</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-4">
@@ -37,7 +37,7 @@
                                 </div>
                                 <div>
                                     <h4 class="font-label-md text-label-md text-on-surface mb-1">Telepon</h4>
-                                    <p class="text-on-surface-variant">+62 852 6374 8190</p>
+                                    <p class="text-on-surface-variant">{{ config('company.telp') }}</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-4">
@@ -46,7 +46,7 @@
                                 </div>
                                 <div>
                                     <h4 class="font-label-md text-label-md text-on-surface mb-1">Email</h4>
-                                    <p class="text-on-surface-variant">info@ecm.co.id</p>
+                                    <p class="text-on-surface-variant">{{ config('company.email') }}</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-4">

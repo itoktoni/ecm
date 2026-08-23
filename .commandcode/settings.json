@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(php artisan config:status 2 >& 1)",
+      "Shell(php artisan view:clear 2>&1; php artisan tinker --execute=\"echo view('frontend.layouts.footer')->render();\" 2>&1 | head -60)",
+      "Shell(php artisan view:clear)",
+      "Shell(php artisan tinker --execute=\"$h = view('frontend.layouts.footer')->render(); echo substr($h, 0, 3000);\")",
+      "Shell(php artisan tinker --execute=\"$h = view('frontend.layouts.footer')->render(); $p = strpos($h, 'Kantor'); echo substr($h, $p - 200, 1600);\")",
+      "Shell(tasklist:*)",
+      "Shell(findstr:*)"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}
