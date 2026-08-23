@@ -41,7 +41,7 @@ return [
         'tag' => false,
         'menu' => false,
         'user' => false,
-
+        'orders' => false,
         'wms-product' => [
             'create' => false,
         ],
@@ -60,7 +60,6 @@ return [
         'tag' => false,
         'menu' => false,
         'user' => false,
-
         'wms-product' => [
             'create' => false,
         ],
@@ -79,6 +78,7 @@ return [
         'menu' => false,
         'user' => false,
         'wms-so' => false,
+        'orders' => false,
         'wms-product' => false,
         'wms-customer' => false,
         'wms-pekerjaan' => false,
