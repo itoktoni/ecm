@@ -16,9 +16,15 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <link rel="icon" href="{{ asset('storage/company-logo.png') }}" type="image/png" />
-    <link rel="shortcut icon" href="{{ asset('storage/company-logo.png') }}" type="image/png" />
-    <link rel="apple-touch-icon" href="{{ asset('storage/company-logo.png') }}" />
+    @php
+        $favicon = config('company.logo') && file_exists(public_path(config('company.logo'))) ? config('company.logo') : 'storage/company-logo.png';
+        if (!file_exists(public_path($favicon))) $favicon = 'favicon.ico';
+        $ext = strtolower(pathinfo($favicon, PATHINFO_EXTENSION));
+        $mime = $ext === 'svg' ? 'image/svg+xml' : ($ext === 'jpg' || $ext === 'jpeg' ? 'image/jpeg' : ($ext === 'webp' ? 'image/webp' : 'image/png'));
+    @endphp
+    <link rel="icon" href="{{ asset($favicon) }}?v={{ filemtime(public_path($favicon)) }}" type="{{ $mime }}" />
+    <link rel="shortcut icon" href="{{ asset($favicon) }}?v={{ filemtime(public_path($favicon)) }}" type="{{ $mime }}" />
+    <link rel="apple-touch-icon" href="{{ asset($favicon) }}?v={{ filemtime(public_path($favicon)) }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script>
         tailwind.config = {
