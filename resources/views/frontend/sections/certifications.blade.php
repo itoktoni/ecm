@@ -11,9 +11,9 @@
             @foreach($cards as $card)
                 <div class="glass-card p-8 rounded-xl flex flex-col items-center text-center group hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
                     <div class="absolute inset-0 gold-shimmer opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="mb-6 relative">
+                    <div class="mb-6 relative w-full aspect-[16/9] overflow-hidden rounded-xl bg-white border border-outline-variant/30">
                         @if(!empty($card['image']))
-                            <img class="w-full h-full rounded-xl object-contain cert-popup-img cursor-zoom-in hover:opacity-90 transition-opacity" data-alt="{{ $card['text'] ?? '' }}" src="{{ $card['image'] }}" title="Klik untuk memperbesar" />
+                            <img class="w-full h-full object-cover object-center cert-popup-img cursor-zoom-in hover:opacity-90 transition-opacity" data-alt="{{ $card['text'] ?? '' }}" src="{{ $card['image'] }}" title="Klik untuk memperbesar" />
                         @endif
                     </div>
                     <h3 class="font-headline-md text-headline-md mb-2">{{ $card['text'] ?? '' }}</h3>
