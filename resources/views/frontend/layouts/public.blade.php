@@ -224,7 +224,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.swiper').forEach(function(el) {
+            document.querySelectorAll('.swiper:not(.cmpSwiper)').forEach(function(el) {
                 new Swiper(el, {
                     loop: true,
                     autoplay: { delay: 5000, disableOnInteraction: false },
