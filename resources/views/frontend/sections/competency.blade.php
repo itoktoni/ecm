@@ -20,9 +20,9 @@
                 @foreach($slides as $slide)
                     <div class="swiper-slide !h-auto">
                         <div class="group rounded-2xl overflow-hidden bg-white shadow-sm border border-outline-variant/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
-                            <div class="h-48 overflow-hidden relative bg-surface-container-low">
+                            <div class="aspect-[3/4] overflow-hidden relative bg-surface-container-low">
                                 @if(!empty($slide['image']))
-                                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    <img class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                                         data-alt="{{ $slide['title'] ?? '' }}"
                                         src="{{ $slide['image'] }}" loading="lazy" onerror="this.style.display='none'" />
                                 @else
