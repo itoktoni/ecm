@@ -309,6 +309,9 @@
             if (!el) return;
             const section = el.closest('section');
             const total = el.querySelectorAll('.swiper-slide').length;
+            // handle 4 biar tidak jelek (3+1 blank) -> jadi 2+2
+            const desktopPerView = total === 4 ? 2 : 3;
+            const desktopPerGroup = total === 4 ? 2 : 3;
             new Swiper(el, {
                 slidesPerView: 1,
                 slidesPerGroup: 1,
@@ -327,7 +330,7 @@
                     renderBullet: function(index, className){ return '<span class="'+className+'"></span>'; }
                 },
                 breakpoints: {
-                    768: { slidesPerView: 3, slidesPerGroup: 3, spaceBetween: 24 }
+                    768: { slidesPerView: desktopPerView, slidesPerGroup: desktopPerGroup, spaceBetween: 24 }
                 }
             });
         })();
