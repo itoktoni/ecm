@@ -5,9 +5,14 @@
 
 <title>{{ filled($title ?? null) ? $title.' - '.config('app.name', 'Laravel') : config('app.name', 'Laravel') }}</title>
 
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+@php
+    $favicon = config('company.logo') && file_exists(public_path(config('company.logo'))) ? config('company.logo') : 'storage/company-logo.png';
+    if (!file_exists(public_path($favicon))) $favicon = 'favicon.ico';
+    $ext = strtolower(pathinfo($favicon, PATHINFO_EXTENSION));
+    $mime = $ext === 'svg' ? 'image/svg+xml' : ($ext === 'jpg' || $ext === 'jpeg' ? 'image/jpeg' : ($ext === 'webp' ? 'image/webp' : 'image/png'));
+@endphp
+<link rel="icon" href="{{ asset($favicon) }}?v={{ filemtime(public_path($favicon)) }}" type="{{ $mime }}" sizes="any">
+<link rel="apple-touch-icon" href="{{ asset($favicon) }}?v={{ filemtime(public_path($favicon)) }}">
 <link rel="manifest" href="/manifest.json">
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])

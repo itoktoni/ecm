@@ -10,7 +10,13 @@
     <meta name="user-id" content="{{ auth()->id() }}"/>
     @endauth
     <title>{{ $title ?? 'WMS Portal' }}</title>
-    <link rel="icon" href="/favicon.ico" sizes="any">
+    @php
+        $faviconHead = config('company.logo') && file_exists(public_path(config('company.logo'))) ? config('company.logo') : 'storage/company-logo.png';
+        if (!file_exists(public_path($faviconHead))) $faviconHead = 'favicon.ico';
+        $extHead = strtolower(pathinfo($faviconHead, PATHINFO_EXTENSION));
+        $mimeHead = $extHead === 'svg' ? 'image/svg+xml' : ($extHead === 'jpg' || $extHead === 'jpeg' ? 'image/jpeg' : ($extHead === 'webp' ? 'image/webp' : 'image/png'));
+    @endphp
+    <link rel="icon" href="{{ asset($faviconHead) }}?v={{ filemtime(public_path($faviconHead)) }}" type="{{ $mimeHead }}" sizes="any">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/notifications.js'])
     @livewireStyles
