@@ -191,10 +191,10 @@
             .client-slid .cl-item { min-width: 100%; }
         }
 
-        /* Competency Slider */
-        .cmp-slid { position: relative; }
-        .cmp-slid .cmp-track { display: flex; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); gap: 24px; }
-        .cmp-slid .cmp-item { min-width: calc(33.333% - 16px); flex-shrink: 0; overflow: visible; }
+        /* Competency Slider - Swiper */
+        .cmpSwiper { overflow: hidden; }
+        .cmpSwiper .swiper-slide { height: auto; display: flex; }
+        .cmpSwiper .swiper-slide > div { width: 100%; }
         .cmp-nav { display: flex; align-items: center; gap: 10px; }
         .cmp-nav .cmp-btn {
             width: 44px; height: 44px; border-radius: 50%;
@@ -203,15 +203,10 @@
         }
         .cmp-nav .cmp-btn:hover { background: #005f3b; color: #fff; border-color: #005f3b; }
         .cmp-nav .cmp-btn:hover .material-symbols-outlined { color: #fff; }
+        .cmp-nav .cmp-btn.swiper-button-disabled { opacity: 0.35; pointer-events: none; }
         .cmp-dots { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
         .cmp-dot { width: 8px; height: 8px; border-radius: 50%; background: #becabf; cursor: pointer; transition: all 0.3s; }
-        .cmp-dot.active { background: #005f3b; width: 24px; border-radius: 4px; }
-        @media (max-width: 1024px) {
-            .cmp-slid .cmp-item { min-width: calc(50% - 12px); }
-        }
-        @media (max-width: 640px) {
-            .cmp-slid .cmp-item { min-width: 100%; }
-        }
+        .cmp-dot.active, .cmp-dot.swiper-pagination-bullet-active { background: #005f3b; width: 24px; border-radius: 4px; }
 
         .clip-path-slant { clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%); }
     </style>
@@ -308,41 +303,34 @@
             calcPer(); goTo(0); startA();
         })();
 
-        // Competency Slider
+        // Competency Swiper - fix 5 gambar kepotong
         (function () {
-            const el = document.querySelector('.cmp-slid');
+            const el = document.querySelector('.cmpSwiper');
             if (!el) return;
             const section = el.closest('section');
-            const nav = section.querySelector('.cmp-nav');
-            const dotsWrap = section.querySelector('.cmp-dots');
-            const track = el.querySelector('.cmp-track');
-            const items = el.querySelectorAll('.cmp-item');
-            const dots = document.querySelectorAll('.cmp-dot');
-            const total = items.length;
-            let cur = 0, perPage = 4, autoPlay;
-
-            function calcPer() { perPage = window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3; }
-            function maxG() { return Math.max(0, total - perPage); }
-
-            function goTo(g) {
-                calcPer();
-                if (maxG() === 0) { track.style.transform = 'translateX(0)'; nav.style.display = 'none'; dotsWrap.style.display = 'none'; return; }
-                nav.style.display = ''; dotsWrap.style.display = '';
-                if (g > maxG()) g = 0; if (g < 0) g = maxG();
-                cur = g;
-                const itemW = items[0].offsetWidth + 24;
-                track.style.transform = `translateX(-${cur * itemW}px)`;
-                dots.forEach((d, i) => d.classList.toggle('active', i === cur));
-            }
-
-            function startA() { stopA(); autoPlay = setInterval(() => goTo(cur + 1), 5000); }
-            function stopA() { clearInterval(autoPlay); }
-
-            section.querySelector('.cmp-prev').addEventListener('click', () => { goTo(cur - 1); startA(); });
-            section.querySelector('.cmp-next').addEventListener('click', () => { goTo(cur + 1); startA(); });
-            dots.forEach(d => d.addEventListener('click', () => { goTo(parseInt(d.dataset.group)); startA(); }));
-
-            calcPer(); goTo(0); startA();
+            const total = el.querySelectorAll('.swiper-slide').length;
+            new Swiper(el, {
+                slidesPerView: 1,
+                spaceBetween: 24,
+                loop: total > 1,
+                loopAdditionalSlides: 1,
+                watchOverflow: true,
+                navigation: {
+                    nextEl: section.querySelector('.cmp-next'),
+                    prevEl: section.querySelector('.cmp-prev'),
+                },
+                pagination: {
+                    el: section.querySelector('.cmp-dots'),
+                    clickable: true,
+                    bulletClass: 'cmp-dot',
+                    bulletActiveClass: 'active',
+                    renderBullet: function(index, className){ return '<span class="'+className+'"></span>'; }
+                },
+                breakpoints: {
+                    640: { slidesPerView: 2, spaceBetween: 24 },
+                    1024: { slidesPerView: 3, spaceBetween: 24 }
+                }
+            });
         })();
     </script>
 </body>
