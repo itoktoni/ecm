@@ -311,9 +311,9 @@
             const total = el.querySelectorAll('.swiper-slide').length;
             new Swiper(el, {
                 slidesPerView: 1,
-                spaceBetween: 24,
-                loop: total > 1,
-                loopAdditionalSlides: 1,
+                slidesPerGroup: 1,
+                spaceBetween: 16,
+                loop: false,
                 watchOverflow: true,
                 navigation: {
                     nextEl: section.querySelector('.cmp-next'),
@@ -327,8 +327,7 @@
                     renderBullet: function(index, className){ return '<span class="'+className+'"></span>'; }
                 },
                 breakpoints: {
-                    640: { slidesPerView: 2, spaceBetween: 24 },
-                    1024: { slidesPerView: 3, spaceBetween: 24 }
+                    768: { slidesPerView: 3, slidesPerGroup: 3, spaceBetween: 24 }
                 }
             });
         })();
