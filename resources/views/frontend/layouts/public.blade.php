@@ -309,9 +309,9 @@
             if (!el) return;
             const section = el.closest('section');
             const total = el.querySelectorAll('.swiper-slide').length;
-            // handle 4 biar tidak jelek (3+1 blank) -> jadi 2+2
-            const desktopPerView = total === 4 ? 2 : 3;
-            const desktopPerGroup = total === 4 ? 2 : 3;
+            // coba per 4 biar tidak kebesaran (portrait 3/4)
+            const desktopPerView = 4;
+            const desktopPerGroup = 4;
             new Swiper(el, {
                 slidesPerView: 1,
                 slidesPerGroup: 1,
