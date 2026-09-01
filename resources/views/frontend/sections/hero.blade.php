@@ -13,7 +13,7 @@
                     <div class="absolute inset-0 bg-gradient-to-r from-background/95 via-background/60 to-transparent z-10"></div>
                 </div>
                 <div class="relative z-20 max-w-7xl mx-auto px-4 md:px-8 w-full">
-                    <div class="hs-content max-w-2xl glass-card p-6 md:p-12 rounded-xl">
+                    <div class="hs-content max-w-2xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-sm p-6 md:p-12 rounded-xl">
                         @if(!empty($slide['subtitle']))
                             <span class="font-label-md text-primary tracking-[0.2em] uppercase mb-4 block">{{ $slide['subtitle'] }}</span>
                         @endif

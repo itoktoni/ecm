@@ -11,9 +11,9 @@
             @foreach($cards as $card)
                 <div class="glass-card p-8 rounded-xl flex flex-col items-center text-center group hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
                     <div class="absolute inset-0 gold-shimmer opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="w-24 h-24 mb-6 relative">
+                    <div class="mb-6 relative">
                         @if(!empty($card['image']))
-                            <img class="w-full h-full object-contain" data-alt="{{ $card['text'] ?? '' }}" src="{{ $card['image'] }}" />
+                            <img class="w-full h-full rounded-xl object-contain cert-popup-img cursor-zoom-in hover:opacity-90 transition-opacity" data-alt="{{ $card['text'] ?? '' }}" src="{{ $card['image'] }}" title="Klik untuk memperbesar" />
                         @endif
                     </div>
                     <h3 class="font-headline-md text-headline-md mb-2">{{ $card['text'] ?? '' }}</h3>
@@ -28,3 +28,50 @@
         </div>
     </div>
 </section>
+
+{{-- Lightbox Popup untuk image sertifikasi --}}
+<div id="certLightbox" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4 md:p-8" onclick="closeCertLightbox(event)">
+    <button type="button" onclick="closeCertLightbox(event)" class="absolute top-4 right-4 text-white hover:text-white/80 bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors" aria-label="Close">
+        <span class="material-symbols-outlined">close</span>
+    </button>
+    <img id="certLightboxImg" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl bg-white p-1" onclick="event.stopPropagation()" />
+</div>
+<script>
+(function() {
+    document.querySelectorAll('.cert-popup-img').forEach(function(img) {
+        img.addEventListener('click', function() {
+            var src = this.getAttribute('src');
+            var alt = this.getAttribute('data-alt') || this.alt || '';
+            var lbImg = document.getElementById('certLightboxImg');
+            var lb = document.getElementById('certLightbox');
+            if (!lbImg || !lb) return;
+            lbImg.src = src;
+            lbImg.alt = alt;
+            lb.classList.remove('hidden');
+            lb.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    window.closeCertLightbox = function(e) {
+        if (e) {
+            // only close if clicking backdrop or close button
+            if (e.target.id !== 'certLightbox' && !e.target.closest('button')) return;
+        }
+        var lb = document.getElementById('certLightbox');
+        if (!lb) return;
+        lb.classList.add('hidden');
+        lb.classList.remove('flex');
+        document.body.style.overflow = '';
+    };
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            var lb = document.getElementById('certLightbox');
+            if (lb && !lb.classList.contains('hidden')) {
+                lb.classList.add('hidden');
+                lb.classList.remove('flex');
+                document.body.style.overflow = '';
+            }
+        }
+    });
+})();
+</script>
