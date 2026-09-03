@@ -27,6 +27,7 @@
                 @foreach ($model::$sortColumns as $column)
                 <x-table-sort field="{{ $column }}" label="{{ formatLabel($column) }}" :sortField="$sortField" :sortDir="$sortDir" />
                 @endforeach
+                <th>E-Katalog</th>
                 <th class="text-end">Qty</th>
                 <th class="text-end">Tanggal</th>
             </x-slot:head>
@@ -39,6 +40,15 @@
                     @foreach ($model::$sortColumns as $column)
                     <td>{{ $table->$column }}</td>
                     @endforeach
+                    <td>
+                        @if ($table->product_ekatalog)
+                            <a href="{{ $table->product_ekatalog }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-primary underline decoration-dotted hover:decoration-solid">
+                                Buka
+                            </a>
+                        @else
+                            <span class="text-on-surface-variant/50">-</span>
+                        @endif
+                    </td>
                     <td class="text-end">{{ number_format($table->qty, 0, ',', '.') }}</td>
                     <td class="text-end">{{ $table->tanggal ?? '-' }}</td>
                 </tr>
@@ -66,6 +76,16 @@
                             <div class="flex justify-between items-center gap-2">
                                 <span class="text-xs text-on-surface-variant">Tanggal</span>
                                 <span class="text-sm font-medium">{{ $table->tanggal ?? '-' }}</span>
+                            </div>
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="text-xs text-on-surface-variant">E-Katalog</span>
+                                <span class="text-sm font-medium">
+                                    @if ($table->product_ekatalog)
+                                        <a href="{{ $table->product_ekatalog }}" target="_blank" rel="noopener" class="text-primary underline decoration-dotted">Buka</a>
+                                    @else
+                                        -
+                                    @endif
+                                </span>
                             </div>
                         </div>
                         <x-table-mobile-footer :label="'#' . $table->field_primary">

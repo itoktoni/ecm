@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MenusSeeder::class);
         $this->call(WmsSeeder::class);
         $this->call(KalibrasiAlkesSeeder::class);
+        $this->call(PriceListKalibrasiSeeder::class);
     }
 }

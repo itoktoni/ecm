@@ -51,16 +51,32 @@
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 pt-4 gap-3 max-h-96 overflow-y-auto overflow-x-hidden pr-1">
                     @foreach($products as $p)
-                        <button type="button" class="product-card relative block w-full min-w-0 text-left border border-outline-variant/40 rounded-lg p-3 cursor-pointer hover:border-primary transition group" data-id="{{ $p->product_id }}" data-nama="{{ $p->product_nama }}" data-jasa="{{ $p->jasa_nama }}" data-harga="{{ (float)$p->product_harga }}" onclick="addToCart(this)">
-                            <span class="flex justify-between gap-2">
-                                <span class="font-label-md break-words">{{ $p->product_nama }}</span>
-                                <span class="font-label-md text-secondary shrink-0">Rp {{ number_format($p->product_harga, 0, ',', '.') }}</span>
-                            </span>
+                        <div class="product-card relative flex flex-col gap-2 w-full min-w-0 border border-outline-variant/40 rounded-lg p-3 cursor-pointer hover:border-primary transition group"
+                             data-id="{{ $p->product_id }}" data-nama="{{ $p->product_nama }}" data-jasa="{{ $p->jasa_nama }}" data-harga="{{ (float)$p->product_harga }}"
+                             onclick="addToCart(this)">
+
+                            {{-- Judul produK (baris sendiri, boleh panjang) + link E-Katalog --}}
+                            <div class="flex items-start justify-between gap-2">
+                                <span class="font-label-md leading-snug break-words min-w-0 flex-1">{{ $p->product_nama }}</span>
+                                @if($p->product_ekatalog)
+                                    <a href="{{ $p->product_ekatalog }}" target="_blank" rel="noopener" onclick="event.stopPropagation()"
+                                       title="Buka E-Katalog: {{ $p->product_ekatalog }}"
+                                       class="shrink-0 inline-flex items-center gap-1 text-[11px] leading-none text-secondary underline decoration-dotted underline-offset-2 hover:decoration-solid hover:text-primary">
+                                        <span class="material-symbols-outlined text-sm" style="font-size:13px">open_in_new</span>
+                                        E-Katalog
+                                    </a>
+                                @endif
+                            </div>
+
                             @if($p->jasa_nama !== '-')
                                 <span class="text-xs text-on-surface/60">Jasa: {{ $p->jasa_nama }}</span>
                             @endif
+
+                            {{-- Harga di baris terpisah agar tidak bentrok dengan judul --}}
+                            <span class="mt-auto block pt-2 border-t border-outline-variant/30 text-secondary font-headline-md">Rp {{ number_format($p->product_harga, 0, ',', '.') }}</span>
+
                             <span class="qty-badge absolute -top-2 -right-2 bg-primary text-on-primary text-xs rounded-full px-2 py-0.5 hidden">0</span>
-                        </button>
+                        </div>
                     @endforeach
                 </div>
                 </div>

@@ -18,6 +18,7 @@ class Product extends BaseModel
         'product_nama',
         'product_id_jasa',
         'product_harga',
+        'product_ekatalog',
     ];
 
     protected $casts = [
@@ -41,6 +42,7 @@ class Product extends BaseModel
             'product_nama' => ['required', 'string', 'max:200'],
             'product_id_jasa' => ['nullable', 'integer', 'exists:jasa,jasa_id'],
             'product_harga' => ['nullable', 'numeric', 'min:0'],
+            'product_ekatalog' => ['nullable', 'string', 'url', 'max:500'],
         ];
     }
 
